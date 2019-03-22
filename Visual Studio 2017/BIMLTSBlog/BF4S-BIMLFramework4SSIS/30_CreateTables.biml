@@ -1,0 +1,21 @@
+﻿<#@ import namespace="System.Data" #>
+<#@ import namespace="Varigence.Biml.CoreLowerer.SchemaManagement"  #>
+<#@ import namespace="Varigence.Languages.Biml.Connection" #>
+<#@ import namespace="Varigence.Biml.Extensions" #>
+<#@ import namespace="Varigence.Biml.Extensions.SchemaManagement" #>
+
+<# var importResults = RootNode.Tables; #>
+<#@ template tier="30" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <Package Name="30 Create_SQL_Tables" ProtectionLevel="EncryptSensitiveWithUserKey" PackageSubpath="Prepare_SAP">
+            <Tasks>
+                <# foreach(AstTableNode tbl in importResults){ #>
+                <ExecuteSQL Name="Create <#= tbl.Name #>" ConnectionName="SAP_Warehouse">
+                    <DirectInput><#= tbl.GetDropAndCreateDdl() #></DirectInput>
+                </ExecuteSQL>
+                <# } #>
+            </Tasks>
+        </Package>
+    </Packages>
+</Biml>

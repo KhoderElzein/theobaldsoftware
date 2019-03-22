@@ -1,0 +1,37 @@
+﻿<#@ import namespace="System.Data" #>
+<#@ template tier="20" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <# 
+    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT TABNAME, max(CUSTOM_Function) CUSTOM_Function FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_DD03L) group by TABNAME"); 
+    string tabname = string.Empty;
+    string ssisType;
+    int length;
+    DataTable dataTable2;
+    #> 
+    <Tables>
+        <# foreach (DataRow tbl in dataTable.Rows) { tabname = tbl[0].ToString(); #>
+       <# dataTable2 = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT * FROM meta.SAP_UseColumns where tabname = '" + tbl[0].ToString() + "' order by position"); #>    
+        <Table Name="SAP_<#= tbl[0].ToString() #>" SchemaName="SAP_Warehouse.dbo">
+            <Columns><# foreach (DataRow col in dataTable2.Rows){ 
+                       ssisType = "DT_WSTR";length = Int32.Parse(col["leng"].ToString());  #>
+                <Column Name="<#= col["FIELDNAME"] #>" <# if (col["BimlType"].ToString() == "String") { #>  DataType="<#= col["BimlType"].ToString() #>" Length="<#= length   #>" <# } else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; length = Int32.Parse(col["leng"].ToString()) + Int32.Parse(col["decimals"].ToString()) +1; if (length > 38) { length = 38; } #>
+                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" Scale="<#= Int32.Parse(col["decimals"].ToString()) #>"    
+                        <# } else if (col["BimlType"].ToString() == "Int64") { #>
+                         DataType="<#= col["BimlType"].ToString() #>"  
+                        <# } else { #>
+                            DataType="UNKNOWN TYPE: <#= col["inttype"].ToString() #>"
+                        <# } #> IsNullable="true">
+                    <Annotations>
+                        <Annotation AnnotationType="Tag" Tag="SAP_IntType"><#= col["IntType"] #></Annotation>
+                        <Annotation AnnotationType="Tag" Tag="SsisDataType"><#= ssisType #></Annotation>
+                        <Annotation AnnotationType="Tag" Tag="Length"><#= length #></Annotation>
+                    </Annotations>
+                </Column><# } #></Columns>
+                <Annotations>
+                <Annotation AnnotationType="Tag" Tag="SAP_Name"><#= tabname #></Annotation>
+                <Annotation AnnotationType="Tag" Tag="CUSTOM_Function"><#= tbl["CUSTOM_Function"] #></Annotation>
+            </Annotations>
+        </Table>
+        <# } #>
+        </Tables>
+</Biml>

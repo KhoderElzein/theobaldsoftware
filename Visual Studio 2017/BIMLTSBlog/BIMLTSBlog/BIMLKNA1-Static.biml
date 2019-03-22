@@ -1,0 +1,119 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <!--   Requirements
+  1. Create SQL-Database [BIMLTest]
+  2. Create SQL-Table KNA1
+      USE [BIMLTest]
+      GO
+      SET ANSI_NULLS ON
+      GO
+      SET QUOTED_IDENTIFIER ON
+      GO
+      CREATE TABLE [dbo].[KNA1](
+          [KUNNR] [nvarchar](10) NULL,
+          [LAND1] [nvarchar](3) NULL,
+          [NAME1] [nvarchar](35) NULL
+      ) ON [PRIMARY]
+      GO
+  3. SAPConnection, incl. SAP-User and SAP-PW
+  4. Further it is required that you have installed SSIS, Xtract IS and the BIDS Helper
+  -->
+  <!-- Connection Section  -->
+ 
+  <Connections >
+    <!-- SAP Connection Set the property ConnectionString  -->
+    <CustomSsisConnection Name="SAPConnection" CreateInProject="1" CreationName="XTRACT" ObjectData="&lt;XtractConnectionManager ConnectionString=&quot;USER=Elzein LANG=DE CLIENT=800 SYSNR=00 ASHOST=ec5.theobald-software.com PASSWD=Erfolg12 RFCLIB=CLASSIC  &quot; /&gt;"/>
+     <!-- OLE DB Connection to SQL Server Database BIMLTest  -->
+    <Connection Name ="OLE_BIML" ConnectionString="Data Source=.;Initial Catalog=BIMLTest;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;"/>
+   </Connections>
+  <!-- Packages Section  -->
+  <Packages>
+    <!-- Package Section  -->
+    <Package Name="BIMLKNA1" ConstraintMode="Linear" ProtectionLevel="EncryptSensitiveWithUserKey">
+      <!-- Tasks Section  -->
+      <Tasks>
+        <!-- Execute SQL Task Section to Truncate Table KNA1 -->
+        <ExecuteSQL Name="(SQL) Truncate Table" ConnectionName="OLE_BIML">
+          <DirectInput>TRUNCATE TABLE KNA1;</DirectInput>
+        </ExecuteSQL>
+        <!-- Data Flow Task Section to define the SAP source table and the SQL destination table -->
+        <Dataflow Name="My Dataflow" >
+          <Transformations >
+            <!-- Xtract Table component definition of table KNA1 -->
+            <CustomComponent Name="KNA1" ComponentTypeName="XtractIS.XtractSourceTable">
+              <Connections>
+                <Connection Name="Xtract SAP Connection" ConnectionName="SAPConnection" />
+              </Connections>
+              <!-- customer properties of Xtract Table component -->
+              <CustomProperties>
+                <CustomProperty Name="MaxRows" DataType="Int32">0</CustomProperty>
+                <CustomProperty Name="PackageSize" DataType="Int32">5000</CustomProperty>
+                <CustomProperty Name="StringConversion" DataType="Int32">0</CustomProperty>
+                <CustomProperty Name="UseCustomFunction" DataType="Boolean">false</CustomProperty>
+                <CustomProperty Name="TableName" DataType="String">KNA1</CustomProperty>
+                <!-- the InternalXML custom property defines the columns of the SAP source -->
+                <CustomProperty Name="InternalXML" DataType="String">
+                  &lt;StorageTableBase xmlns=&quot;http://tempuri.org/StorageTableBase.xsd&quot;&gt;
+                  &lt;TableColumns&gt;
+                  &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+                  &lt;ColDescription&gt;Debitorennummer&lt;/ColDescription&gt;
+                  &lt;ColLength&gt;10&lt;/ColLength&gt;
+                  &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+                  &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                  &lt;Decimals&gt;0&lt;/Decimals&gt;
+                  &lt;/TableColumns&gt;
+                  &lt;TableColumns&gt;
+                  &lt;ColName&gt;LAND1&lt;/ColName&gt;
+                  &lt;ColDescription&gt;L&#228;nderschl&#252;ssel&lt;/ColDescription&gt;
+                  &lt;ColLength&gt;3&lt;/ColLength&gt;
+                  &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+                  &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                  &lt;Decimals&gt;0&lt;/Decimals&gt;
+                  &lt;/TableColumns&gt;
+                  &lt;TableColumns&gt;
+                  &lt;ColName&gt;NAME1&lt;/ColName&gt;
+                  &lt;ColDescription&gt;Name 1&lt;/ColDescription&gt;
+                  &lt;ColLength&gt;35&lt;/ColLength&gt;
+                  &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+                  &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                  &lt;Decimals&gt;0&lt;/Decimals&gt;
+                  &lt;/TableColumns&gt;
+                  &lt;/StorageTableBase&gt;
+                </CustomProperty>
+              </CustomProperties>
+ 
+              <!-- Output path of source component -->
+              <OutputPaths>
+                <OutputPath Name="XtractOutput" >
+                  <OutputColumns>
+                    <OutputColumn Name="KUNNR" DataType="String" Length="10"/>
+                    <OutputColumn Name="LAND1" DataType="String" Length="3"/>
+                    <OutputColumn Name="NAME1" DataType="String" Length="35"/>
+                  </OutputColumns>
+                  <ExternalColumns>
+                    <ExternalColumn Name="KUNNR" DataType="String" Length="10"/>
+                    <ExternalColumn Name="LAND1" DataType="String" Length="3"/>
+                    <ExternalColumn Name="NAME1" DataType="String" Length="35"/>
+                  </ExternalColumns>
+                </OutputPath>
+              </OutputPaths>
+ 
+            </CustomComponent>
+ 
+            <!-- OLE DB Destination KNA1
+            The table should exist.
+            Column Names are the same in the source and in the destination.
+            Mapping will be done automatically using the column names
+            -->
+            <OleDbDestination Name="OLE DB Destination" LocaleId="None" ConnectionName="OLE_BIML">
+              <Annotations>
+                <Annotation AnnotationType="Description">KNA1</Annotation>
+              </Annotations>
+              <ExternalTableOutput Table="KNA1" />
+            </OleDbDestination>
+ 
+          </Transformations>
+        </Dataflow>
+      </Tasks>
+    </Package>
+  </Packages>
+</Biml>

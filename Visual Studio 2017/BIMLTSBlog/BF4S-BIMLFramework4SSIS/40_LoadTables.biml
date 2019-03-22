@@ -1,0 +1,36 @@
+﻿<#@ import namespace="Varigence.Languages.Biml" #>
+<#@ import namespace="Varigence.Utility.Collections" #>
+<#@ template tier="40" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <# var importResults = RootNode.Tables; #>
+        <# foreach (AstTableNode tbl in importResults) { #>
+        <Package Name="40 Load_<#= tbl.Name.Replace("/","_").Replace("[","").Replace("]","") #>" ConstraintMode="Linear" PackageSubpath="Load_SAP"  ProtectionLevel="EncryptSensitiveWithUserKey">
+            <#  string WhereClause = string.Empty; 
+                var custom_function = "Z_XTRACT_IS_TABLE_COMPRESSION";
+                if (tbl.GetTag("CUSTOM_Function") != "") { custom_function = tbl.GetTag("CUSTOM_Function"); }
+                string tableName = tbl.GetTag("SAP_Name");
+            #>
+            <Tasks>
+                <ExecuteSQL Name="TRUNCATE <#= tbl.Name #>" ConnectionName="SAP_Warehouse">
+                    <DirectInput>TRUNCATE TABLE [<#= tbl.Name #>]</DirectInput>
+                </ExecuteSQL>
+                <Dataflow Name="Read <#= tableName #>">
+                    <Transformations>
+                        <#= CallBimlScript("CustomTableComponentDynamic.biml", WhereClause,0,tbl,custom_function)#> 
+                        <OleDbDestination Name="Dest_<#= tbl.Name#>" ConnectionName="SAP_Warehouse">
+                          <Annotations>
+                            <Annotation AnnotationType="Description"><#= tbl.Name #></Annotation>
+                          </Annotations>
+                          <ExternalTableOutput Table="<#= tbl.Name#>" />
+                        </OleDbDestination>
+                    </Transformations>
+                </Dataflow>
+            </Tasks>
+            <Annotations>
+                <Annotation AnnotationType="Tag" Tag="IsLoad">True</Annotation>
+            </Annotations>
+        </Package>
+        <# } #>
+        </Packages>
+</Biml>

@@ -1,0 +1,34 @@
+<#@ template language="VB" optionexplicit="False" tier="10" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <# dim tbls as new List(of String)
+    for each tbl in ExternalDataAccess.GetDataTable(Rootnode.Connections("Meta").RenderedConnectionString,"SELECT DISTINCT TABNAME FROM meta.sap_tables").Rows 
+    tbls.add ("'" + tbl(0) + "'")
+    next
+    #>
+ <Packages>
+    <Package Name="01 Read SAP Meta" ConstraintMode="LinearOnSuccess" ProtectionLevel="EncryptSensitiveWithUserKey" PackageSubpath="Prepare_SAP">
+      <Tasks>
+        <ExecuteSQL Name="TRUNCATE" ConnectionName="Meta">
+          <DirectInput>TRUNCATE TABLE meta.SAP_DD03L</DirectInput>
+        </ExecuteSQL>
+        <Dataflow Name="Read DD03L">
+          <Transformations>   
+            <TheobaldXtractSapSource Name="Xtract Table" ConnectionName="SAP" CustomFunction="Z_XTRACT_IS_TABLE_COMPRESSION" Table="DD03L" WhereClause="TABNAME IN (<#= string.Join(",",tbls) #>)  and PRECFIELD  =''">
+              <Columns>
+                <Column SourceColumn="TABNAME" SsisDataType="DT_WSTR" Length="30" />
+                <Column SourceColumn="FIELDNAME" SsisDataType="DT_WSTR" Length="30" />
+                <Column SourceColumn="POSITION" SsisDataType="DT_WSTR" Length="4" AbapType="n" />
+                <Column SourceColumn="INTTYPE" SsisDataType="DT_WSTR" Length="1" />
+                <Column SourceColumn="LENG" SsisDataType="DT_WSTR" Length="6" AbapType="n" />
+                <Column SourceColumn="DECIMALS"  SsisDataType="DT_WSTR" Length="6" AbapType="n" />
+              </Columns>
+            </TheobaldXtractSapSource>
+            <OleDbDestination Name="Dest" ConnectionName="Meta">
+              <ExternalTableOutput Table="[meta].[SAP_DD03L]" />
+            </OleDbDestination>
+          </Transformations>
+        </Dataflow>
+      </Tasks>
+    </Package>
+  </Packages>
+</Biml>

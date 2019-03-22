@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="03/20/2019 13:01:13" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{06D73D99-AF1A-4162-B361-B8E846BDCA73}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="BIMLKNA1-CallBiml" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{6FD9516E-E97E-4BEF-B6B0-48D9C54D8A7F}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{8FD7E431-8447-4437-A3E5-4238503F630E}" DTS:ObjectName="SAPConnection" DTS:refId="Package.ConnectionManagers[SAPConnection]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein LANG=DE CLIENT=800 SYSNR=00 ASHOST=ec5.theobald-software.com PASSWD=Erfolg12 RFCLIB=CLASSIC  " />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{85794BD6-7641-4E5A-8467-5978460FED80}" DTS:ObjectName="OLE_BIML" DTS:refId="Package.ConnectionManagers[OLE_BIML]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=BIMLTest;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{E0D71FC2-CCC7-453E-93C3-E2028175A203}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="(SQL) Truncate Table" DTS:refId="Package\(SQL) Truncate Table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="OLE_BIML" SQLTask:SqlStatementSource="TRUNCATE TABLE KNA1;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{33F7DB19-3075-40BC-A161-5F5327C4DE26}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="My Dataflow" DTS:refId="Package\My Dataflow" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="KNA1" refId="Package\My Dataflow\KNA1">
+              <connections>
+                <connection connectionManagerID="{8FD7E431-8447-4437-A3E5-4238503F630E}:external" connectionManagerRefId="Package.ConnectionManagers[SAPConnection]" name="Xtract SAP Connection" refId="Package\My Dataflow\KNA1.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="LAND1" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].ExternalColumns[LAND1]" />
+                    <externalMetadataColumn dataType="wstr" length="35" name="NAME1" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].ExternalColumns[NAME1]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[KUNNR]" name="KUNNR" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[LAND1]" name="LAND1" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[LAND1]" />
+                    <outputColumn dataType="wstr" length="35" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[NAME1]" name="NAME1" refId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[NAME1]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" name="MaxRows">0</property>
+                <property dataType="System.Int32" name="PackageSize">5000</property>
+                <property dataType="System.Int32" name="StringConversion">0</property>
+                <property dataType="System.Boolean" name="UseCustomFunction">false</property>
+                <property dataType="System.String" name="TableName">KNA1</property>
+                <property dataType="System.String" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+      &lt;TableColumns&gt;
+      &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+      &lt;ColDescription&gt;Debitorennummer&lt;/ColDescription&gt;
+      &lt;ColLength&gt;10&lt;/ColLength&gt;
+      &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+      &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+      &lt;Decimals&gt;0&lt;/Decimals&gt;
+      &lt;/TableColumns&gt;
+      &lt;TableColumns&gt;
+      &lt;ColName&gt;LAND1&lt;/ColName&gt;
+      &lt;ColDescription&gt;Länderschlüssel&lt;/ColDescription&gt;
+      &lt;ColLength&gt;3&lt;/ColLength&gt;
+      &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+      &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+      &lt;Decimals&gt;0&lt;/Decimals&gt;
+      &lt;/TableColumns&gt;
+      &lt;TableColumns&gt;
+      &lt;ColName&gt;NAME1&lt;/ColName&gt;
+      &lt;ColDescription&gt;Name 1&lt;/ColDescription&gt;
+      &lt;ColLength&gt;35&lt;/ColLength&gt;
+      &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+      &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+      &lt;Decimals&gt;0&lt;/Decimals&gt;
+      &lt;/TableColumns&gt;
+      &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="KNA1" localeId="1033" name="OLE DB Destination" refId="Package\My Dataflow\OLE DB Destination" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{85794BD6-7641-4E5A-8467-5978460FED80}:external" connectionManagerRefId="Package.ConnectionManagers[OLE_BIML]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\My Dataflow\OLE DB Destination.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="KNA1_XtractOutput_OLE DB Destination" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="LAND1" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[LAND1]" />
+                    <externalMetadataColumn dataType="wstr" length="35" name="NAME1" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[NAME1]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KUNNR" externalMetadataColumnId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[KUNNR]" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[KUNNR]" name="" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].Columns[KUNNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="LAND1" externalMetadataColumnId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[LAND1]" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[LAND1]" name="" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].Columns[LAND1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="35" cachedName="NAME1" externalMetadataColumnId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].ExternalColumns[NAME1]" lineageId="Package\My Dataflow\KNA1.Outputs[XtractOutput].Columns[NAME1]" name="" refId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination].Columns[NAME1]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\My Dataflow\OLE DB Destination.Outputs[Error]" synchronousInputId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\My Dataflow\OLE DB Destination.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\My Dataflow\OLE DB Destination.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\My Dataflow\OLE DB Destination.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\My Dataflow\OLE DB Destination.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">KNA1</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\My Dataflow\OLE DB Destination.Inputs[KNA1_XtractOutput_OLE DB Destination]" name="KNA1_XtractOutput_OLE DB Destination" refId="Package\My Dataflow.Paths[KNA1_XtractOutput_OLE DB Destination]" startId="Package\My Dataflow\KNA1.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{F1E212D4-0FA6-44D7-A6D9-FDEBFB9DFF17}" DTS:From="Package\(SQL) Truncate Table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_(SQL) Truncate Table_To_My Dataflow" DTS:refId="Package.PrecedenceConstraints[Constraint_(SQL) Truncate Table_To_My Dataflow]" DTS:To="Package\My Dataflow" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

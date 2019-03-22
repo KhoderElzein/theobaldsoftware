@@ -1,0 +1,613 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/20/2019 1:00:32 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{5E369858-1023-46F2-9342-63B173E71C92}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="tmp"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{9747FE76-87C2-422E-B9C1-007C660F887E}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[OLE_BIML]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A2D36105-151A-45C7-A181-E9FE1686AAAA}"
+      DTS:ObjectName="OLE_BIML">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=BIMLTest;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAPConnection]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{D4996BC8-DCD2-461B-B1E3-07832324F10E}"
+      DTS:ObjectName="SAPConnection">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein LANG=DE CLIENT=800 SYSNR=00 ASHOST=ec5.theobald-software.com PASSWD=Erfolg12 RFCLIB=CLASSIC" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Data Flow Task"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7319FAA7-006F-495E-8F81-5882EEA85BB5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Data Flow Task"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Data Flow Task\tmpcskt"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="tmpcskt"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[tmpcskt]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\tmpcskt.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[OLE_BIML]"
+                  connectionManagerRefId="Package.ConnectionManagers[OLE_BIML]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[MANDT]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[SPRAS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="SPRAS"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[SPRAS]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[SPRAS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[KOKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KOKRS"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KOKRS]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOKRS]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[KOSTL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KOSTL"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KOSTL]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOSTL]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[DATBI]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DATBI"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[DATBI]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[DATBI]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[KTEXT]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="KTEXT"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KTEXT]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KTEXT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[LTEXT]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="LTEXT"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[LTEXT]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[LTEXT]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].Columns[MCTXT]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="MCTXT"
+                      externalMetadataColumnId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[MCTXT]"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MCTXT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[DATBI]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATBI" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[KTEXT]"
+                      dataType="wstr"
+                      length="20"
+                      name="KTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[LTEXT]"
+                      dataType="wstr"
+                      length="40"
+                      name="LTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input].ExternalColumns[MCTXT]"
+                      dataType="wstr"
+                      length="20"
+                      name="MCTXT" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\tmpcskt.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\tmpcskt.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\tmpcskt.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Data Flow Task\tmpcskt.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Data Flow Task\Xtract Table"
+              componentClassID="Microsoft.ManagedComponentHost"
+              description="This source component extracts table data from the SAP system"
+              name="Xtract Table">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">CSKT</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">20000</property>
+                <property
+                  dataType="System.Null"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause" />
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">&lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MANDT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Mandant&lt;/ColDescription&gt;
+    &lt;ColLength&gt;3&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Sprachenschlüssel&lt;/ColDescription&gt;
+    &lt;ColLength&gt;2&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Kostenrechnungskreis&lt;/ColDescription&gt;
+    &lt;ColLength&gt;4&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KOSTL&lt;/ColName&gt;
+    &lt;ColDescription&gt;Kostenstelle&lt;/ColDescription&gt;
+    &lt;ColLength&gt;10&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;DATBI&lt;/ColName&gt;
+    &lt;ColDescription&gt;Datum gültig bis&lt;/ColDescription&gt;
+    &lt;ColLength&gt;10&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KTEXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Allgemeine Bezeichnung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;20&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;LTEXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Beschreibung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MCTXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Suchbegriff für Matchcode-Verwendung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;20&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+&lt;/StorageTableBase&gt;</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Data Flow Task\Xtract Table.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAPConnection]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAPConnection]"
+                  description="Xtract SAP Connection"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      description="Mandant"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      length="3"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      description="Sprachenschlüssel"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      length="2"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOKRS]"
+                      dataType="wstr"
+                      description="Kostenrechnungskreis"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      length="4"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOKRS]"
+                      name="KOKRS" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOSTL]"
+                      dataType="wstr"
+                      description="Kostenstelle"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      length="10"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KOSTL]"
+                      name="KOSTL" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[DATBI]"
+                      dataType="wstr"
+                      description="Datum gültig bis"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[DATBI]"
+                      length="8"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[DATBI]"
+                      name="DATBI" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KTEXT]"
+                      dataType="wstr"
+                      description="Allgemeine Bezeichnung"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KTEXT]"
+                      length="20"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[KTEXT]"
+                      name="KTEXT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[LTEXT]"
+                      dataType="wstr"
+                      description="Beschreibung"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[LTEXT]"
+                      length="40"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[LTEXT]"
+                      name="LTEXT" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MCTXT]"
+                      dataType="wstr"
+                      description="Suchbegriff für Matchcode-Verwendung"
+                      externalMetadataColumnId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[MCTXT]"
+                      length="20"
+                      lineageId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].Columns[MCTXT]"
+                      name="MCTXT" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      description="Mandant"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      description="Sprachenschlüssel"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      description="Kostenrechnungskreis"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      description="Kostenstelle"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[DATBI]"
+                      dataType="wstr"
+                      description="Datum gültig bis"
+                      length="8"
+                      name="DATBI" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[KTEXT]"
+                      dataType="wstr"
+                      description="Allgemeine Bezeichnung"
+                      length="20"
+                      name="KTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[LTEXT]"
+                      dataType="wstr"
+                      description="Beschreibung"
+                      length="40"
+                      name="LTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput].ExternalColumns[MCTXT]"
+                      dataType="wstr"
+                      description="Suchbegriff für Matchcode-Verwendung"
+                      length="20"
+                      name="MCTXT" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Data Flow Task.Paths[XtractOutput]"
+              endId="Package\Data Flow Task\tmpcskt.Inputs[OLE DB Destination Input]"
+              name="XtractOutput"
+              startId="Package\Data Flow Task\Xtract Table.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Data Flow Task"
+          TopLeft="131,129" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="117,42"
+          Id="Package\Data Flow Task\tmpcskt"
+          TopLeft="191,199" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Data Flow Task\Xtract Table"
+          TopLeft="164,60" />
+        <EdgeLayout
+          Id="Package\Data Flow Task.Paths[XtractOutput]"
+          TopLeft="233,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="16.5,97"
+              Start="0,0"
+              End="16.5,89.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44.5"
+                    Point2="0,48.5"
+                    Point3="4,48.5" />
+                  <mssgle:LineSegment
+                    End="12.5,48.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="12.5,48.5"
+                    Point2="16.5,48.5"
+                    Point3="16.5,52.5" />
+                  <mssgle:LineSegment
+                    End="16.5,89.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\tmpcskt">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

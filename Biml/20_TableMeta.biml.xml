@@ -1,0 +1,34 @@
+<#@ template language="VB" optionexplicit="False" tier="20" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Tables><# for each tbl in ExternalDataAccess.GetDataTable(Rootnode.Connections("Meta").RenderedConnectionString,"SELECT TABNAME,max(CUSTOM_Function) CUSTOM_Function FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_DD03L) group by TABNAME").Rows #>
+        <Table Name="SAP_<#= tbl(0) #>" SchemaName="SAP_Warehouse.dbo">
+            <Columns><# for each col in ExternalDataAccess.GetDataTable(Rootnode.Connections("Meta").RenderedConnectionString,"SELECT * FROM meta.sap_usecolumns where tabname = '" + tbl(0) + "' order by position").Rows 
+                       tabname = col("TABNAME")
+                       ssisType = "DT_WSTR"
+                       length = int(col("leng"))  #>
+                <Column Name="<#= col("FIELDNAME") #>" 
+                        <# if col("BimlType") = "String" then #>
+                        DataType="<#= col("BimlType") #>" Length="<#= length   #>" 
+                        <# elseif col("BimlType") = "Decimal" then
+                           ssisType = "DT_NUMERIC"
+                           length = int(col("leng")) + int(col("decimals")) +1
+                           if length > 38 then length = 38#>
+                         DataType="<#= col("BimlType") #>" Precision="<#= length  #>" Scale="<#= int(col("decimals")) #>"    
+                        <# elseif col("BimlType") = "Int64" then #>
+                         DataType="<#= col("BimlType") #>"  
+                        <# else #>
+                            DataType="UNKNOWN TYPE: <#= col("inttype") #>"
+                        <# end if #>
+                            IsNullable="true">
+                    <Annotations>
+                        <Annotation AnnotationType="Tag" Tag="SAP_IntType"><#= col("IntType") #></Annotation>
+                        <Annotation AnnotationType="Tag" Tag="SsisDataType"><#= ssisType #></Annotation>
+                        <Annotation AnnotationType="Tag" Tag="Length"><#= Length #></Annotation>
+                    </Annotations>
+                </Column><# next #></Columns>
+            <Annotations>
+                <Annotation AnnotationType="Tag" Tag="SAP_Name"><#= tabname #></Annotation>
+                <Annotation AnnotationType="Tag" Tag="CUSTOM_Function"><#= tbl("CUSTOM_Function") #></Annotation>
+            </Annotations>
+        </Table><# next #></Tables>
+</Biml>

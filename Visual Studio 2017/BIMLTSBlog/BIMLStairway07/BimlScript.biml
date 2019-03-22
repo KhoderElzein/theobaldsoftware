@@ -1,0 +1,94 @@
+﻿<#@ import namespace="System.Data" #>
+<# string connectionString = @"Provider=SQLNCLI11;Data Source=localhost;Integrated Security=SSPI;Initial Catalog=BRMetadata;"; #>font>
+<!-- Connections -->
+  <# var dataTable = ExternalDataAccess.GetDataTable(connectionString, "Select ConnectionName, ConnectionString From [di].[Connections]"); #>
+  <Connections>
+    <# foreach (DataRow row in dataTable.Rows) { #>
+    <Connection Name="<#=row["ConnectionName"]#>" ConnectionString="<#=row["ConnectionString"]#>" />
+    <# } #>
+  </Connections>
+
+  <!-- Databases -->
+  <# dataTable = ExternalDataAccess.GetDataTable(connectionString, "Select d.DatabaseName, c.ConnectionName From [di].[Databases] As d Join [di].[Connections] As c On c.ConnectionID = d.ConnectionID"); #>
+  <Databases>
+    <# foreach (DataRow row in dataTable.Rows) { #>
+      <Database Name="<#=row["DatabaseName"]#>" ConnectionName="<#=row ["ConnectionName"]#>" />
+    <# } #>
+  </Databases>
+
+  <!-- Schemas -->
+  <# dataTable = ExternalDataAccess.GetDataTable(connectionString, "Select s.SchemaName, d.DatabaseName From [di].[Schemas] As s Join [di].[Databases] As d On d.DatabaseID = s.DatabaseID"); #>
+  <Schemas>
+    <# foreach (DataRow row in dataTable.Rows) { #>
+      <Schema Name="<#=row["SchemaName"]#>" DatabaseName="<#=row ["DatabaseName"]#>" />
+    <# } #>
+  </Schemas>
+
+  <!-- Tables -->
+<# var tableQuery = @"
+Select distinct mm.SourceDatabaseName + '.' + mm.SourceSchemaName As SourceQualifiedSchemaName
+  , mm.SourceSchemaName, mm.SourceTableName, mm.SourceTableID, mm.SourceTableName
+  , mm.TargetDatabaseName + '.' + mm.TargetSchemaName As TargetQualifiedSchemaName
+  , mm.TargetSchemaName, mm.TargetTableName, mm.TargetTableID
+From [di].[metadataMappings] As mm;";
+
+var columnsQuery = @"
+Select mm.SourceTableID, mm.SourceColumnName
+  , sc.DataType As SourceDataType, sc.[Length] As SourceLength
+  , sc.IsNullable As SourceIsNullable, mm.TargetTableID, mm.TargetTableName
+  , mm.TargetColumnName, tc.DataType As TargetDataType
+  , tc.[Length] As TargetLength, tc.IsNullable As TargetIsNullable
+  , mm.IsBusinessKey
+From [di].[metadataMappings] As mm
+Join [di].[Columns] sc
+  On sc.ColumnID = mm.SourceColumnID
+Join [di].[Columns] tc
+  On tc.ColumnID = mm.TargetColumnID ";
+
+  dataTable = ExternalDataAccess.GetDataTable(connectionString, tableQuery);
+  var colTable = ExternalDataAccess.GetDataTable(connectionString, columnsQuery); #>
+  <Tables>
+    <# foreach(DataRow row in dataTable.Rows) { #>
+    <# var sourceTableId = row["SourceTableID"].ToString(); #>
+    <# var targetTableId = row["TargetTableID"].ToString(); #>
+    <Table Name="<#=row["SourceTableName"]#>" SchemaName="<#=row["SourceQualifiedSchemaName"]#>">
+      <Columns>
+        <# foreach(var scr in colTable.Rows.OfType<DataRow>().Where(r => r["SourceTableID"].ToString()==sourceTableId)) { #>
+        <Column Name="<#=scr["SourceColumnName"]#>"
+                DataType="<#=scr["SourceDataType"]#>"
+                Length="<#=scr["SourceLength"]#>"
+                IsNullable="<#=scr["SourceIsNullable"]#>">
+          <Annotations>
+            <Annotation Tag="IsBusinessKey"><#=scr["IsBusinessKey"]#></Annotation>
+            <Annotation Tag="MappedColumnName"><#=scr["TargetColumnName"]#></Annotation>
+          </Annotations>
+        </Column>
+        <# } #>
+      </Columns>
+      <Annotations>
+        <Annotation Tag="MappedTableID"><#=targetTableId#></Annotation>
+        <Annotation Tag="MappedTableName"><#=row["TargetTableName"]#></Annotation>
+      </Annotations>
+    </Table>
+    <Table Name="<#=row["TargetTableName"]#>" SchemaName="<#=row["TargetQualifiedSchemaName"]#>">
+      <Columns>
+        <# foreach(var scr in colTable.Rows.OfType<DataRow>().Where(r => r["TargetTableID"].ToString()==targetTableId)) { #>
+        <Column Name="<#=scr["TargetColumnName"]#>"
+                DataType="<#=scr["TargetDataType"]#>"
+                Length="<#=scr["TargetLength"]#>"
+                IsNullable="<#=scr["TargetIsNullable"]#>">
+          <Annotations>
+            <Annotation Tag="IsBusinessKey"><#=scr["IsBusinessKey"]#></Annotation>
+            <Annotation Tag="MappedColumnName"><#=scr["SourceColumnName"]#></Annotation>
+          </Annotations>
+        </Column>
+        <# } #>
+      </Columns>
+      <Annotations>
+        <Annotation Tag="MappedTableID"><#=sourceTableId#></Annotation>
+        <Annotation Tag="MappedTableName"><#=row["SourceTableName"]#></Annotation>
+      </Annotations>
+    </Table>
+    <# } #>
+  </Tables>
+</Biml>

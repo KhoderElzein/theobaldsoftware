@@ -1,0 +1,33 @@
+<#@ template language="VB" optionexplicit="False" tier="30" #>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Packages>
+        <# for each tbl in RootNode.Tables #>
+        <Package Name="02_Load_<#= tbl.Name.Replace("/","_") #>" ConstraintMode="Linear" PackageSubpath="Load_SAP"  ProtectionLevel="EncryptSensitiveWithUserKey">
+            <#   custom_function = "Z_XTRACT_IS_TABLE_COMPRESSION"
+                if tbl.gettag("CUSTOM_Function") <> "" then custom_function = tbl.gettag("CUSTOM_Function") #>
+            <Tasks>
+                <ExecuteSQL Name="TRUNCATE <#= tbl.Name #>" ConnectionName="SAP_Warehouse">
+                    <DirectInput>TRUNCATE TABLE [<#= tbl.Name #>]</DirectInput>
+                </ExecuteSQL>
+                <Dataflow Name="Read <#= tbl.GetTag("SAP_Name") #>">
+                    <Transformations>
+                        <TheobaldXtractSapSource Name="Xtract Table" ConnectionName="SAP" CustomFunction="<#= custom_function #>" Table="<#= tbl.GetTag("SAP_Name")#>">
+                            <Columns>
+                            <# for each col in tbl.Columns #>
+                                <Column SourceColumn="<#= col.Name #>" SsisDataType="<#=col.GetTag("SsisDataType") #>"  Length="<#=col.GetTag("Length") #>" <# if col.GetTag("SAP_IntType").ToLower <> "c" then #> AbapType="<#= col.GetTag("SAP_IntType").ToLower #>"<# end if#> <# if col.Scale > 0 then #> Decimals="<#= col.Scale #>"<# end if #>/>
+                            <# next #>
+                            </Columns>
+                        </TheobaldXtractSapSource>
+                        <OleDbDestination Name="Dest" ConnectionName="SAP_Warehouse">
+                            <ExternalTableOutput Table="[<#= tbl.Name #>]" />
+                        </OleDbDestination>
+                    </Transformations>
+                </Dataflow>
+            </Tasks>
+            <Annotations>
+                <Annotation AnnotationType="Tag" Tag="IsLoad">True</Annotation>
+            </Annotations>
+        </Package>
+        <# next #>
+        </Packages>
+</Biml>
