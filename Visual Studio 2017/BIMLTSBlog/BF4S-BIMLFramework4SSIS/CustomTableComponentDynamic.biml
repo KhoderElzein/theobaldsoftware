@@ -1,1 +1,77 @@
-﻿
+﻿<#@ property name="WhereClause" type="String" #>
+<#@ property name="IntParameter" type="Int32" #>
+<#@ property name="tbl" type="AstTableNode" #>
+<#@ property name="custom_function" type="String" #>
+
+<!-- Xtract Table component definition of table DD03L -->
+<CustomComponent Name="<#=tbl.Name#>" ComponentTypeName="XtractIS.XtractSourceTable">
+  <Connections>
+    <Connection Name="Xtract SAP Connection" ConnectionName="SAP" />
+  </Connections>
+  <!-- customer properties of Xtract Table component -->
+  <CustomProperties>
+    <CustomProperty Name="TableName" DataType="String"><#=tbl.Name#></CustomProperty>
+    <CustomProperty Name="MaxRows" DataType="Int32">0</CustomProperty>
+    <CustomProperty Name="PackageSize" DataType="Int32">5000</CustomProperty>
+    <CustomProperty Name="WhereClause" DataType="String"> <#=WhereClause#></CustomProperty>
+    <CustomProperty Name="CustomFunctionName" DataType="String"><#=custom_function#></CustomProperty>
+    <CustomProperty Name="StringConversion" DataType="Int32">0</CustomProperty>
+    <CustomProperty Name="Delimiter" DataType="String"></CustomProperty>
+    <CustomProperty Name="OrderBy" DataType="String"></CustomProperty>
+    
+    <!-- the InternalXML custom property defines the columns of the SAP source -->
+    <CustomProperty Name="InternalXML" DataType="String">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+      
+      <# foreach (var col in tbl.Columns){#>
+      &lt;TableColumns&gt;
+        &lt;ColName&gt;<#= col.Name #>&lt;/ColName&gt;
+        &lt;ColDescription&gt;Table Name&lt;/ColDescription&gt;
+        &lt;ColLength&gt;<#=col.GetTag("Length") #>&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;<#=col.GetTag("SAP_IntType").ToLower()#>&lt;/ABAPType&gt;
+        &lt;Decimals&gt;<#= col.Scale #>&lt;/Decimals&gt;
+      &lt;/TableColumns&gt;
+    <# } #>
+
+ 
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </CustomProperty>
+         <CustomProperty Name="UserComponentTypeName" DataType="String">XtractIS.XtractSourceTable</CustomProperty>
+  </CustomProperties>
+  <!-- Output path of source component -->
+  <OutputPaths>
+    <OutputPath Name="XtractOutput" >
+      <OutputColumns>
+       <# foreach (var col in tbl.Columns){#>
+        <OutputColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>"/>
+       <# } #>
+      </OutputColumns>
+      <ExternalColumns>
+       <# foreach (var col in tbl.Columns){#>
+        <ExternalColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>"/>
+       <# } #>
+      </ExternalColumns>
+    </OutputPath>
+  </OutputPaths>
+</CustomComponent>
