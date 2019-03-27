@@ -11,18 +11,18 @@
  <Packages>
     <Package Name="10 Read SAP Meta" ConstraintMode="LinearOnSuccess" ProtectionLevel="EncryptSensitiveWithUserKey" PackageSubpath="Prepare_SAP">
       <Tasks>
-        <ExecuteSQL Name="TRUNCATE SAP_DD03L" ConnectionName="Meta">
-          <DirectInput>TRUNCATE TABLE meta.SAP_DD03L</DirectInput>
+        <ExecuteSQL Name="TRUNCATE SAP_FieldInfo" ConnectionName="Meta">
+          <DirectInput>TRUNCATE TABLE meta.SAP_FieldInfo</DirectInput>
         </ExecuteSQL>
-        <Dataflow Name="Read DD03L into SAP_DD03L">
+        <Dataflow Name="Read SAP Field Info into SAP_FieldInfo">
           <Transformations> 
           <# var WhereClause = "TABNAME IN (" + string.Join(",",tbls) + ")  and PRECFIELD  =''"; #>
           <#= CallBimlScript("CustomTableComponent.biml", WhereClause,0)#> 
-             <OleDbDestination Name="SAP_DD03L" ConnectionName="Meta">
+             <OleDbDestination Name="SAP_FieldInfo" ConnectionName="Meta">
               <Annotations>
-                <Annotation AnnotationType="Description">SAP_DD03L</Annotation>
+                <Annotation AnnotationType="Description">SAP_FieldInfo</Annotation>
               </Annotations>
-              <ExternalTableOutput Table="[meta].[SAP_DD03L]" />
+              <ExternalTableOutput Table="[meta].[SAP_FieldInfo]" />
             </OleDbDestination>    
                 
           </Transformations>
