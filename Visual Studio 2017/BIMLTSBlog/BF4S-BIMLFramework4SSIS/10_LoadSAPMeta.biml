@@ -1,8 +1,10 @@
 ﻿<#@ import namespace="System.Data" #>
 <#@ template tier="10" #>
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
-    <# var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString, "SELECT DISTINCT TABNAME FROM meta.sap_tables"); #>
-    <# var tbls = new List<string>();
+    <# 
+    var DescriptionLanguage = "E";
+    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString, "SELECT DISTINCT TABNAME FROM meta.sap_tables"); 
+    var tbls = new List<string>();
     foreach (DataRow tbl in dataTable.Rows) 
     {
         tbls.Add("'" + tbl[0] + "'");
@@ -16,8 +18,8 @@
         </ExecuteSQL>
         <Dataflow Name="Read SAP Field Info into SAP_FieldInfo">
           <Transformations> 
-          <# var WhereClause = "TABNAME IN (" + string.Join(",",tbls) + ")  and PRECFIELD  =''"; #>
-          <#= CallBimlScript("CustomTableComponent.biml", WhereClause,0)#> 
+          <# var WhereClause = "TABNAME IN (" + string.Join(",",tbls) + ")  and PRECFIELD  ='' and DDLANGUAGE = '" + DescriptionLanguage + "'"; #>
+          <#= CallBimlScript("CustomTableComponentDD03M.biml", WhereClause,0)#> 
              <OleDbDestination Name="SAP_FieldInfo" ConnectionName="Meta">
               <Annotations>
                 <Annotation AnnotationType="Description">SAP_FieldInfo</Annotation>
