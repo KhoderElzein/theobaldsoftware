@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/22/2019 10:31:11 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{BD46D5E6-F69A-490E-BE7F-2F1E90C28176}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="40 Load_SAP_CSKT KE"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{6C797BFF-074E-4CAD-ACD3-DEA41A14E10C}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{2EBB32F9-BA42-4194-BD61-AAA90F7A4FE8}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F916D005-FA68-44D2-BD9E-52094BAA3B33}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=.;Initial Catalog=BimlDemo_Theobald;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read CSKT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{F818BBBF-F28E-424F-AEAA-AB08DD79288F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read CSKT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read CSKT\SAP_CSKT"
+              componentClassID="Microsoft.ManagedComponentHost"
+              description="This source component extracts table data from the SAP system"
+              name="SAP_CSKT">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">CSKT</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">20000</property>
+                <property
+                  dataType="System.Null"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause" />
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">&lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MANDT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Mandant&lt;/ColDescription&gt;
+    &lt;ColLength&gt;3&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Sprachenschlüssel&lt;/ColDescription&gt;
+    &lt;ColLength&gt;2&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Kostenrechnungskreis&lt;/ColDescription&gt;
+    &lt;ColLength&gt;4&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KOSTL&lt;/ColName&gt;
+    &lt;ColDescription&gt;Kostenstelle&lt;/ColDescription&gt;
+    &lt;ColLength&gt;10&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;DATBI&lt;/ColName&gt;
+    &lt;ColDescription&gt;Datum gültig bis&lt;/ColDescription&gt;
+    &lt;ColLength&gt;10&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;KTEXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Allgemeine Bezeichnung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;20&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;LTEXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Beschreibung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MCTXT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Suchbegriff für Matchcode-Verwendung&lt;/ColDescription&gt;
+    &lt;ColLength&gt;20&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+&lt;/StorageTableBase&gt;</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read CSKT\SAP_CSKT.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  description="Xtract SAP Connection"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      description="Mandant"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      length="3"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      description="Sprachenschlüssel"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      length="2"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KOKRS]"
+                      dataType="wstr"
+                      description="Kostenrechnungskreis"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      length="4"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KOKRS]"
+                      name="KOKRS" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KOSTL]"
+                      dataType="wstr"
+                      description="Kostenstelle"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      length="10"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KOSTL]"
+                      name="KOSTL" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[DATBI]"
+                      dataType="wstr"
+                      description="Datum gültig bis"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[DATBI]"
+                      length="8"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[DATBI]"
+                      name="DATBI" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KTEXT]"
+                      dataType="wstr"
+                      description="Allgemeine Bezeichnung"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KTEXT]"
+                      length="20"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[KTEXT]"
+                      name="KTEXT" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[LTEXT]"
+                      dataType="wstr"
+                      description="Beschreibung"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[LTEXT]"
+                      length="40"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[LTEXT]"
+                      name="LTEXT" />
+                    <outputColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[MCTXT]"
+                      dataType="wstr"
+                      description="Suchbegriff für Matchcode-Verwendung"
+                      externalMetadataColumnId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[MCTXT]"
+                      length="20"
+                      lineageId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].Columns[MCTXT]"
+                      name="MCTXT" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      description="Mandant"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      description="Sprachenschlüssel"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      description="Kostenrechnungskreis"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      description="Kostenstelle"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[DATBI]"
+                      dataType="wstr"
+                      description="Datum gültig bis"
+                      length="8"
+                      name="DATBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[KTEXT]"
+                      dataType="wstr"
+                      description="Allgemeine Bezeichnung"
+                      length="20"
+                      name="KTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[LTEXT]"
+                      dataType="wstr"
+                      description="Beschreibung"
+                      length="40"
+                      name="LTEXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKT\SAP_CSKT.Outputs[XtractOutput].ExternalColumns[MCTXT]"
+                      dataType="wstr"
+                      description="Suchbegriff für Matchcode-Verwendung"
+                      length="20"
+                      name="MCTXT" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Read CSKT"
+          TopLeft="97,157.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Read CSKT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Read CSKT\SAP_CSKT"
+          TopLeft="15,18" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

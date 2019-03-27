@@ -14,13 +14,15 @@
         <Table Name="SAP_<#= tbl[0].ToString() #>" SchemaName="SAP_Warehouse.dbo">
             <Columns><# foreach (DataRow col in dataTable2.Rows){ 
                        ssisType = "DT_WSTR";length = Int32.Parse(col["leng"].ToString());  #>
-                <Column Name="<#= col["FIELDNAME"] #>" <# if (col["BimlType"].ToString() == "String") { #>  DataType="<#= col["BimlType"].ToString() #>" Length="<#= length   #>" <# } else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; length = Int32.Parse(col["leng"].ToString()) + Int32.Parse(col["decimals"].ToString()) +1; if (length > 38) { length = 38; } #>
-                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" Scale="<#= Int32.Parse(col["decimals"].ToString()) #>"    
+                <Column Name="<#= col["FIELDNAME"] #>" 
+                <# if (col["BimlType"].ToString() == "String") { #>  DataType="<#= col["BimlType"].ToString() #>" Length="<#= length#>" <# } 
+                else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; length = Int32.Parse(col["leng"].ToString()) + Int32.Parse(col["decimals"].ToString()) +1; if (length > 38) { length = 38; } #>
+                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" 
                         <# } else if (col["BimlType"].ToString() == "Int64") { #>
                          DataType="<#= col["BimlType"].ToString() #>"  
                         <# } else { #>
                             DataType="UNKNOWN TYPE: <#= col["inttype"].ToString() #>"
-                        <# } #> IsNullable="true">
+                        <# } #> Scale="<#= Int32.Parse(col["decimals"].ToString()) #>" IsNullable="true">
                     <Annotations>
                         <Annotation AnnotationType="Tag" Tag="SAP_IntType"><#= col["IntType"] #></Annotation>
                         <Annotation AnnotationType="Tag" Tag="SsisDataType"><#= ssisType #></Annotation>
