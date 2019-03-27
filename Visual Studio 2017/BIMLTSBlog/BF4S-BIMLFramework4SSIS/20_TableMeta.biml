@@ -2,7 +2,7 @@
 <#@ template tier="20" #>
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
     <# 
-    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT TABNAME, max(CUSTOM_Function) CUSTOM_Function FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_DD03L) group by TABNAME"); 
+    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT TABNAME, max(CUSTOM_Function) CUSTOM_Function, max(WhereClause) WhereClause FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_DD03L) group by TABNAME"); 
     string tabname = string.Empty;
     string ssisType;
     int length;
@@ -33,6 +33,7 @@
                 <Annotations>
                 <Annotation AnnotationType="Tag" Tag="SAP_Name"><#= tabname #></Annotation>
                 <Annotation AnnotationType="Tag" Tag="CUSTOM_Function"><#= tbl["CUSTOM_Function"] #></Annotation>
+                <Annotation AnnotationType="Tag" Tag="WhereClause"><#= tbl["WhereClause"] #></Annotation>
             </Annotations>
         </Table>
         <# } #>
