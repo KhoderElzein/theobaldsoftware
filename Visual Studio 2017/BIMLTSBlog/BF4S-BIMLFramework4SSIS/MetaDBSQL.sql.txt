@@ -1,13 +1,17 @@
-﻿CREATE DATABASE BimlDemo_Theobald
+﻿-- create Meta database for BF4S
+CREATE DATABASE SAP_Meta
 GO
-USE [BimlDemo_Theobald]
+USE [SAP_Meta]
 GO
 CREATE SCHEMA meta
+GO
 
+-- Table Connections
 CREATE TABLE [meta].[Connections](
 	[ConnectionID] [int] IDENTITY(1,1) NOT NULL,
 	[ConnectionName] [varchar](255) NOT NULL,
 	[ConnectionString] [varchar](255) NOT NULL,
+	[Type] [nchar](10) NULL,
  CONSTRAINT [PK_Connections] PRIMARY KEY CLUSTERED 
 (
 	[ConnectionID] ASC
@@ -15,45 +19,71 @@ CREATE TABLE [meta].[Connections](
 ) ON [PRIMARY]
 GO
 
-
-GO
+-- Table SAP_Tables
 CREATE TABLE [meta].[SAP_Tables](
-    [TABNAME] [NVARCHAR](30) NULL,
-    [CUSTOM_Function] [NVARCHAR](50) NULL
+	[TABNAME] [nvarchar](30) NULL,
+	[CUSTOM_Function] [nvarchar](50) NULL,
+	[WhereClause] [nvarchar](100) NULL,
+	[MaxRows] [int] NOT NULL,
+	[PackageSize] [int] NOT NULL
 ) ON [PRIMARY]
 GO
 ALTER TABLE [meta].[SAP_Tables] ADD  CONSTRAINT [DF_SAP_Tables_CUSTOM_Function]  DEFAULT ('') FOR [CUSTOM_Function]
 GO
+ALTER TABLE [meta].[SAP_Tables] ADD  CONSTRAINT [DF_SAP_Tables_MaxRows]  DEFAULT ((0)) FOR [MaxRows]
+GO
+ALTER TABLE [meta].[SAP_Tables] ADD  CONSTRAINT [DF_SAP_Tables_PackageSize]  DEFAULT ((20000)) FOR [PackageSize]
+GO
+
+-- SAP_Columns
 CREATE TABLE [meta].[SAP_Columns](
     [TABNAME] [NVARCHAR](50) NULL,
     [FIELDNAME] [NVARCHAR](50) NULL
 ) ON [PRIMARY]
 GO
-CREATE TABLE [meta].[SAP_DD03L](
-    [TABNAME] [NVARCHAR](30) NULL,
-    [FIELDNAME] [NVARCHAR](30) NULL,
-    [POSITION] [NVARCHAR](4) NULL,
-    [INTTYPE] [NVARCHAR](1) NULL,
-    [LENG] [NVARCHAR](6) NULL,
-    [DECIMALS] [NVARCHAR](6) NULL
+
+-- SAP_FieldInfo
+CREATE TABLE [meta].[SAP_FieldInfo](
+	[TABNAME] [nvarchar](30) NULL,
+	[FIELDNAME] [nvarchar](30) NULL,
+	[POSITION] [nvarchar](4) NULL,
+	[INTTYPE] [nvarchar](1) NULL,
+	[LENG] [nvarchar](6) NULL,
+	[DECIMALS] [nvarchar](6) NULL,
+	[KEYFLAG] [nvarchar](1) NULL,
+	[CHECKTABLE] [nvarchar](30) NULL,
+	[DDTEXT] [nvarchar](60) NULL
 ) ON [PRIMARY]
 GO
+
+
 CREATE VIEW [meta].[SAP_UseColumns] AS
 SELECT *, CASE WHEN inttype IN ('P') THEN 'Decimal'
           WHEN inttype IN ('C', 'N', 'D', 'T', 'F', 'X') THEN 'String'
           WHEN inttype IN ('I') THEN 'Int64' ELSE 'UNKNOWN' END BimlType
 FROM(SELECT SAP.*
-     FROM [meta].[SAP_DD03L] SAP
+     FROM [meta].[SAP_FieldInfo] SAP
           INNER JOIN meta.sap_columns COL ON SAP.tabname=COL.tabname AND SAP.FIELDNAME=COL.fieldname
      UNION ALL
      SELECT SAP.*
-     FROM [meta].[SAP_DD03L] SAP
+     FROM [meta].[SAP_FieldInfo] SAP
           LEFT JOIN meta.sap_columns COL ON SAP.tabname=COL.tabname
      WHERE COL.tabname IS NULL)a;
 
 
-INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function) VALUES ('MARA','')
-INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function) VALUES ('T001','Z_XTRACT_IS_TABLE')
+-- Insert Data section 
+
+-- Connections
+INSERT INTO [meta].[Connections] (ConnectionName,ConnectionString,Type) VALUES ('SAP_Warehouse','Data Source=.;Initial Catalog=SAP_Warehouse;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;',NULL)
+INSERT INTO [meta].[Connections] (ConnectionName,ConnectionString,Type) VALUES ('SAP','USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0','Xtract')
+-- SAP_Tables
+INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function,WhereClause,MaxRows,PackageSize) VALUES ('MARA','Z_XTRACT_IS_TABLE','',100,2000)
+INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function,WhereClause,MaxRows,PackageSize) VALUES ('T001','Z_THEO_READ_TABLE','',100,2000)
+INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function,WhereClause,MaxRows,PackageSize) VALUES ('MAKT','Z_THEO_READ_TABLE','SPRAS = ''E''',100,2000)
+INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function,WhereClause,MaxRows,PackageSize) VALUES ('CSKT','Z_THEO_READ_TABLE','SPRAS = ''E''',100,2000)
+INSERT INTO [meta].[SAP_Tables] (TABNAME,Custom_Function,WhereClause,MaxRows,PackageSize) VALUES ('KNA1','Z_THEO_READ_TABLE','LAND1 = ''DE''',100,2000)
+
+-- SAP_Columns
 INSERT INTO [meta].[SAP_Columns] (TABNAME,FIELDNAME) VALUES ('MARA','MANDT')
 INSERT INTO [meta].[SAP_Columns] (TABNAME,FIELDNAME) VALUES ('MARA','MATNR')
 INSERT INTO [meta].[SAP_Columns] (TABNAME,FIELDNAME) VALUES ('MARA','ERSDA')
