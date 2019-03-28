@@ -1,9 +1,17 @@
-﻿<#@ template tier="0" #>
+﻿ <#@ import namespace="System.Data" #>
+ <# string connectionString = @"Provider=SQLNCLI11;Data Source=.;Initial Catalog=SAP_Meta;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;"; #>
+<#@ template tier="0" #>
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
     <Connections>
-        <Connection Name="SAP_Warehouse" ConnectionString="Data Source=.;Initial Catalog=SAP_Warehouse;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-        <Connection Name="Meta" ConnectionString="Data Source=.;Initial Catalog=SAP_Meta;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
-        <TheobaldXtractSapConnection Name="SAP" ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+        <Connection Name="Meta" ConnectionString="<#= connectionString#>" />
+       <# var dataTable = ExternalDataAccess.GetDataTable(connectionString, "Select ConnectionName, ConnectionString, Type From [meta].[Connections]"); #>
+        <# foreach (DataRow row in dataTable.Rows) { #>
+        <#if (row["Type"].ToString().Trim().Equals("Xtract")) {#>
+        <TheobaldXtractSapConnection Name="<#=row["ConnectionName"]#>" ConnectionString="<#=row["ConnectionString"]#>" />
+        <#} else {#>
+        <Connection Name="<#=row["ConnectionName"]#>" ConnectionString="<#=row["ConnectionString"]#>"/>
+        <#}#>
+        <# } #>
     </Connections>
     <Databases>
         <Database Name="SAP_Warehouse" ConnectionName="SAP_Warehouse"/>

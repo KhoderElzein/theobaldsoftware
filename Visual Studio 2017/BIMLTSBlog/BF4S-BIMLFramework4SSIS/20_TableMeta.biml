@@ -2,7 +2,7 @@
 <#@ template tier="20" #>
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
     <# 
-    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT TABNAME, max(CUSTOM_Function) CUSTOM_Function, max(WhereClause)  WhereClause FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_FieldInfo) group by TABNAME"); 
+    var dataTable = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT TABNAME, max(CUSTOM_Function) CUSTOM_Function, max(WhereClause) WhereClause, max(MaxRows) MaxRows, max(PackageSize) PackageSize FROM meta.sap_tables  where tabname in (select tabname from meta.SAP_FieldInfo) group by TABNAME"); 
     string tabname = string.Empty;
     string ssisType;
     int length;
@@ -17,12 +17,12 @@
                 <Column Name="<#= col["FIELDNAME"] #>" 
                 <# if (col["BimlType"].ToString() == "String") { #>  DataType="<#= col["BimlType"].ToString() #>" Length="<#= length#>" <# } 
                 else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; length = Int32.Parse(col["leng"].ToString()) + Int32.Parse(col["decimals"].ToString()) +1; if (length > 38) { length = 38; } #>
-                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" 
+                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" Scale="<#= Int32.Parse(col["decimals"].ToString()) #>"
                         <# } else if (col["BimlType"].ToString() == "Int64") { #>
                          DataType="<#= col["BimlType"].ToString() #>"  
                         <# } else { #>
                             DataType="UNKNOWN TYPE: <#= col["inttype"].ToString() #>"
-                        <# } #> Scale="<#= Int32.Parse(col["decimals"].ToString()) #>" IsNullable="true">
+                        <# } #> IsNullable="true">
                     <Annotations>
                         <Annotation AnnotationType="Tag" Tag="SAP_IntType"><#= col["IntType"] #></Annotation>
                         <Annotation AnnotationType="Tag" Tag="SsisDataType"><#= ssisType #></Annotation>
@@ -34,6 +34,8 @@
                 <Annotation AnnotationType="Tag" Tag="SAP_Name"><#= tabname #></Annotation>
                 <Annotation AnnotationType="Tag" Tag="CUSTOM_Function"><#= tbl["CUSTOM_Function"] #></Annotation>
                 <Annotation AnnotationType="Tag" Tag="WhereClause"><#= tbl["WhereClause"] #></Annotation>
+                <Annotation AnnotationType="Tag" Tag="MaxRows"><#= tbl["MaxRows"] #></Annotation>
+                <Annotation AnnotationType="Tag" Tag="PackageSize"><#= tbl["PackageSize"] #></Annotation>
             </Annotations>
         </Table>
         <# } #>

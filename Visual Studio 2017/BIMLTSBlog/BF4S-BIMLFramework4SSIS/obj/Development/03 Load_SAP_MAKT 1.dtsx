@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/28/2019 10:54:06 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{954985F9-AD8C-4F5C-9A17-37D3E4D31EB4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_MAKT"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{C6765211-62BA-410E-9173-266AB62A593D}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{1FDD54F8-B81B-423C-A137-416A916A1219}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DBB13F54-6391-4F2D-8246-6DA4777AFC36}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read MAKT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{39536916-D18B-467E-A07F-2CA04C055773}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read MAKT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read MAKT\Xtract Table"
+              componentClassID="Microsoft.ManagedComponentHost"
+              description="This source component extracts table data from the SAP system"
+              name="Xtract Table">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">MAKT</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">20000</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause">SPRAS = 'E'</property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">&lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MANDT&lt;/ColName&gt;
+    &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+    &lt;ColLength&gt;3&lt;/ColLength&gt;
+    &lt;ColSelected&gt;false&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MATNR&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+    &lt;ColLength&gt;18&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Language Key&lt;/ColDescription&gt;
+    &lt;ColLength&gt;2&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MAKTX&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material Description (Short Text)&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MAKTG&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material description in upper case for matchcodes&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+&lt;/StorageTableBase&gt;</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MAKT\Xtract Table.Connections[Xtract SAP Connection]"
+                  connectionManagerID="{82F13783-8670-4EEE-83B4-FC7DD7251CC8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Xtract Connection]"
+                  description="Xtract SAP Connection"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MATNR]"
+                      dataType="wstr"
+                      description="Material Number"
+                      externalMetadataColumnId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      length="18"
+                      lineageId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MATNR]"
+                      name="MATNR" />
+                    <outputColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      description="Language Key"
+                      externalMetadataColumnId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      length="2"
+                      lineageId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MAKTX]"
+                      dataType="wstr"
+                      description="Material Description (Short Text)"
+                      externalMetadataColumnId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MAKTX]"
+                      length="40"
+                      lineageId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MAKTX]"
+                      name="MAKTX" />
+                    <outputColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MAKTG]"
+                      dataType="wstr"
+                      description="Material description in upper case for matchcodes"
+                      externalMetadataColumnId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MAKTG]"
+                      length="40"
+                      lineageId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].Columns[MAKTG]"
+                      name="MAKTG" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      description="Material Number"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      description="Language Key"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MAKTX]"
+                      dataType="wstr"
+                      description="Material Description (Short Text)"
+                      length="40"
+                      name="MAKTX" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Xtract Table.Outputs[XtractOutput].ExternalColumns[MAKTG]"
+                      dataType="wstr"
+                      description="Material description in upper case for matchcodes"
+                      length="40"
+                      name="MAKTG" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Read MAKT"
+          TopLeft="36,107.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Read MAKT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Read MAKT\Xtract Table"
+          TopLeft="21,12" />
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

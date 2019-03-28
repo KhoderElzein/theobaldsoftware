@@ -14,8 +14,8 @@
      Name="TableName" 
      DataType="String"><#=tbl.GetTag("SAP_Name")#>
      </CustomProperty>
-    <CustomProperty Name="MaxRows" DataType="Int32">0</CustomProperty>
-    <CustomProperty Name="PackageSize" DataType="Int32">5000</CustomProperty>
+    <CustomProperty Name="MaxRows" DataType="Int32"><#=tbl.GetTag("MaxRows")#></CustomProperty>
+    <CustomProperty Name="PackageSize" DataType="Int32"><#=tbl.GetTag("PackageSize")#></CustomProperty>
     <CustomProperty Name="WhereClause" DataType="String"> <#=tbl.GetTag("WhereClause")#></CustomProperty>
     <CustomProperty Name="CustomFunctionName" DataType="String"><#=tbl.GetTag("CUSTOM_Function")#></CustomProperty>
     <CustomProperty Name="StringConversion" DataType="Int32">0</CustomProperty>
@@ -24,7 +24,6 @@
     <!-- the InternalXML custom property defines the columns of the SAP source -->
     <CustomProperty Name="InternalXML" DataType="String">
       &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
-      
       <# foreach (var col in tbl.Columns){#>
       &lt;TableColumns&gt;
         &lt;ColName&gt;<#= col.Name #>&lt;/ColName&gt;
@@ -32,7 +31,11 @@
         &lt;ColLength&gt;<#=col.GetTag("Length") #>&lt;/ColLength&gt;
         &lt;ColSelected&gt;true&lt;/ColSelected&gt;
         &lt;ABAPType&gt;<#=col.GetTag("SAP_IntType").ToLower()#>&lt;/ABAPType&gt;
+        <#if (col.GetTag("SAP_IntType").ToString().Trim().Equals("P")){#>
         &lt;Decimals&gt;<#= col.Scale #>&lt;/Decimals&gt;
+        <# } else { #>
+        &lt;Decimals&gt;0&lt;/Decimals&gt;
+        <# } #>
       &lt;/TableColumns&gt;
     <# } #>
 
@@ -64,12 +67,20 @@
     <OutputPath Name="XtractOutput" >
       <OutputColumns>
        <# foreach (var col in tbl.Columns){#>
-        <OutputColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>"/>
+       <# if(col.DataType.ToString().Trim().Equals("Decimal")){#>
+        <OutputColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Precision="<#=col.Precision #>" Scale="<#=col.Scale #>"/>
+        <# } else { #>
+        <OutputColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>" />
+        <#} #>
        <# } #>
       </OutputColumns>
       <ExternalColumns>
        <# foreach (var col in tbl.Columns){#>
-        <ExternalColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>"/>
+       <# if(col.DataType.ToString().Trim().Equals("Decimal")){#>
+        <ExternalColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Precision="<#=col.Precision #>" Scale="<#=col.Scale#>"/>
+        <# } else { #>
+        <ExternalColumn Name="<#=col.Name #>" DataType="<#=col.DataType #>" Length="<#=col.GetTag("Length") #>" />
+        <#} #>
        <# } #>
       </ExternalColumns>
     </OutputPath>
