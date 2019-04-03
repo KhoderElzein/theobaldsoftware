@@ -1,169 +1,502 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="04/03/2019 16:09:28" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{BABEDC4A-B2CA-4608-9C06-F26D72377749}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_MAKT" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{724B80A0-B64B-4E4D-8C66-A4446782EE92}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
-  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/3/2019 4:56:12 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{32E03F8E-E5D4-4C2A-8D34-BD3CE5E08BF0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_MAKT"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{1427436E-3B37-4913-A93B-189D1DC3B95E}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{947E845E-F637-4E8C-A674-2FDE2B513610}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{41A83109-D017-4119-8423-AFE80A5570E9}"
+      DTS:ObjectName="SAP">
       <DTS:ObjectData>
-        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
-    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{549C23B6-FC20-4415-9640-D8BB04368D19}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AC8CE3C7-DD3B-490A-BAEF-34B30C752BA5}"
+      DTS:ObjectName="SAP_Warehouse">
       <DTS:ObjectData>
-        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
+  <DTS:Variables />
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7C49EAD8-FC56-47F4-83FF-E91AA1DC2A5D}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_MAKT" DTS:refId="Package\TRUNCATE SAP_MAKT" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable
+      DTS:refId="Package\Read MAKT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{05A82C49-1CCA-4D33-B01F-F5BCEC209A73}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read MAKT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
       <DTS:ObjectData>
-        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_MAKT]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{CF19AB11-C9C7-4651-BA44-32F901FB8036}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read MAKT" DTS:refId="Package\Read MAKT" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:ObjectData>
-        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
           <components>
-            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_MAKT" refId="Package\Read MAKT\SAP_MAKT">
-              <connections>
-                <connection connectionManagerID="{549C23B6-FC20-4415-9640-D8BB04368D19}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read MAKT\SAP_MAKT.Connections[Xtract SAP Connection]" />
-              </connections>
-              <outputs>
-                <output name="XtractOutput" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput]">
-                  <externalMetadataColumns isUsed="True">
-                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MATNR]" />
-                    <externalMetadataColumn dataType="wstr" length="2" name="SPRAS" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[SPRAS]" />
-                    <externalMetadataColumn dataType="wstr" length="40" name="MAKTX" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTX]" />
-                    <externalMetadataColumn dataType="wstr" length="40" name="MAKTG" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTG]" />
-                  </externalMetadataColumns>
-                  <outputColumns>
-                    <outputColumn dataType="wstr" length="18" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]" name="MATNR" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]" />
-                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]" name="SPRAS" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]" />
-                    <outputColumn dataType="wstr" length="40" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]" name="MAKTX" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]" />
-                    <outputColumn dataType="wstr" length="40" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]" name="MAKTG" refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]" />
-                  </outputColumns>
-                </output>
-              </outputs>
+            <component
+              refId="Package\Read MAKT\Dest_SAP_MAKT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_MAKT"
+              name="Dest_SAP_MAKT"
+              usesDispositions="true"
+              version="4">
               <properties>
-                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">MAKT</property>
-                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
-                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
-                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause"> SPRAS = 'E'</property>
-                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
-                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
-                <property dataType="System.String" description="Delimiter" name="Delimiter" />
-                <property dataType="System.String" description="Order By clause" name="OrderBy" />
-                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
-      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
-            &lt;TableColumns&gt;
-        &lt;ColName&gt;MATNR&lt;/ColName&gt;
-        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
-        &lt;ColLength&gt;18&lt;/ColLength&gt;
-        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
-        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
-                &lt;Decimals&gt;0&lt;/Decimals&gt;
-              &lt;/TableColumns&gt;
-          &lt;TableColumns&gt;
-        &lt;ColName&gt;SPRAS&lt;/ColName&gt;
-        &lt;ColDescription&gt;Language Key&lt;/ColDescription&gt;
-        &lt;ColLength&gt;2&lt;/ColLength&gt;
-        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
-        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
-                &lt;Decimals&gt;0&lt;/Decimals&gt;
-              &lt;/TableColumns&gt;
-          &lt;TableColumns&gt;
-        &lt;ColName&gt;MAKTX&lt;/ColName&gt;
-        &lt;ColDescription&gt;Material Description (Short Text)&lt;/ColDescription&gt;
-        &lt;ColLength&gt;40&lt;/ColLength&gt;
-        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
-        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
-                &lt;Decimals&gt;0&lt;/Decimals&gt;
-              &lt;/TableColumns&gt;
-          &lt;TableColumns&gt;
-        &lt;ColName&gt;MAKTG&lt;/ColName&gt;
-        &lt;ColDescription&gt;Material description in upper case for matchcodes&lt;/ColDescription&gt;
-        &lt;ColLength&gt;40&lt;/ColLength&gt;
-        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
-        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
-                &lt;Decimals&gt;0&lt;/Decimals&gt;
-              &lt;/TableColumns&gt;
-    
-      &lt;XtractProperties&gt;
-        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
-        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
-      &lt;/XtractProperties&gt;
-      &lt;XtractProperties&gt;
-        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
-        &lt;PropValue /&gt;
-      &lt;/XtractProperties&gt;
-      &lt;XtractProperties&gt;
-        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
-        &lt;PropValue /&gt;
-      &lt;/XtractProperties&gt;
-      &lt;XtractProperties&gt;
-        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
-        &lt;PropValue /&gt;
-      &lt;/XtractProperties&gt;
-      &lt;XtractProperties&gt;
-        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
-        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
-      &lt;/XtractProperties&gt;
-    &lt;/StorageTableBase&gt;
-    </property>
-                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_MAKT</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
               </properties>
-            </component>
-            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_MAKT" name="Dest_SAP_MAKT" refId="Package\Read MAKT\Dest_SAP_MAKT" usesDispositions="true" version="4">
               <connections>
-                <connection connectionManagerID="{947E845E-F637-4E8C-A674-2FDE2B513610}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read MAKT\Dest_SAP_MAKT.Connections[OleDbConnection]" />
+                <connection
+                  refId="Package\Read MAKT\Dest_SAP_MAKT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
               </connections>
               <inputs>
-                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_MAKT_XtractOutput_Dest_SAP_MAKT" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]">
-                  <externalMetadataColumns isUsed="True">
-                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MATNR]" />
-                    <externalMetadataColumn dataType="wstr" length="2" name="SPRAS" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[SPRAS]" />
-                    <externalMetadataColumn dataType="wstr" length="40" name="MAKTX" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTX]" />
-                    <externalMetadataColumn dataType="wstr" length="40" name="MAKTG" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTG]" />
-                  </externalMetadataColumns>
+                <input
+                  refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_MAKT_XtractOutput_Dest_SAP_MAKT">
                   <inputColumns>
-                    <inputColumn cachedDataType="wstr" cachedLength="18" cachedName="MATNR" externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MATNR]" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]" name="" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MATNR]" />
-                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="SPRAS" externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[SPRAS]" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]" name="" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[SPRAS]" />
-                    <inputColumn cachedDataType="wstr" cachedLength="40" cachedName="MAKTX" externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTX]" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]" name="" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MAKTX]" />
-                    <inputColumn cachedDataType="wstr" cachedLength="40" cachedName="MAKTG" externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTG]" lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]" name="" refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MAKTG]" />
+                    <inputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MATNR]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="MATNR"
+                      externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MATNR]"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]" />
+                    <inputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[SPRAS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="SPRAS"
+                      externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[SPRAS]"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]" />
+                    <inputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MAKTX]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="MAKTX"
+                      externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTX]"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]" />
+                    <inputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].Columns[MAKTG]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="MAKTG"
+                      externalMetadataColumnId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTG]"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]" />
                   </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTX]"
+                      dataType="wstr"
+                      length="40"
+                      name="MAKTX" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT].ExternalColumns[MAKTG]"
+                      dataType="wstr"
+                      length="40"
+                      name="MAKTG" />
+                  </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
-                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error]" synchronousInputId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]">
-                  <externalMetadataColumns />
+                <output
+                  refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]">
                   <outputColumns>
-                    <outputColumn dataType="i4" lineageId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
-                    <outputColumn dataType="i4" lineageId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read MAKT\Dest_SAP_MAKT.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
                   </outputColumns>
+                  <externalMetadataColumns />
                 </output>
               </outputs>
+            </component>
+            <component
+              refId="Package\Read MAKT\SAP_MAKT"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_MAKT">
               <properties>
-                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
-                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_MAKT</property>
-                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
-                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
-                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
-                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
-                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
-                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
-                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
-                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
-                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">MAKT</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">500</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">5000</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"> SPRAS = 'D'</property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">&lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MATNR&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+    &lt;ColLength&gt;18&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+    &lt;ColDescription&gt;Language Key&lt;/ColDescription&gt;
+    &lt;ColLength&gt;2&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MAKTX&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material Description (Short Text)&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;TableColumns&gt;
+    &lt;ColName&gt;MAKTG&lt;/ColName&gt;
+    &lt;ColDescription&gt;Material description in upper case for matchcodes&lt;/ColDescription&gt;
+    &lt;ColLength&gt;40&lt;/ColLength&gt;
+    &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+    &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+    &lt;Decimals&gt;0&lt;/Decimals&gt;
+  &lt;/TableColumns&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+    &lt;PropValue /&gt;
+  &lt;/XtractProperties&gt;
+  &lt;XtractProperties&gt;
+    &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+    &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+  &lt;/XtractProperties&gt;
+&lt;/StorageTableBase&gt;</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
               </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MAKT\SAP_MAKT.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]"
+                      dataType="wstr"
+                      description="Material Number"
+                      externalMetadataColumnId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      length="18"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MATNR]"
+                      name="MATNR" />
+                    <outputColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      description="Language Key"
+                      externalMetadataColumnId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      length="2"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]"
+                      dataType="wstr"
+                      description="Material Description (Short Text)"
+                      externalMetadataColumnId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTX]"
+                      length="40"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTX]"
+                      name="MAKTX" />
+                    <outputColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]"
+                      dataType="wstr"
+                      description="Material description in upper case for matchcodes"
+                      externalMetadataColumnId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTG]"
+                      length="40"
+                      lineageId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].Columns[MAKTG]"
+                      name="MAKTG" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      description="Material Number"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      description="Language Key"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTX]"
+                      dataType="wstr"
+                      description="Material Description (Short Text)"
+                      length="40"
+                      name="MAKTX" />
+                    <externalMetadataColumn
+                      refId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput].ExternalColumns[MAKTG]"
+                      dataType="wstr"
+                      description="Material description in upper case for matchcodes"
+                      length="40"
+                      name="MAKTG" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
             </component>
           </components>
           <paths>
-            <path endId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]" name="SAP_MAKT_XtractOutput_Dest_SAP_MAKT" refId="Package\Read MAKT.Paths[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]" startId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput]" />
+            <path
+              refId="Package\Read MAKT.Paths[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]"
+              endId="Package\Read MAKT\Dest_SAP_MAKT.Inputs[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]"
+              name="SAP_MAKT_XtractOutput_Dest_SAP_MAKT"
+              startId="Package\Read MAKT\SAP_MAKT.Outputs[XtractOutput]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_MAKT"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{4AACA4BF-2EF2-42FB-9EF4-A51046B76CD7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_MAKT"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{AC8CE3C7-DD3B-490A-BAEF-34B30C752BA5}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_MAKT]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{8964DB9C-4949-4AF6-8154-59F66DF1BF0D}" DTS:From="Package\TRUNCATE SAP_MAKT" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_MAKT_To_Read MAKT" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MAKT_To_Read MAKT]" DTS:To="Package\Read MAKT" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MAKT_To_Read MAKT]"
+      DTS:CreationName=""
+      DTS:DTSID="{7B098C58-DD78-4EA0-9ACC-7A77A23B69E5}"
+      DTS:From="Package\TRUNCATE SAP_MAKT"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_MAKT_To_Read MAKT"
+      DTS:To="Package\Read MAKT" />
   </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Read MAKT"
+          TopLeft="36,107.5" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\TRUNCATE SAP_MAKT"
+          TopLeft="5.50000000000001,5.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MAKT_To_Read MAKT]"
+          TopLeft="105.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Read MAKT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Read MAKT\Dest_SAP_MAKT"
+          TopLeft="5.50000000000001,107.5" />
+        <NodeLayout
+          Size="138,42"
+          Id="Package\Read MAKT\SAP_MAKT"
+          TopLeft="19.5,5.5" />
+        <EdgeLayout
+          Id="Package\Read MAKT.Paths[SAP_MAKT_XtractOutput_Dest_SAP_MAKT]"
+          TopLeft="88.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
