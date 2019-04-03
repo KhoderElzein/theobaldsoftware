@@ -1,0 +1,421 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:22" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{015A210C-04AB-4C89-BE6B-B2B32F6C96E9}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_AUSP" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{8A24F76B-9F34-4DCB-B934-A1314CB544A5}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{3C054956-DF20-43C1-B817-A50CAA710BDB}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{F431229B-A3A2-457D-B481-3BA9B8C3895F}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{DD3EA505-6D0F-47C5-9276-8EC85D35BEB2}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_AUSP" DTS:refId="Package\TRUNCATE SAP_AUSP" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_AUSP]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{F228390C-C4EA-4C91-BA40-71064A39A7D2}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read AUSP" DTS:refId="Package\Read AUSP" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_AUSP" refId="Package\Read AUSP\SAP_AUSP">
+              <connections>
+                <connection connectionManagerID="{F431229B-A3A2-457D-B481-3BA9B8C3895F}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read AUSP\SAP_AUSP.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="OBJEK" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[OBJEK]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATINN" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATINN]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATZHL" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATZHL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MAFID" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[MAFID]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="KLART" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[KLART]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ADZHL" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ADZHL]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATWRT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATWRT]" />
+                    <externalMetadataColumn dataType="r8" name="ATFLV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATFLV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATAWE" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATAWE]" />
+                    <externalMetadataColumn dataType="r8" name="ATFLB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATFLB]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATAW1" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATAW1]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATCOD" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATCOD]" />
+                    <externalMetadataColumn dataType="r8" name="ATTLV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATTLV]" />
+                    <externalMetadataColumn dataType="r8" name="ATTLB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATTLB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATPRZ" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATPRZ]" />
+                    <externalMetadataColumn dataType="r8" name="ATINC" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATINC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATAUT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATAUT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AENNR" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[AENNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="DATUV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[DATUV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LKENZ" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[LKENZ]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATIMB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATIMB]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATZIS" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATZIS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ATSRT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATSRT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATVGLART" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].ExternalColumns[ATVGLART]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="50" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[OBJEK]" name="OBJEK" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[OBJEK]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINN]" name="ATINN" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINN]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZHL]" name="ATZHL" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZHL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MAFID]" name="MAFID" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MAFID]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[KLART]" name="KLART" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[KLART]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ADZHL]" name="ADZHL" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ADZHL]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATWRT]" name="ATWRT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATWRT]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLV]" name="ATFLV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLV]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAWE]" name="ATAWE" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAWE]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLB]" name="ATFLB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLB]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAW1]" name="ATAW1" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAW1]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATCOD]" name="ATCOD" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATCOD]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLV]" name="ATTLV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLV]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLB]" name="ATTLB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLB]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATPRZ]" name="ATPRZ" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATPRZ]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINC]" name="ATINC" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINC]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAUT]" name="ATAUT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAUT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[AENNR]" name="AENNR" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[AENNR]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[DATUV]" name="DATUV" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[DATUV]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[LKENZ]" name="LKENZ" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[LKENZ]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATIMB]" name="ATIMB" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATIMB]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZIS]" name="ATZIS" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZIS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATSRT]" name="ATSRT" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATSRT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATVGLART]" name="ATVGLART" refId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATVGLART]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">AUSP</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJEK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Key of object to be classified&lt;/ColDescription&gt;
+        &lt;ColLength&gt;50&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATINN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal characteristic&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATZHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Characteristic value counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAFID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Object/Class&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Class Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ADZHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal counter for archiving objects via engin. chg. mgmt&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATWRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Characteristic Value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATFLV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal floating point from&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATAWE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Measurement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATFLB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal floating point value to&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATAW1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Measurement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATCOD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Code for value dependency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATTLV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tolerance from&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATTLB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tolerance to&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATPRZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Tolerance Shown as a Percentage&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATINC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Increment Within a Specified Interval&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATAUT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Classification: Author&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AENNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Change Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATUV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valid-From Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LKENZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Deletion Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATIMB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Characteristic Number of User-Defined Data Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATZIS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Instance counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATSRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sort field for AUSP char. values&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATVGLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Comparison Type for Char. Value: &amp;quot; &amp;quot; .. &amp;quot;7&amp;quot;: Incl./Excl.&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_AUSP" name="Dest_SAP_AUSP" refId="Package\Read AUSP\Dest_SAP_AUSP" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{3C054956-DF20-43C1-B817-A50CAA710BDB}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read AUSP\Dest_SAP_AUSP.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_AUSP_XtractOutput_Dest_SAP_AUSP" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="OBJEK" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[OBJEK]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATINN" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATINN]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATZHL" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATZHL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MAFID" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[MAFID]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="KLART" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[KLART]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ADZHL" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ADZHL]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATWRT" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATWRT]" />
+                    <externalMetadataColumn dataType="r8" name="ATFLV" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATFLV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATAWE" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAWE]" />
+                    <externalMetadataColumn dataType="r8" name="ATFLB" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATFLB]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATAW1" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAW1]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATCOD" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATCOD]" />
+                    <externalMetadataColumn dataType="r8" name="ATTLV" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATTLV]" />
+                    <externalMetadataColumn dataType="r8" name="ATTLB" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATTLB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATPRZ" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATPRZ]" />
+                    <externalMetadataColumn dataType="r8" name="ATINC" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATINC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATAUT" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAUT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AENNR" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[AENNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="DATUV" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[DATUV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LKENZ" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[LKENZ]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="ATIMB" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATIMB]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ATZIS" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATZIS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ATSRT" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATSRT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ATVGLART" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATVGLART]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[MANDT]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="50" cachedName="OBJEK" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[OBJEK]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[OBJEK]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[OBJEK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="ATINN" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATINN]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINN]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATINN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ATZHL" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATZHL]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZHL]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATZHL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="MAFID" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[MAFID]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[MAFID]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[MAFID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="KLART" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[KLART]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[KLART]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[KLART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ADZHL" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ADZHL]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ADZHL]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ADZHL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="ATWRT" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATWRT]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATWRT]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATWRT]" />
+                    <inputColumn cachedDataType="r8" cachedName="ATFLV" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATFLV]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLV]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATFLV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ATAWE" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAWE]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAWE]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATAWE]" />
+                    <inputColumn cachedDataType="r8" cachedName="ATFLB" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATFLB]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATFLB]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATFLB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ATAW1" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAW1]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAW1]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATAW1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ATCOD" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATCOD]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATCOD]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATCOD]" />
+                    <inputColumn cachedDataType="r8" cachedName="ATTLV" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATTLV]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLV]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATTLV]" />
+                    <inputColumn cachedDataType="r8" cachedName="ATTLB" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATTLB]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATTLB]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATTLB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ATPRZ" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATPRZ]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATPRZ]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATPRZ]" />
+                    <inputColumn cachedDataType="r8" cachedName="ATINC" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATINC]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATINC]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATINC]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ATAUT" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATAUT]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATAUT]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATAUT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="AENNR" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[AENNR]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[AENNR]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[AENNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="DATUV" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[DATUV]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[DATUV]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[DATUV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LKENZ" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[LKENZ]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[LKENZ]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[LKENZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="ATIMB" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATIMB]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATIMB]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATIMB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ATZIS" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATZIS]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATZIS]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATZIS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ATSRT" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATSRT]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATSRT]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATSRT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ATVGLART" externalMetadataColumnId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].ExternalColumns[ATVGLART]" lineageId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput].Columns[ATVGLART]" name="" refId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP].Columns[ATVGLART]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read AUSP\Dest_SAP_AUSP.Outputs[Error]" synchronousInputId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read AUSP\Dest_SAP_AUSP.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read AUSP\Dest_SAP_AUSP.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read AUSP\Dest_SAP_AUSP.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read AUSP\Dest_SAP_AUSP.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_AUSP</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read AUSP\Dest_SAP_AUSP.Inputs[SAP_AUSP_XtractOutput_Dest_SAP_AUSP]" name="SAP_AUSP_XtractOutput_Dest_SAP_AUSP" refId="Package\Read AUSP.Paths[SAP_AUSP_XtractOutput_Dest_SAP_AUSP]" startId="Package\Read AUSP\SAP_AUSP.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{AA5665FC-66A8-4681-9476-58A5FBEE8922}" DTS:From="Package\TRUNCATE SAP_AUSP" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_AUSP_To_Read AUSP" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_AUSP_To_Read AUSP]" DTS:To="Package\Read AUSP" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:33" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{C8ADF67F-E4FF-4289-9A63-8DC7ED074748}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_VBUP" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{2A74B32C-ED4F-45E3-8D6E-2493B848CF73}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{6C8402F5-90A7-49B9-903C-6DD91E56BF63}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{9BCD1BBB-F6D0-4974-8F4D-DEDD2CF8EE96}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{5358F8AE-C410-4042-96EA-9F6221B4BB99}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_VBUP" DTS:refId="Package\TRUNCATE SAP_VBUP" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_VBUP]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{036ACB8B-ABC9-4A1D-970A-61A760FE191F}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read VBUP" DTS:refId="Package\Read VBUP" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_VBUP" refId="Package\Read VBUP\SAP_VBUP">
+              <connections>
+                <connection connectionManagerID="{9BCD1BBB-F6D0-4974-8F4D-DEDD2CF8EE96}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read VBUP\SAP_VBUP.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNR" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[POSNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RFSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[RFSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RFGSA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[RFGSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BESTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[BESTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[LFSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFGSA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[LFGSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WBSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[WBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[FKSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKSAA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[FKSAA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ABSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[ABSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="GBSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[GBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KOSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[KOSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LVSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[LVSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVALL" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVALL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVVLK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVVLK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVFAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVFAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPRS" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVPRS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKIVP" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[FKIVP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP01" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVP01]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP02" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVP02]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP03" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVP03]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP04" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVP04]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP05" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVP05]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PKSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[PKSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KOQUA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[KOQUA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="COSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[COSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMPPI" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[CMPPI]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMPPJ" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[CMPPJ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPIK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVPIK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVPAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVWAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[UVWAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DCSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[DCSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RRSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[RRSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VLSTP" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[VLSTP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[FSSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[LSSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PDSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[PDSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MANEK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[MANEK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="HDALL" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[HDALL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LTSPS" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[LTSPS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MILL_VS_VSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].ExternalColumns[MILL_VS_VSSTA]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VBELN]" name="VBELN" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VBELN]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[POSNR]" name="POSNR" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[POSNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFSTA]" name="RFSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFGSA]" name="RFGSA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFGSA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[BESTA]" name="BESTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[BESTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFSTA]" name="LFSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFGSA]" name="LFGSA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFGSA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[WBSTA]" name="WBSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[WBSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSTA]" name="FKSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSAA]" name="FKSAA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSAA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[ABSTA]" name="ABSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[ABSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[GBSTA]" name="GBSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[GBSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOSTA]" name="KOSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LVSTA]" name="LVSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LVSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVALL]" name="UVALL" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVALL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVVLK]" name="UVVLK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVVLK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVFAK]" name="UVFAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVFAK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPRS]" name="UVPRS" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPRS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKIVP]" name="FKIVP" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKIVP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP01]" name="UVP01" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP01]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP02]" name="UVP02" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP02]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP03]" name="UVP03" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP03]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP04]" name="UVP04" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP04]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP05]" name="UVP05" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP05]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PKSTA]" name="PKSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PKSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOQUA]" name="KOQUA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOQUA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[COSTA]" name="COSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[COSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPI]" name="CMPPI" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPI]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPJ]" name="CMPPJ" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPJ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPIK]" name="UVPIK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPIK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPAK]" name="UVPAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPAK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVWAK]" name="UVWAK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVWAK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[DCSTA]" name="DCSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[DCSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RRSTA]" name="RRSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RRSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VLSTP]" name="VLSTP" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VLSTP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FSSTA]" name="FSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FSSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LSSTA]" name="LSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LSSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PDSTA]" name="PDSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PDSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANEK]" name="MANEK" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANEK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[HDALL]" name="HDALL" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[HDALL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LTSPS]" name="LTSPS" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LTSPS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MILL_VS_VSSTA]" name="MILL_VS_VSSTA" refId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MILL_VS_VSSTA]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">VBUP</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales and Distribution Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;POSNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item number of the SD document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFGSA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Overall status of reference&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BESTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Confirmation Status of Document Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFGSA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Overall delivery status of the item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WBSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Goods movement status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FKSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Billing status of delivery-related billing documents&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FKSAA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Billing Status for Order-Related Billing Documents&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Rejection status for SD item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GBSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Overall processing status of the SD document item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Picking status/Putaway status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LVSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of warehouse management activities&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVALL&lt;/ColName&gt;
+        &lt;ColDescription&gt;General Incompletion Status of Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVVLK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Incompletion status of the item with regard to delivery&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVFAK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Incompletion Status with Respect to Billing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVPRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Pricing for item is incomplete&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FKIVP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Intercompany Billing Status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVP01&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer reserves 1: Item status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVP02&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer reserves 2: Item status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVP03&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item reserves 3: Item status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVP04&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item reserves 4: Item status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVP05&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer reserves 5: Item status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PKSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Packing status of item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOQUA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Confirmation status of picking/putaway&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;COSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Confirmation status for ALE&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CMPPI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of credit check against financial document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CMPPJ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of credit check against export credit insurance&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVPIK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Incomplete status of item for picking/putaway&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVPAK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Incomplete status of item for packaging&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UVWAK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Incomplete status of item regarding goods issue&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DCSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delay status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RRSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Revenue determination status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VLSTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Decentralized whse processing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FSSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Billing block status for items&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LSSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery block status for item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PDSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;POD status on item level&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MANEK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Manual Completion of Contract&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HDALL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Inbound Delivery Item Not Yet Complete (on Hold)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LTSPS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator : stockable type switched into standard product&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MILL_VS_VSSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of sales order item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_VBUP" name="Dest_SAP_VBUP" refId="Package\Read VBUP\Dest_SAP_VBUP" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{6C8402F5-90A7-49B9-903C-6DD91E56BF63}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read VBUP\Dest_SAP_VBUP.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_VBUP_XtractOutput_Dest_SAP_VBUP" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNR" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[POSNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RFSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RFSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RFGSA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RFGSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BESTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[BESTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LFSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFGSA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LFGSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WBSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[WBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKSAA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKSAA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ABSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[ABSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="GBSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[GBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KOSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[KOSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LVSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LVSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVALL" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVALL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVVLK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVVLK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVFAK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVFAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPRS" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPRS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKIVP" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKIVP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP01" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP01]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP02" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP02]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP03" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP03]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP04" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP04]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVP05" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP05]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PKSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[PKSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KOQUA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[KOQUA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="COSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[COSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMPPI" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[CMPPI]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMPPJ" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[CMPPJ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPIK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPIK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVPAK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UVWAK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVWAK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DCSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[DCSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RRSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RRSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VLSTP" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[VLSTP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FSSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FSSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LSSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LSSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PDSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[PDSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MANEK" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MANEK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="HDALL" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[HDALL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LTSPS" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LTSPS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MILL_VS_VSSTA" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MILL_VS_VSSTA]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MANDT]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="VBELN" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[VBELN]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VBELN]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[VBELN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="POSNR" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[POSNR]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[POSNR]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[POSNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RFSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RFSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[RFSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RFGSA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RFGSA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RFGSA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[RFGSA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="BESTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[BESTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[BESTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[BESTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LFSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LFSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[LFSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LFGSA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LFGSA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LFGSA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[LFGSA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WBSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[WBSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[WBSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[WBSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FKSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[FKSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FKSAA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKSAA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKSAA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[FKSAA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ABSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[ABSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[ABSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[ABSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="GBSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[GBSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[GBSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[GBSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KOSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[KOSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[KOSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LVSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LVSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LVSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[LVSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVALL" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVALL]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVALL]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVALL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVVLK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVVLK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVVLK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVVLK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVFAK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVFAK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVFAK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVFAK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVPRS" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPRS]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPRS]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVPRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FKIVP" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FKIVP]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FKIVP]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[FKIVP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVP01" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP01]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP01]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVP01]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVP02" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP02]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP02]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVP02]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVP03" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP03]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP03]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVP03]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVP04" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP04]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP04]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVP04]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVP05" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVP05]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVP05]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVP05]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PKSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[PKSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PKSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[PKSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KOQUA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[KOQUA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[KOQUA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[KOQUA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="COSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[COSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[COSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[COSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CMPPI" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[CMPPI]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPI]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[CMPPI]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CMPPJ" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[CMPPJ]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[CMPPJ]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[CMPPJ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVPIK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPIK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPIK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVPIK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVPAK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVPAK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVPAK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVPAK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UVWAK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[UVWAK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[UVWAK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[UVWAK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="DCSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[DCSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[DCSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[DCSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RRSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[RRSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[RRSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[RRSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="VLSTP" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[VLSTP]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[VLSTP]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[VLSTP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FSSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[FSSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[FSSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[FSSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LSSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LSSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LSSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[LSSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PDSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[PDSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[PDSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[PDSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="MANEK" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MANEK]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MANEK]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[MANEK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="HDALL" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[HDALL]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[HDALL]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[HDALL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LTSPS" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[LTSPS]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[LTSPS]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[LTSPS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="MILL_VS_VSSTA" externalMetadataColumnId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].ExternalColumns[MILL_VS_VSSTA]" lineageId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput].Columns[MILL_VS_VSSTA]" name="" refId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP].Columns[MILL_VS_VSSTA]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read VBUP\Dest_SAP_VBUP.Outputs[Error]" synchronousInputId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read VBUP\Dest_SAP_VBUP.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read VBUP\Dest_SAP_VBUP.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read VBUP\Dest_SAP_VBUP.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read VBUP\Dest_SAP_VBUP.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_VBUP</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read VBUP\Dest_SAP_VBUP.Inputs[SAP_VBUP_XtractOutput_Dest_SAP_VBUP]" name="SAP_VBUP_XtractOutput_Dest_SAP_VBUP" refId="Package\Read VBUP.Paths[SAP_VBUP_XtractOutput_Dest_SAP_VBUP]" startId="Package\Read VBUP\SAP_VBUP.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{E1ECCEC3-3473-4976-83CC-EC6EABFBFA24}" DTS:From="Package\TRUNCATE SAP_VBUP" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_VBUP_To_Read VBUP" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_VBUP_To_Read VBUP]" DTS:To="Package\Read VBUP" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

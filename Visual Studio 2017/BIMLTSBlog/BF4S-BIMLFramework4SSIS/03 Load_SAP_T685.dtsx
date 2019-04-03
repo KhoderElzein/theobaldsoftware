@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:30" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{CB7EB9DD-8C60-49B9-AFCE-E181F8F57630}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_T685" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{65839A15-4C98-4C6A-97BF-D4FCA7562A6B}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{3288BE77-7880-4E08-9042-11E77184736C}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{E197FDAC-04C0-46B4-A3F7-EA4B935B9914}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{97D0C376-9FDA-4E53-90C5-C1E7E75972B9}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_T685" DTS:refId="Package\TRUNCATE SAP_T685" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_T685]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{262B27A1-7BCC-4261-8B9D-53DCB1B492E0}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read T685" DTS:refId="Package\Read T685" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_T685" refId="Package\Read T685\SAP_T685">
+              <connections>
+                <connection connectionManagerID="{E197FDAC-04C0-46B4-A3F7-EA4B935B9914}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read T685\SAP_T685.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KVEWE" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[KVEWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="KAPPL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[KAPPL]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KSCHL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[KSCHL]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KOZGF" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[KOZGF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DATVO" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[DATVO]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DTVOB" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[DTVOB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GPRAEND" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[J_3GPRAEND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GBUARTL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[J_3GBUARTL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GBUARTB" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].ExternalColumns[J_3GBUARTB]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KVEWE]" name="KVEWE" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KVEWE]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KAPPL]" name="KAPPL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KAPPL]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KSCHL]" name="KSCHL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KSCHL]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KOZGF]" name="KOZGF" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KOZGF]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DATVO]" name="DATVO" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DATVO]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DTVOB]" name="DTVOB" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DTVOB]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GPRAEND]" name="J_3GPRAEND" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GPRAEND]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTL]" name="J_3GBUARTL" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTB]" name="J_3GBUARTB" refId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTB]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">T685</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVEWE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Usage of the condition table&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KAPPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Application&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSCHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Condition Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOZGF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Access sequence&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATVO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date proposed as valid-to date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTVOB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Proposed starting date for the rebate validity period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_3GPRAEND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Take Price Change Over Time Into Account&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_3GBUARTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting Type - Providing Party&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_3GBUARTB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting Type - Debited Party&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_T685" name="Dest_SAP_T685" refId="Package\Read T685\Dest_SAP_T685" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{3288BE77-7880-4E08-9042-11E77184736C}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read T685\Dest_SAP_T685.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_T685_XtractOutput_Dest_SAP_T685" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KVEWE" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KVEWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="KAPPL" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KAPPL]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KSCHL" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KSCHL]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KOZGF" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KOZGF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DATVO" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[DATVO]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DTVOB" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[DTVOB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GPRAEND" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GPRAEND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GBUARTL" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GBUARTL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_3GBUARTB" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GBUARTB]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[MANDT]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KVEWE" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KVEWE]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KVEWE]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[KVEWE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="KAPPL" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KAPPL]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KAPPL]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[KAPPL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KSCHL" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KSCHL]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KSCHL]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[KSCHL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KOZGF" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[KOZGF]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[KOZGF]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[KOZGF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="DATVO" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[DATVO]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DATVO]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[DATVO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="DTVOB" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[DTVOB]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[DTVOB]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[DTVOB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="J_3GPRAEND" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GPRAEND]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GPRAEND]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[J_3GPRAEND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="J_3GBUARTL" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GBUARTL]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTL]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[J_3GBUARTL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="J_3GBUARTB" externalMetadataColumnId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].ExternalColumns[J_3GBUARTB]" lineageId="Package\Read T685\SAP_T685.Outputs[XtractOutput].Columns[J_3GBUARTB]" name="" refId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685].Columns[J_3GBUARTB]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read T685\Dest_SAP_T685.Outputs[Error]" synchronousInputId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read T685\Dest_SAP_T685.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read T685\Dest_SAP_T685.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read T685\Dest_SAP_T685.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read T685\Dest_SAP_T685.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_T685</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read T685\Dest_SAP_T685.Inputs[SAP_T685_XtractOutput_Dest_SAP_T685]" name="SAP_T685_XtractOutput_Dest_SAP_T685" refId="Package\Read T685.Paths[SAP_T685_XtractOutput_Dest_SAP_T685]" startId="Package\Read T685\SAP_T685.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{CC22B18E-B54E-482E-9BE3-7625AE53D527}" DTS:From="Package\TRUNCATE SAP_T685" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_T685_To_Read T685" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_T685_To_Read T685]" DTS:To="Package\Read T685" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

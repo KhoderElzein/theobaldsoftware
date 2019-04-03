@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/3/2019 3:35:41 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{3CA351C6-0D95-4C06-BAB3-53EF02E268A8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_T052T"
+  DTS:VersionGUID="{0E4946E6-B807-4491-BA61-99DF852FA535}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{5AF7EE2C-31B0-440B-8EF8-D56DCEB33F4B}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F2ECF43D-02E1-4251-B16E-CA6DF2EF1714}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read T052T"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{7DE731D0-0D55-474E-8EFC-7A4FE5EB449F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read T052T"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read T052T\Dest_SAP_T052T"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_T052T"
+              name="Dest_SAP_T052T"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_T052T</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read T052T\Dest_SAP_T052T.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_T052T_XtractOutput_Dest_SAP_T052T">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[MANDT]"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].Columns[SPRAS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="SPRAS"
+                      externalMetadataColumnId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[SPRAS]"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[SPRAS]" />
+                    <inputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].Columns[URLID]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="URLID"
+                      externalMetadataColumnId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[URLID]"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLID]" />
+                    <inputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].Columns[URLTX]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="URLTX"
+                      externalMetadataColumnId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[URLTX]"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLTX]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[URLID]"
+                      dataType="wstr"
+                      length="4"
+                      name="URLID" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T].ExternalColumns[URLTX]"
+                      dataType="wstr"
+                      length="20"
+                      name="URLTX" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read T052T\Dest_SAP_T052T.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read T052T\Dest_SAP_T052T.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read T052T\Dest_SAP_T052T.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read T052T\Dest_SAP_T052T.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read T052T\SAP_T052T"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_T052T">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">T052T
+     
+     </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">5000</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+        &lt;ColDescription&gt;language key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URLID&lt;/ColName&gt;
+        &lt;ColDescription&gt;short key for known/negotiated leave&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URLTX&lt;/ColName&gt;
+        &lt;ColDescription&gt;text (20 characters)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read T052T\SAP_T052T.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLID]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLID]"
+                      name="URLID" />
+                    <outputColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLTX]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].Columns[URLTX]"
+                      name="URLTX" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].ExternalColumns[URLID]"
+                      dataType="wstr"
+                      length="4"
+                      name="URLID" />
+                    <externalMetadataColumn
+                      refId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput].ExternalColumns[URLTX]"
+                      dataType="wstr"
+                      length="20"
+                      name="URLTX" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read T052T.Paths[SAP_T052T_XtractOutput_Dest_SAP_T052T]"
+              endId="Package\Read T052T\Dest_SAP_T052T.Inputs[SAP_T052T_XtractOutput_Dest_SAP_T052T]"
+              name="SAP_T052T_XtractOutput_Dest_SAP_T052T"
+              startId="Package\Read T052T\SAP_T052T.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_T052T"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{AF47708A-2E69-4994-8AEE-113468CED742}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_T052T"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F2ECF43D-02E1-4251-B16E-CA6DF2EF1714}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_T052T]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_T052T_To_Read T052T]"
+      DTS:CreationName=""
+      DTS:DTSID="{94C1605D-AB2B-4B89-A54F-83EA063127AC}"
+      DTS:From="Package\TRUNCATE SAP_T052T"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_T052T_To_Read T052T"
+      DTS:To="Package\Read T052T" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

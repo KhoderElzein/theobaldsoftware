@@ -13,12 +13,16 @@
        <# dataTable2 = ExternalDataAccess.GetDataTable(RootNode.Connections["Meta"].RenderedConnectionString,"SELECT * FROM meta.SAP_UseColumns where tabname = '" + tbl[0].ToString() + "' order by position"); #>    
         <Table Name="SAP_<#= tbl[0].ToString() #>" SchemaName="SAP_Warehouse.dbo">
             <Columns><# foreach (DataRow col in dataTable2.Rows){ 
-                       ssisType = "DT_WSTR";length = Int32.Parse(col["leng"].ToString());  #>
+                       ssisType = "DT_WSTR";length = Int32.Parse(col["outputlen"].ToString());  #>
                 <Column Name="<#= col["FIELDNAME"] #>" 
                 <# if (col["BimlType"].ToString() == "String") { #>  DataType="<#= col["BimlType"].ToString() #>" Length="<#= length#>" <# } 
-                else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; length = Int32.Parse(col["leng"].ToString()) + Int32.Parse(col["decimals"].ToString()) +1; if (length > 38) { length = 38; } #>
-                         DataType="<#= col["BimlType"].ToString() #>" Precision="<#= length  #>" Scale="<#= Int32.Parse(col["decimals"].ToString()) #>"
-                        <# } else if (col["BimlType"].ToString() == "Int64") { #>
+                else if (col["BimlType"].ToString() == "StringDate") { length=8; #>  DataType="String" Length="<#= length#>" <# }
+                else if (col["BimlType"].ToString() == "StringTime") { length=6; #>  DataType="String" Length="<#= length#>" <# } 
+                else if (col["BimlType"].ToString() == "Decimal") { ssisType = "DT_NUMERIC"; #>
+                         DataType="Decimal" Precision="<#=length #>" Scale="<#= Int32.Parse(col["decimals"].ToString()) #>"
+                        <# } else if (col["BimlType"].ToString() == "Double") { ssisType = "DT_R8"; #>
+                         DataType="<#= col["BimlType"].ToString() #>"  
+                        <# } else if (col["BimlType"].ToString() == "Int64" || col["BimlType"].ToString() == "Int32") { #>
                          DataType="<#= col["BimlType"].ToString() #>"  
                         <# } else { #>
                             DataType="UNKNOWN TYPE: <#= col["inttype"].ToString() #>"
@@ -27,7 +31,7 @@
                         <Annotation AnnotationType="Tag" Tag="SAP_IntType"><#= col["IntType"] #></Annotation>
                         <Annotation AnnotationType="Tag" Tag="SsisDataType"><#= ssisType #></Annotation>
                         <Annotation AnnotationType="Tag" Tag="Length"><#= length #></Annotation>
-                        <Annotation AnnotationType="Tag" Tag="Description"><#= col["DDTEXT"] #></Annotation>
+                        <Annotation AnnotationType="Tag" Tag="Description"><![CDATA[<#= col["DDTEXT"] #>]]></Annotation>
                     </Annotations>
                 </Column><# } #></Columns>
                 <Annotations>
@@ -39,5 +43,5 @@
             </Annotations>
         </Table>
         <# } #>
-        </Tables>
+    </Tables>
 </Biml>

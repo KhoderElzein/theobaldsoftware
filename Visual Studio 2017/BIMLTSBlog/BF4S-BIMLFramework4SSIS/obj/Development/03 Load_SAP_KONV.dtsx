@@ -1,0 +1,2387 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/3/2019 3:35:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{FB0A1F91-865A-4923-AB3C-7EFAD222DAEA}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_KONV"
+  DTS:VersionGUID="{1903FF96-2578-4271-B99E-2DD6F2DAB8E2}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{BE40DE4A-B32B-4B2F-9531-DC779589A394}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{88C15486-C101-4C4C-A0D3-2D0918027FE3}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read KONV"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{C60F21F9-91EA-4742-9641-22DC69B9092A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read KONV"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read KONV\Dest_SAP_KONV"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_KONV"
+              name="Dest_SAP_KONV"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_KONV</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read KONV\Dest_SAP_KONV.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_KONV_XtractOutput_Dest_SAP_KONV">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MANDT]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KNUMV]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KNUMV"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNUMV]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMV]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KPOSN]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="KPOSN"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KPOSN]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPOSN]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[STUNR]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="STUNR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[STUNR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUNR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[ZAEHK]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="ZAEHK"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[ZAEHK]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEHK]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KAPPL]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="KAPPL"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAPPL]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAPPL]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KSCHL]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KSCHL"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSCHL]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSCHL]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KDATU]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="KDATU"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDATU]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDATU]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KRECH]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KRECH"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRECH]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRECH]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KAWRT]"
+                      cachedDataType="numeric"
+                      cachedName="KAWRT"
+                      cachedPrecision="21"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAWRT]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KBETR]"
+                      cachedDataType="numeric"
+                      cachedName="KBETR"
+                      cachedPrecision="16"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KBETR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBETR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[WAERS]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="WAERS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[WAERS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WAERS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KKURS]"
+                      cachedDataType="numeric"
+                      cachedName="KKURS"
+                      cachedPrecision="12"
+                      cachedScale="5"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KKURS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KKURS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KPEIN]"
+                      cachedDataType="numeric"
+                      cachedName="KPEIN"
+                      cachedPrecision="5"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KPEIN]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPEIN]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KMEIN]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KMEIN"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMEIN]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMEIN]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KUMZA]"
+                      cachedDataType="numeric"
+                      cachedName="KUMZA"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUMZA]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMZA]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KUMNE]"
+                      cachedDataType="numeric"
+                      cachedName="KUMNE"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUMNE]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMNE]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KNTYP]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KNTYP"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNTYP]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNTYP]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KSTAT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KSTAT"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTAT]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTAT]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KNPRS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KNPRS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNPRS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNPRS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KRUEK]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KRUEK"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRUEK]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRUEK]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KRELI]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KRELI"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRELI]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRELI]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KHERK]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KHERK"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KHERK]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KHERK]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KGRPE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KGRPE"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KGRPE]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KGRPE]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KOUPD]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KOUPD"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOUPD]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOUPD]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KOLNR]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="KOLNR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOLNR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KNUMH]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KNUMH"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNUMH]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMH]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KOPOS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="KOPOS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOPOS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOPOS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KVSL1]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KVSL1"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVSL1]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL1]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[SAKN1]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SAKN1"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[SAKN1]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN1]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[MWSK1]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MWSK1"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MWSK1]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK1]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KVSL2]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KVSL2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVSL2]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL2]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[SAKN2]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SAKN2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[SAKN2]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN2]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[MWSK2]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MWSK2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MWSK2]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK2]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[LIFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LIFNR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[LIFNR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KUNNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KUNNR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUNNR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KDIFF]"
+                      cachedDataType="numeric"
+                      cachedName="KDIFF"
+                      cachedPrecision="8"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDIFF]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDIFF]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KWERT]"
+                      cachedDataType="numeric"
+                      cachedName="KWERT"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWERT]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KSTEU]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KSTEU"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTEU]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTEU]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KINAK]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KINAK"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KINAK]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KINAK]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KOAID]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KOAID"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOAID]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOAID]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[ZAEKO]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="ZAEKO"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[ZAEKO]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEKO]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KMXAW]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KMXAW"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMXAW]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXAW]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KMXWR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KMXWR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMXWR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXWR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KFAKTOR]"
+                      cachedDataType="r8"
+                      cachedName="KFAKTOR"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFAKTOR]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KDUPL]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KDUPL"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDUPL]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDUPL]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KFAKTOR1]"
+                      cachedDataType="r8"
+                      cachedName="KFAKTOR1"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFAKTOR1]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR1]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KZBZG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KZBZG"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KZBZG]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KZBZG]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KSTBS]"
+                      cachedDataType="numeric"
+                      cachedName="KSTBS"
+                      cachedPrecision="21"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTBS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTBS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KONMS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KONMS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KONMS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONMS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KONWS]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="KONWS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KONWS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONWS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KAWRT_K]"
+                      cachedDataType="numeric"
+                      cachedName="KAWRT_K"
+                      cachedPrecision="21"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAWRT_K]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT_K]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KWAEH]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="KWAEH"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWAEH]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWAEH]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KWERT_K]"
+                      cachedDataType="numeric"
+                      cachedName="KWERT_K"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWERT_K]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT_K]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KFKIV]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KFKIV"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFKIV]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFKIV]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KVARC]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KVARC"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVARC]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVARC]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KMPRS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KMPRS"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMPRS]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMPRS]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[PRSQU]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="PRSQU"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[PRSQU]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[PRSQU]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[VARCOND]"
+                      cachedDataType="wstr"
+                      cachedLength="26"
+                      cachedName="VARCOND"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[VARCOND]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[VARCOND]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[STUFE]"
+                      cachedDataType="numeric"
+                      cachedName="STUFE"
+                      cachedPrecision="2"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[STUFE]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUFE]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[WEGXX]"
+                      cachedDataType="numeric"
+                      cachedName="WEGXX"
+                      cachedPrecision="5"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[WEGXX]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WEGXX]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KTREL]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KTREL"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KTREL]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KTREL]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[MDFLG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MDFLG"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MDFLG]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MDFLG]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[TXJLV]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="TXJLV"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[TXJLV]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[TXJLV]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KBFLAG]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KBFLAG"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KBFLAG]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBFLAG]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[KOLNR3]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KOLNR3"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOLNR3]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR3]" />
+                    <inputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].Columns[CPF_GUID]"
+                      cachedDataType="wstr"
+                      cachedLength="32"
+                      cachedName="CPF_GUID"
+                      externalMetadataColumnId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[CPF_GUID]"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[CPF_GUID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KPOSN]"
+                      dataType="wstr"
+                      length="6"
+                      name="KPOSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[STUNR]"
+                      dataType="wstr"
+                      length="3"
+                      name="STUNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[ZAEHK]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZAEHK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAPPL]"
+                      dataType="wstr"
+                      length="2"
+                      name="KAPPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSCHL]"
+                      dataType="wstr"
+                      length="4"
+                      name="KSCHL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDATU]"
+                      dataType="wstr"
+                      length="8"
+                      name="KDATU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRECH]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRECH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAWRT]"
+                      dataType="numeric"
+                      name="KAWRT"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KBETR]"
+                      dataType="numeric"
+                      name="KBETR"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      name="WAERS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KKURS]"
+                      dataType="numeric"
+                      name="KKURS"
+                      precision="12"
+                      scale="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KPEIN]"
+                      dataType="numeric"
+                      name="KPEIN"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      name="KMEIN" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUMZA]"
+                      dataType="numeric"
+                      name="KUMZA"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUMNE]"
+                      dataType="numeric"
+                      name="KUMNE"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNTYP]"
+                      dataType="wstr"
+                      length="1"
+                      name="KNTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTAT]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNPRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="KNPRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRUEK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRUEK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KRELI]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRELI" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KHERK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KHERK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KGRPE]"
+                      dataType="wstr"
+                      length="1"
+                      name="KGRPE" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOUPD]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOUPD" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOLNR]"
+                      dataType="wstr"
+                      length="2"
+                      name="KOLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KNUMH]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOPOS]"
+                      dataType="wstr"
+                      length="2"
+                      name="KOPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVSL1]"
+                      dataType="wstr"
+                      length="3"
+                      name="KVSL1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[SAKN1]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKN1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MWSK1]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSK1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVSL2]"
+                      dataType="wstr"
+                      length="3"
+                      name="KVSL2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[SAKN2]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKN2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MWSK2]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSK2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KUNNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDIFF]"
+                      dataType="numeric"
+                      name="KDIFF"
+                      precision="8"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWERT]"
+                      dataType="numeric"
+                      name="KWERT"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTEU]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KINAK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KINAK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOAID]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOAID" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[ZAEKO]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZAEKO" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMXAW]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMXAW" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMXWR]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMXWR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFAKTOR]"
+                      dataType="r8"
+                      name="KFAKTOR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KDUPL]"
+                      dataType="wstr"
+                      length="1"
+                      name="KDUPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFAKTOR1]"
+                      dataType="r8"
+                      name="KFAKTOR1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KZBZG]"
+                      dataType="wstr"
+                      length="1"
+                      name="KZBZG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KSTBS]"
+                      dataType="numeric"
+                      name="KSTBS"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KONMS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KONMS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KONWS]"
+                      dataType="wstr"
+                      length="5"
+                      name="KONWS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KAWRT_K]"
+                      dataType="numeric"
+                      name="KAWRT_K"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWAEH]"
+                      dataType="wstr"
+                      length="5"
+                      name="KWAEH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KWERT_K]"
+                      dataType="numeric"
+                      name="KWERT_K"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KFKIV]"
+                      dataType="wstr"
+                      length="1"
+                      name="KFKIV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KVARC]"
+                      dataType="wstr"
+                      length="1"
+                      name="KVARC" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KMPRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMPRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[PRSQU]"
+                      dataType="wstr"
+                      length="1"
+                      name="PRSQU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[VARCOND]"
+                      dataType="wstr"
+                      length="26"
+                      name="VARCOND" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[STUFE]"
+                      dataType="numeric"
+                      name="STUFE"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[WEGXX]"
+                      dataType="numeric"
+                      name="WEGXX"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KTREL]"
+                      dataType="wstr"
+                      length="1"
+                      name="KTREL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[MDFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="MDFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[TXJLV]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXJLV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KBFLAG]"
+                      dataType="wstr"
+                      length="4"
+                      name="KBFLAG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[KOLNR3]"
+                      dataType="wstr"
+                      length="3"
+                      name="KOLNR3" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV].ExternalColumns[CPF_GUID]"
+                      dataType="wstr"
+                      length="32"
+                      name="CPF_GUID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read KONV\Dest_SAP_KONV.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read KONV\Dest_SAP_KONV.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read KONV\Dest_SAP_KONV.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read KONV\Dest_SAP_KONV.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read KONV\SAP_KONV"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_KONV">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">KONV
+     
+     </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">5000</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNUMV&lt;/ColName&gt;
+        &lt;ColDescription&gt;number of the document condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KPOSN&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition item number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STUNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;step number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZAEHK&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KAPPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;application&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSCHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KDATU&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition pricing date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KRECH&lt;/ColName&gt;
+        &lt;ColDescription&gt;calculation type for condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KAWRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition base value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KBETR&lt;/ColName&gt;
+        &lt;ColDescription&gt;rate (condition amount or percentage)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAERS&lt;/ColName&gt;
+        &lt;ColDescription&gt;currency key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KKURS&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition exchange rate for conversion to local currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;5&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KPEIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition pricing unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KMEIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition unit in the document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUMZA&lt;/ColName&gt;
+        &lt;ColDescription&gt;numerator for converting condition units to base units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUMNE&lt;/ColName&gt;
+        &lt;ColDescription&gt;denominator for converting condition units to base units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition category (examples: tax, freight, price, cost)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition is used for statistics&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNPRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;scale type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KRUEK&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition is relevant for accrual  (e.g. freight)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KRELI&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition for invoice list&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KHERK&lt;/ColName&gt;
+        &lt;ColDescription&gt;origin of the condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KGRPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;group condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOUPD&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition update&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;access sequence - access number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNUMH&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition record number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;sequential number of the condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVSL1&lt;/ColName&gt;
+        &lt;ColDescription&gt;account key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKN1&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MWSK1&lt;/ColName&gt;
+        &lt;ColDescription&gt;tax on sales/purchases code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVSL2&lt;/ColName&gt;
+        &lt;ColDescription&gt;account key - accruals / provisions&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKN2&lt;/ColName&gt;
+        &lt;ColDescription&gt;number of provision account&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MWSK2&lt;/ColName&gt;
+        &lt;ColDescription&gt;withholding tax code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;account number of vendor or creditor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;customer number (rebate recipient)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KDIFF&lt;/ColName&gt;
+        &lt;ColDescription&gt;rounding-off difference of the condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KWERT&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTEU&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition control&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KINAK&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition is inactive&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOAID&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition class&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZAEKO&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition counter for (header conditions)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KMXAW&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator for maximum condition base value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KMXWR&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator for maximum condition amount&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KFAKTOR&lt;/ColName&gt;
+        &lt;ColDescription&gt;factor for condition base value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KDUPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;structure condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KFAKTOR1&lt;/ColName&gt;
+        &lt;ColDescription&gt;factor for condition basis (period)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZBZG&lt;/ColName&gt;
+        &lt;ColDescription&gt;scale basis indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTBS&lt;/ColName&gt;
+        &lt;ColDescription&gt;scale base value of the condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KONMS&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition scale unit of measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KONWS&lt;/ColName&gt;
+        &lt;ColDescription&gt;scale currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KAWRT_K&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition base value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KWAEH&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition currency (for cumulation fields)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KWERT_K&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KFKIV&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition for inter-company billing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVARC&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition for configuration&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KMPRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;condition changed manually&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRSQU&lt;/ColName&gt;
+        &lt;ColDescription&gt;price source&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VARCOND&lt;/ColName&gt;
+        &lt;ColDescription&gt;variant condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;26&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STUFE&lt;/ColName&gt;
+        &lt;ColDescription&gt;level (in multi-level bom explosions)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEGXX&lt;/ColName&gt;
+        &lt;ColDescription&gt;path (for multi-level bom explosions)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTREL&lt;/ColName&gt;
+        &lt;ColDescription&gt;relevance for account assignment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MDFLG&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: matrix maintenance&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXJLV&lt;/ColName&gt;
+        &lt;ColDescription&gt;tax jurisdiction code level&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KBFLAG&lt;/ColName&gt;
+        &lt;ColDescription&gt;bit encrypted flags in pricing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;x&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOLNR3&lt;/ColName&gt;
+        &lt;ColDescription&gt;access sequence - access number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPF_GUID&lt;/ColName&gt;
+        &lt;ColDescription&gt;cpf guid for document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;32&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read KONV\SAP_KONV.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMV]"
+                      name="KNUMV" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPOSN]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPOSN]"
+                      name="KPOSN" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUNR]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUNR]"
+                      name="STUNR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEHK]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEHK]"
+                      name="ZAEHK" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAPPL]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAPPL]"
+                      name="KAPPL" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSCHL]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSCHL]"
+                      name="KSCHL" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDATU]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDATU]"
+                      name="KDATU" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRECH]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRECH]"
+                      name="KRECH" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT]"
+                      name="KAWRT"
+                      precision="21"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBETR]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBETR]"
+                      name="KBETR"
+                      precision="16"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WAERS]"
+                      name="WAERS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KKURS]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KKURS]"
+                      name="KKURS"
+                      precision="12"
+                      scale="5" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPEIN]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KPEIN]"
+                      name="KPEIN"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMEIN]"
+                      name="KMEIN" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMZA]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMZA]"
+                      name="KUMZA"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMNE]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUMNE]"
+                      name="KUMNE"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNTYP]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNTYP]"
+                      name="KNTYP" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTAT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTAT]"
+                      name="KSTAT" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNPRS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNPRS]"
+                      name="KNPRS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRUEK]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRUEK]"
+                      name="KRUEK" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRELI]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KRELI]"
+                      name="KRELI" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KHERK]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KHERK]"
+                      name="KHERK" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KGRPE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KGRPE]"
+                      name="KGRPE" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOUPD]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOUPD]"
+                      name="KOUPD" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR]"
+                      name="KOLNR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMH]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KNUMH]"
+                      name="KNUMH" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOPOS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOPOS]"
+                      name="KOPOS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL1]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL1]"
+                      name="KVSL1" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN1]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN1]"
+                      name="SAKN1" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK1]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK1]"
+                      name="MWSK1" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL2]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVSL2]"
+                      name="KVSL2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN2]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[SAKN2]"
+                      name="SAKN2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK2]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MWSK2]"
+                      name="MWSK2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[LIFNR]"
+                      name="LIFNR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KUNNR]"
+                      name="KUNNR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDIFF]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDIFF]"
+                      name="KDIFF"
+                      precision="8"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT]"
+                      name="KWERT"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTEU]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTEU]"
+                      name="KSTEU" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KINAK]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KINAK]"
+                      name="KINAK" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOAID]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOAID]"
+                      name="KOAID" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEKO]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[ZAEKO]"
+                      name="ZAEKO" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXAW]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXAW]"
+                      name="KMXAW" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXWR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMXWR]"
+                      name="KMXWR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR]"
+                      dataType="r8"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR]"
+                      name="KFAKTOR" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDUPL]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KDUPL]"
+                      name="KDUPL" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR1]"
+                      dataType="r8"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFAKTOR1]"
+                      name="KFAKTOR1" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KZBZG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KZBZG]"
+                      name="KZBZG" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTBS]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KSTBS]"
+                      name="KSTBS"
+                      precision="21"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONMS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONMS]"
+                      name="KONMS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONWS]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KONWS]"
+                      name="KONWS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT_K]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KAWRT_K]"
+                      name="KAWRT_K"
+                      precision="21"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWAEH]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWAEH]"
+                      name="KWAEH" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT_K]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KWERT_K]"
+                      name="KWERT_K"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFKIV]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KFKIV]"
+                      name="KFKIV" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVARC]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KVARC]"
+                      name="KVARC" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMPRS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KMPRS]"
+                      name="KMPRS" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[PRSQU]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[PRSQU]"
+                      name="PRSQU" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[VARCOND]"
+                      dataType="wstr"
+                      length="26"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[VARCOND]"
+                      name="VARCOND" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUFE]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[STUFE]"
+                      name="STUFE"
+                      precision="2" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WEGXX]"
+                      dataType="numeric"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[WEGXX]"
+                      name="WEGXX"
+                      precision="5" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KTREL]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KTREL]"
+                      name="KTREL" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MDFLG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[MDFLG]"
+                      name="MDFLG" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[TXJLV]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[TXJLV]"
+                      name="TXJLV" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBFLAG]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KBFLAG]"
+                      name="KBFLAG" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR3]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[KOLNR3]"
+                      name="KOLNR3" />
+                    <outputColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[CPF_GUID]"
+                      dataType="wstr"
+                      length="32"
+                      lineageId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].Columns[CPF_GUID]"
+                      name="CPF_GUID" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KPOSN]"
+                      dataType="wstr"
+                      length="6"
+                      name="KPOSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[STUNR]"
+                      dataType="wstr"
+                      length="3"
+                      name="STUNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[ZAEHK]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZAEHK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KAPPL]"
+                      dataType="wstr"
+                      length="2"
+                      name="KAPPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KSCHL]"
+                      dataType="wstr"
+                      length="4"
+                      name="KSCHL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KDATU]"
+                      dataType="wstr"
+                      length="8"
+                      name="KDATU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KRECH]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRECH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KAWRT]"
+                      dataType="numeric"
+                      name="KAWRT"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KBETR]"
+                      dataType="numeric"
+                      name="KBETR"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      name="WAERS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KKURS]"
+                      dataType="numeric"
+                      name="KKURS"
+                      precision="12"
+                      scale="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KPEIN]"
+                      dataType="numeric"
+                      name="KPEIN"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      name="KMEIN" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KUMZA]"
+                      dataType="numeric"
+                      name="KUMZA"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KUMNE]"
+                      dataType="numeric"
+                      name="KUMNE"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KNTYP]"
+                      dataType="wstr"
+                      length="1"
+                      name="KNTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KSTAT]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KNPRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="KNPRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KRUEK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRUEK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KRELI]"
+                      dataType="wstr"
+                      length="1"
+                      name="KRELI" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KHERK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KHERK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KGRPE]"
+                      dataType="wstr"
+                      length="1"
+                      name="KGRPE" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KOUPD]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOUPD" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KOLNR]"
+                      dataType="wstr"
+                      length="2"
+                      name="KOLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KNUMH]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KOPOS]"
+                      dataType="wstr"
+                      length="2"
+                      name="KOPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KVSL1]"
+                      dataType="wstr"
+                      length="3"
+                      name="KVSL1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[SAKN1]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKN1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[MWSK1]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSK1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KVSL2]"
+                      dataType="wstr"
+                      length="3"
+                      name="KVSL2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[SAKN2]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKN2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[MWSK2]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSK2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KUNNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KDIFF]"
+                      dataType="numeric"
+                      name="KDIFF"
+                      precision="8"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KWERT]"
+                      dataType="numeric"
+                      name="KWERT"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KSTEU]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTEU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KINAK]"
+                      dataType="wstr"
+                      length="1"
+                      name="KINAK" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KOAID]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOAID" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[ZAEKO]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZAEKO" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KMXAW]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMXAW" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KMXWR]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMXWR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KFAKTOR]"
+                      dataType="r8"
+                      name="KFAKTOR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KDUPL]"
+                      dataType="wstr"
+                      length="1"
+                      name="KDUPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KFAKTOR1]"
+                      dataType="r8"
+                      name="KFAKTOR1" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KZBZG]"
+                      dataType="wstr"
+                      length="1"
+                      name="KZBZG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KSTBS]"
+                      dataType="numeric"
+                      name="KSTBS"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KONMS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KONMS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KONWS]"
+                      dataType="wstr"
+                      length="5"
+                      name="KONWS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KAWRT_K]"
+                      dataType="numeric"
+                      name="KAWRT_K"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KWAEH]"
+                      dataType="wstr"
+                      length="5"
+                      name="KWAEH" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KWERT_K]"
+                      dataType="numeric"
+                      name="KWERT_K"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KFKIV]"
+                      dataType="wstr"
+                      length="1"
+                      name="KFKIV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KVARC]"
+                      dataType="wstr"
+                      length="1"
+                      name="KVARC" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KMPRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="KMPRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[PRSQU]"
+                      dataType="wstr"
+                      length="1"
+                      name="PRSQU" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[VARCOND]"
+                      dataType="wstr"
+                      length="26"
+                      name="VARCOND" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[STUFE]"
+                      dataType="numeric"
+                      name="STUFE"
+                      precision="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[WEGXX]"
+                      dataType="numeric"
+                      name="WEGXX"
+                      precision="5" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KTREL]"
+                      dataType="wstr"
+                      length="1"
+                      name="KTREL" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[MDFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="MDFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[TXJLV]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXJLV" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KBFLAG]"
+                      dataType="wstr"
+                      length="4"
+                      name="KBFLAG" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[KOLNR3]"
+                      dataType="wstr"
+                      length="3"
+                      name="KOLNR3" />
+                    <externalMetadataColumn
+                      refId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput].ExternalColumns[CPF_GUID]"
+                      dataType="wstr"
+                      length="32"
+                      name="CPF_GUID" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read KONV.Paths[SAP_KONV_XtractOutput_Dest_SAP_KONV]"
+              endId="Package\Read KONV\Dest_SAP_KONV.Inputs[SAP_KONV_XtractOutput_Dest_SAP_KONV]"
+              name="SAP_KONV_XtractOutput_Dest_SAP_KONV"
+              startId="Package\Read KONV\SAP_KONV.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_KONV"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{50222449-98AD-4F3A-8E8C-0F2B0C1E228D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_KONV"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{88C15486-C101-4C4C-A0D3-2D0918027FE3}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_KONV]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_KONV_To_Read KONV]"
+      DTS:CreationName=""
+      DTS:DTSID="{13B63F20-F829-45DC-A8E5-0CEC6B9BA461}"
+      DTS:From="Package\TRUNCATE SAP_KONV"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_KONV_To_Read KONV"
+      DTS:To="Package\Read KONV" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

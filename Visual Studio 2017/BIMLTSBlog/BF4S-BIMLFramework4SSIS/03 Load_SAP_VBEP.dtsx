@@ -1,0 +1,853 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:32" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{BDD8B39D-8E04-4740-807D-A037D34765EB}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_VBEP" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{CA790E45-E6FD-406C-A4C2-71DD368E0E7B}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{85D80C10-CB32-49C3-BF99-35370C631288}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{967C0EA6-5784-456C-85C6-52033E8A63D3}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{09847947-72A8-471C-96F8-9968819CC5EB}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_VBEP" DTS:refId="Package\TRUNCATE SAP_VBEP" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_VBEP]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{6244197D-C611-461E-9AD7-B68BECD04AC9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read VBEP" DTS:refId="Package\Read VBEP" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_VBEP" refId="Package\Read VBEP\SAP_VBEP">
+              <connections>
+                <connection connectionManagerID="{967C0EA6-5784-456C-85C6-52033E8A63D3}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read VBEP\SAP_VBEP.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[POSNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ETENR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ETENR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ETTYP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ETTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFREL" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LFREL]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EDATU" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[EDATU]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="EZEIT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[EZEIT]" />
+                    <externalMetadataColumn dataType="numeric" name="WMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[WMENG]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="BMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VRKME" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[VRKME]" />
+                    <externalMetadataColumn dataType="numeric" name="LMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="BDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BDART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BDART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[PLART]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[VBELE]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[POSNE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ETENE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ETENE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="RSDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[RSDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="IDNNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[IDNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BANFN" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BANFN]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BSART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BSART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BSTYP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WEPOS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[WEPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="REPOS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[REPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="LRGDT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LRGDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PRGRS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[PRGRS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="TDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[TDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="MBDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[MBDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="LDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="WADAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[WADAT]" />
+                    <externalMetadataColumn dataType="numeric" name="CMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[CMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="LIFSP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LIFSP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GRSTR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[GRSTR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ABART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ABART]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ABRUF" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ABRUF]" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS1" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ROMS1]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS2" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ROMS2]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS3" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ROMS3]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ROMEI" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ROMEI]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="RFORM" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[RFORM]" />
+                    <externalMetadataColumn dataType="numeric" name="UMVKZ" precision="6" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[UMVKZ]" />
+                    <externalMetadataColumn dataType="numeric" name="UMVKN" precision="6" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[UMVKN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VERFP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[VERFP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BWART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BWART]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="BNFPO" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[BNFPO]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ETART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ETART]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AUFNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[AUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PLNUM" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[PLNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="SERNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[SERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="17" name="AESKD" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[AESKD]" />
+                    <externalMetadataColumn dataType="r8" name="ABGES" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[ABGES]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="MBUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[MBUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="TDUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[TDUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="LDUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[LDUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="WAUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[WAUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AULWE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[AULWE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="HANDOVERDATE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[HANDOVERDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="HANDOVERTIME" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[HANDOVERTIME]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="MBDAT_DRS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].ExternalColumns[MBDAT_DRS]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELN]" name="VBELN" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELN]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNR]" name="POSNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENR]" name="ETENR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENR]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETTYP]" name="ETTYP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETTYP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LFREL]" name="LFREL" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LFREL]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EDATU]" name="EDATU" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EDATU]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EZEIT]" name="EZEIT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EZEIT]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WMENG]" name="WMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WMENG]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BMENG]" name="BMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BMENG]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VRKME]" name="VRKME" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VRKME]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LMENG]" name="LMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LMENG]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MEINS]" name="MEINS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MEINS]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDDAT]" name="BDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDDAT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDART]" name="BDART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDART]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLART]" name="PLART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLART]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELE]" name="VBELE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELE]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNE]" name="POSNE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNE]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENE]" name="ETENE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENE]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RSDAT]" name="RSDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RSDAT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[IDNNR]" name="IDNNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[IDNNR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BANFN]" name="BANFN" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BANFN]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSART]" name="BSART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSART]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSTYP]" name="BSTYP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSTYP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WEPOS]" name="WEPOS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WEPOS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[REPOS]" name="REPOS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[REPOS]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LRGDT]" name="LRGDT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LRGDT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PRGRS]" name="PRGRS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PRGRS]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDDAT]" name="TDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDDAT]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT]" name="MBDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDDAT]" name="LDDAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDDAT]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WADAT]" name="WADAT" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WADAT]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[CMENG]" name="CMENG" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[CMENG]" scale="3" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LIFSP]" name="LIFSP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LIFSP]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[GRSTR]" name="GRSTR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[GRSTR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABART]" name="ABART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABART]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABRUF]" name="ABRUF" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABRUF]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS1]" name="ROMS1" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS1]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS2]" name="ROMS2" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS2]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS3]" name="ROMS3" precision="17" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS3]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMEI]" name="ROMEI" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMEI]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RFORM]" name="RFORM" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RFORM]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKZ]" name="UMVKZ" precision="6" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKZ]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKN]" name="UMVKN" precision="6" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKN]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VERFP]" name="VERFP" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VERFP]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BWART]" name="BWART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BWART]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BNFPO]" name="BNFPO" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BNFPO]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETART]" name="ETART" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETART]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AUFNR]" name="AUFNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AUFNR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLNUM]" name="PLNUM" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLNUM]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[SERNR]" name="SERNR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[SERNR]" />
+                    <outputColumn dataType="wstr" length="17" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AESKD]" name="AESKD" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AESKD]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABGES]" name="ABGES" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABGES]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBUHR]" name="MBUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBUHR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDUHR]" name="TDUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDUHR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDUHR]" name="LDUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDUHR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WAUHR]" name="WAUHR" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WAUHR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AULWE]" name="AULWE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AULWE]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERDATE]" name="HANDOVERDATE" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERDATE]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERTIME]" name="HANDOVERTIME" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERTIME]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT_DRS]" name="MBDAT_DRS" refId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT_DRS]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">VBEP</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;POSNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Document Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ETENR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery Schedule Line Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ETTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Schedule line category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFREL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item is relevant for delivery&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EDATU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Schedule line date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EZEIT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Arrival time&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WMENG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order quantity in sales units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BMENG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Confirmed Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRKME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LMENG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Required quantity for mat.management in stockkeeping units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Base Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BDDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requirement date (deadline for procurement)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BDART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requirement type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planning type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business document number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;POSNE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business item number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ETENE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Schedule line&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RSDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Earliest possible reservation date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IDNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Maintenance request&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BANFN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchase Requisition Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BSART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Type (Purchasing)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BSTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchasing Document Category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Confirmation status of schedule line (incl.ALE)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Invoice Receipt Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LRGDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Return date for returnable packaging&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRGRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date type (day, week, month, interval)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TDDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transportation Planning Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MBDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Staging/Availability Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LDDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Loading Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WADAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Goods Issue Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CMENG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Corrected quantity in sales unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFSP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Schedule line blocked for delivery&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRSTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Group definition of structure data&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Release type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABRUF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Forecast Delivery schedule number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ROMS1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Committed quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ROMS2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Size 2&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ROMS3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Size 3&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ROMEI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of measure for sizes 1 to 3&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFORM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMVKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Numerator (factor) for conversion of sales quantity into SKU&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMVKN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Denominator (Divisor) for Conversion of Sales Qty into SKU&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERFP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Availability confirmed automatically&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BWART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Movement Type (Inventory Management)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BNFPO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number of Purchase Requisition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ETART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Schedule line type EDI&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLNUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planned order number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SERNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;BOM explosion number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AESKD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer Engineering Change Status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABGES&lt;/ColName&gt;
+        &lt;ColDescription&gt;Guaranteed (factor between 0 and 1)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MBUHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Staging Time (Local, Relating to a Plant)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TDUHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transp. Planning Time (Local, Relating to a Shipping Point)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LDUHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Loading Time (Local Time Relating to a Shipping Point)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAUHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time of Goods Issue (Local, Relating to a Plant)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AULWE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Route Schedule&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HANDOVERDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Handover Date at the Handover Location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HANDOVERTIME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Handover time at the handover location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MBDAT_DRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Availability Date Third-Party Order Planning&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_VBEP" name="Dest_SAP_VBEP" refId="Package\Read VBEP\Dest_SAP_VBEP" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{85D80C10-CB32-49C3-BF99-35370C631288}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read VBEP\Dest_SAP_VBEP.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_VBEP_XtractOutput_Dest_SAP_VBEP" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[POSNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ETENR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETENR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ETTYP" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFREL" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LFREL]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EDATU" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[EDATU]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="EZEIT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[EZEIT]" />
+                    <externalMetadataColumn dataType="numeric" name="WMENG" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WMENG]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="BMENG" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VRKME" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VRKME]" />
+                    <externalMetadataColumn dataType="numeric" name="LMENG" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="BDDAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BDART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BDART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PLART]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELE" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VBELE]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNE" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[POSNE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ETENE" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETENE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="RSDAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[RSDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="IDNNR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[IDNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BANFN" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BANFN]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BSART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BSART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BSTYP" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WEPOS" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WEPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="REPOS" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[REPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="LRGDT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LRGDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PRGRS" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PRGRS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="TDDAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[TDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="MBDAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="LDDAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LDDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="WADAT" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WADAT]" />
+                    <externalMetadataColumn dataType="numeric" name="CMENG" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[CMENG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="LIFSP" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LIFSP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GRSTR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[GRSTR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ABART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABART]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ABRUF" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABRUF]" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS1" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS1]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS2" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS2]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="ROMS3" precision="17" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS3]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ROMEI" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMEI]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="RFORM" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[RFORM]" />
+                    <externalMetadataColumn dataType="numeric" name="UMVKZ" precision="6" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[UMVKZ]" />
+                    <externalMetadataColumn dataType="numeric" name="UMVKN" precision="6" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[UMVKN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VERFP" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VERFP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BWART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BWART]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="BNFPO" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BNFPO]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ETART" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETART]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AUFNR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PLNUM" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PLNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="SERNR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[SERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="17" name="AESKD" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AESKD]" />
+                    <externalMetadataColumn dataType="r8" name="ABGES" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABGES]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="MBUHR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="TDUHR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[TDUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="LDUHR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LDUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="WAUHR" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WAUHR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AULWE" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AULWE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="HANDOVERDATE" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[HANDOVERDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="HANDOVERTIME" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[HANDOVERTIME]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="MBDAT_DRS" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBDAT_DRS]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MANDT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="VBELN" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VBELN]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELN]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[VBELN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="POSNR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[POSNR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[POSNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ETENR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETENR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ETENR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ETTYP" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETTYP]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETTYP]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ETTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LFREL" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LFREL]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LFREL]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LFREL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="EDATU" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[EDATU]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EDATU]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[EDATU]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="EZEIT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[EZEIT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[EZEIT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[EZEIT]" />
+                    <inputColumn cachedDataType="numeric" cachedName="WMENG" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WMENG]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WMENG]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[WMENG]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BMENG" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BMENG]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BMENG]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BMENG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="VRKME" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VRKME]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VRKME]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[VRKME]" />
+                    <inputColumn cachedDataType="numeric" cachedName="LMENG" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LMENG]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LMENG]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LMENG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MEINS" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MEINS]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MEINS]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[MEINS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="BDDAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BDDAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDDAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BDDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="BDART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BDART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BDART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BDART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PLART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PLART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[PLART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="VBELE" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VBELE]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VBELE]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[VBELE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="POSNE" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[POSNE]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[POSNE]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[POSNE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ETENE" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETENE]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETENE]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ETENE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="RSDAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[RSDAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RSDAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[RSDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="IDNNR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[IDNNR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[IDNNR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[IDNNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="BANFN" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BANFN]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BANFN]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BANFN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BSART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BSART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BSART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="BSTYP" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BSTYP]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BSTYP]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BSTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WEPOS" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WEPOS]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WEPOS]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[WEPOS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="REPOS" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[REPOS]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[REPOS]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[REPOS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="LRGDT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LRGDT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LRGDT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LRGDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PRGRS" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PRGRS]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PRGRS]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[PRGRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="TDDAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[TDDAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDDAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[TDDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="MBDAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBDAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[MBDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="LDDAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LDDAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDDAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LDDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="WADAT" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WADAT]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WADAT]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[WADAT]" />
+                    <inputColumn cachedDataType="numeric" cachedName="CMENG" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[CMENG]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[CMENG]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[CMENG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="LIFSP" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LIFSP]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LIFSP]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LIFSP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="GRSTR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[GRSTR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[GRSTR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[GRSTR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ABART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ABART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="ABRUF" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABRUF]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABRUF]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ABRUF]" />
+                    <inputColumn cachedDataType="numeric" cachedName="ROMS1" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS1]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS1]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ROMS1]" />
+                    <inputColumn cachedDataType="numeric" cachedName="ROMS2" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS2]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS2]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ROMS2]" />
+                    <inputColumn cachedDataType="numeric" cachedName="ROMS3" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMS3]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMS3]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ROMS3]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ROMEI" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ROMEI]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ROMEI]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ROMEI]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="RFORM" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[RFORM]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[RFORM]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[RFORM]" />
+                    <inputColumn cachedDataType="numeric" cachedName="UMVKZ" cachedPrecision="6" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[UMVKZ]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKZ]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[UMVKZ]" />
+                    <inputColumn cachedDataType="numeric" cachedName="UMVKN" cachedPrecision="6" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[UMVKN]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[UMVKN]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[UMVKN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="VERFP" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[VERFP]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[VERFP]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[VERFP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="BWART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BWART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BWART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BWART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="BNFPO" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[BNFPO]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[BNFPO]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[BNFPO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ETART" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ETART]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ETART]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ETART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="AUFNR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AUFNR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AUFNR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[AUFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="PLNUM" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[PLNUM]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[PLNUM]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[PLNUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="SERNR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[SERNR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[SERNR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[SERNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="17" cachedName="AESKD" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AESKD]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AESKD]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[AESKD]" />
+                    <inputColumn cachedDataType="r8" cachedName="ABGES" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[ABGES]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[ABGES]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[ABGES]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="MBUHR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBUHR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBUHR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[MBUHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="TDUHR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[TDUHR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[TDUHR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[TDUHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="LDUHR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[LDUHR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[LDUHR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[LDUHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="WAUHR" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[WAUHR]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[WAUHR]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[WAUHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="AULWE" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[AULWE]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[AULWE]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[AULWE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="HANDOVERDATE" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[HANDOVERDATE]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERDATE]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[HANDOVERDATE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="HANDOVERTIME" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[HANDOVERTIME]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[HANDOVERTIME]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[HANDOVERTIME]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="MBDAT_DRS" externalMetadataColumnId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].ExternalColumns[MBDAT_DRS]" lineageId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput].Columns[MBDAT_DRS]" name="" refId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP].Columns[MBDAT_DRS]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read VBEP\Dest_SAP_VBEP.Outputs[Error]" synchronousInputId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read VBEP\Dest_SAP_VBEP.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read VBEP\Dest_SAP_VBEP.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read VBEP\Dest_SAP_VBEP.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read VBEP\Dest_SAP_VBEP.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_VBEP</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read VBEP\Dest_SAP_VBEP.Inputs[SAP_VBEP_XtractOutput_Dest_SAP_VBEP]" name="SAP_VBEP_XtractOutput_Dest_SAP_VBEP" refId="Package\Read VBEP.Paths[SAP_VBEP_XtractOutput_Dest_SAP_VBEP]" startId="Package\Read VBEP\SAP_VBEP.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{F019F278-72B2-4A50-A9EB-28215C10B08D}" DTS:From="Package\TRUNCATE SAP_VBEP" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_VBEP_To_Read VBEP" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_VBEP_To_Read VBEP]" DTS:To="Package\Read VBEP" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

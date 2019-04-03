@@ -1,0 +1,2735 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/3/2019 3:35:40 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{F5E380EC-5AD0-4727-A54A-C09FBF45EC7B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_T001"
+  DTS:VersionGUID="{9761BDD9-A6C1-43CB-8B29-88ABAE0C3DAF}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{3FB52E4B-382F-4F40-BC01-749A2C88D8AE}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{EFAA589D-F287-4897-B75D-802B7495E1DE}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read T001"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{084F8EB4-74BB-46A7-93C3-14D36CFBFBBE}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read T001"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read T001\Dest_SAP_T001"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_T001"
+              name="Dest_SAP_T001"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_T001</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read T001\Dest_SAP_T001.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_T001_XtractOutput_Dest_SAP_T001">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MANDT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[BUKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="BUKRS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUKRS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[BUTXT]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="BUTXT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUTXT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUTXT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[ORT01]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="ORT01"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[ORT01]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ORT01]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[LAND1]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LAND1"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[LAND1]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[LAND1]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[WAERS]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="WAERS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WAERS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAERS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[SPRAS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="SPRAS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[SPRAS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SPRAS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[KTOPL]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KTOPL"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KTOPL]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOPL]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[WAABW]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="WAABW"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WAABW]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAABW]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[PERIV]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="PERIV"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PERIV]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PERIV]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[KOKFI]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KOKFI"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KOKFI]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOKFI]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[RCOMP]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="RCOMP"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[RCOMP]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[RCOMP]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[ADRNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ADRNR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[ADRNR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ADRNR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[STCEG]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="STCEG"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[STCEG]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[STCEG]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FIKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FIKRS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FIKRS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FIKRS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFMCO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFMCO"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCO]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCO]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFMCB]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFMCB"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCB]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCB]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFMCA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFMCA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[TXJCD]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="TXJCD"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[TXJCD]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXJCD]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FMHRDATE]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="FMHRDATE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FMHRDATE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FMHRDATE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[BUVAR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="BUVAR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUVAR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUVAR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FDBUK]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FDBUK"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FDBUK]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FDBUK]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFDIS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFDIS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDIS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDIS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XVALV]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XVALV"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVALV]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVALV]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XSKFN]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XSKFN"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSKFN]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSKFN]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[KKBER]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KKBER"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KKBER]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KKBER]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XMWSN]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XMWSN"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XMWSN]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XMWSN]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[MREGL]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="MREGL"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MREGL]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MREGL]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XGSBE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XGSBE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XGSBE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGSBE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XGJRV]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XGJRV"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XGJRV]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGJRV]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XKDFT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XKDFT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XKDFT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKDFT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XPROD]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XPROD"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XPROD]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XPROD]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XEINK]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XEINK"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XEINK]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEINK]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XJVAA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XJVAA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XJVAA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XJVAA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XVVWA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XVVWA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVVWA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVVWA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XSLTA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XSLTA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSLTA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSLTA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFDMM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFDMM"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDMM]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDMM]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XFDSD]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFDSD"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDSD]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDSD]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XEXTB]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XEXTB"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XEXTB]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEXTB]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[EBUKR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="EBUKR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[EBUKR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[EBUKR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[KTOP2]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KTOP2"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KTOP2]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOP2]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[UMKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="UMKRS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[UMKRS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[UMKRS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[BUKRS_GLOB]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="BUKRS_GLOB"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUKRS_GLOB]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS_GLOB]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FSTVA]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FSTVA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FSTVA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[OPVAR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="OPVAR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[OPVAR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OPVAR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XCOVR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XCOVR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCOVR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOVR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[TXKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="TXKRS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[TXKRS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXKRS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[WFVAR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="WFVAR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WFVAR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WFVAR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XBBBF]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBBBF"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBF]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBF]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XBBBE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBBBE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XBBBA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBBBA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XBBKO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBBKO"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBKO]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBKO]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XSTDT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XSTDT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSTDT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSTDT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[MWSKV]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MWSKV"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MWSKV]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKV]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[MWSKA]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MWSKA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MWSKA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[IMPDA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="IMPDA"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[IMPDA]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[IMPDA]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XNEGP]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XNEGP"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XNEGP]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XNEGP]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XKKBI]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XKKBI"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XKKBI]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKKBI]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[WT_NEWWT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="WT_NEWWT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WT_NEWWT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WT_NEWWT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[PP_PDATE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="PP_PDATE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PP_PDATE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PP_PDATE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[INFMT]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="INFMT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[INFMT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[INFMT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FSTVARE]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FSTVARE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FSTVARE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVARE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[KOPIM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KOPIM"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KOPIM]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOPIM]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DKWEG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="DKWEG"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DKWEG]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DKWEG]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[OFFSACCT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="OFFSACCT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[OFFSACCT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OFFSACCT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[BAPOVAR]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BAPOVAR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BAPOVAR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BAPOVAR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XCOS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XCOS"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCOS]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOS]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XCESSION]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XCESSION"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCESSION]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCESSION]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XSPLT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XSPLT"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSPLT]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSPLT]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[SURCCM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="SURCCM"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[SURCCM]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SURCCM]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DTPROV]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="DTPROV"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTPROV]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTPROV]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DTAMTC]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="DTAMTC"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTAMTC]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAMTC]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DTTAXC]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="DTTAXC"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTTAXC]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTAXC]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DTTDSP]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="DTTDSP"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTTDSP]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTDSP]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[DTAXR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="DTAXR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTAXR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAXR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XVATDATE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XVATDATE"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVATDATE]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVATDATE]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[PST_PER_VAR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="PST_PER_VAR"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PST_PER_VAR]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PST_PER_VAR]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[XBBSC]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBBSC"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBSC]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBSC]" />
+                    <inputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].Columns[FM_DERIVE_ACC]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="FM_DERIVE_ACC"
+                      externalMetadataColumnId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FM_DERIVE_ACC]"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FM_DERIVE_ACC]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="BUKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUTXT]"
+                      dataType="wstr"
+                      length="25"
+                      name="BUTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[ORT01]"
+                      dataType="wstr"
+                      length="25"
+                      name="ORT01" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[LAND1]"
+                      dataType="wstr"
+                      length="3"
+                      name="LAND1" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      name="WAERS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KTOPL]"
+                      dataType="wstr"
+                      length="4"
+                      name="KTOPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WAABW]"
+                      dataType="wstr"
+                      length="2"
+                      name="WAABW" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PERIV]"
+                      dataType="wstr"
+                      length="2"
+                      name="PERIV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KOKFI]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOKFI" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[RCOMP]"
+                      dataType="wstr"
+                      length="6"
+                      name="RCOMP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[ADRNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="ADRNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[STCEG]"
+                      dataType="wstr"
+                      length="20"
+                      name="STCEG" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FIKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="FIKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCO" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCB]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFMCA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[TXJCD]"
+                      dataType="wstr"
+                      length="15"
+                      name="TXJCD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FMHRDATE]"
+                      dataType="wstr"
+                      length="8"
+                      name="FMHRDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUVAR]"
+                      dataType="wstr"
+                      length="1"
+                      name="BUVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FDBUK]"
+                      dataType="wstr"
+                      length="4"
+                      name="FDBUK" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDIS]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDIS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVALV]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVALV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSKFN]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSKFN" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KKBER]"
+                      dataType="wstr"
+                      length="4"
+                      name="KKBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XMWSN]"
+                      dataType="wstr"
+                      length="1"
+                      name="XMWSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MREGL]"
+                      dataType="wstr"
+                      length="4"
+                      name="MREGL" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XGSBE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XGSBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XGJRV]"
+                      dataType="wstr"
+                      length="1"
+                      name="XGJRV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XKDFT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XKDFT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XPROD]"
+                      dataType="wstr"
+                      length="1"
+                      name="XPROD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XEINK]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEINK" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XJVAA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XJVAA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVVWA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVVWA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSLTA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSLTA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDMM]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDMM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XFDSD]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDSD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XEXTB]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEXTB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[EBUKR]"
+                      dataType="wstr"
+                      length="4"
+                      name="EBUKR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KTOP2]"
+                      dataType="wstr"
+                      length="4"
+                      name="KTOP2" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[UMKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="UMKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BUKRS_GLOB]"
+                      dataType="wstr"
+                      length="6"
+                      name="BUKRS_GLOB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FSTVA]"
+                      dataType="wstr"
+                      length="4"
+                      name="FSTVA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[OPVAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="OPVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCOVR]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCOVR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[TXKRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WFVAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="WFVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBF]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBF" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBBA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBKO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBKO" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSTDT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSTDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MWSKV]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSKV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[MWSKA]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSKA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[IMPDA]"
+                      dataType="wstr"
+                      length="1"
+                      name="IMPDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XNEGP]"
+                      dataType="wstr"
+                      length="1"
+                      name="XNEGP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XKKBI]"
+                      dataType="wstr"
+                      length="1"
+                      name="XKKBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[WT_NEWWT]"
+                      dataType="wstr"
+                      length="1"
+                      name="WT_NEWWT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PP_PDATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="PP_PDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[INFMT]"
+                      dataType="wstr"
+                      length="4"
+                      name="INFMT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FSTVARE]"
+                      dataType="wstr"
+                      length="4"
+                      name="FSTVARE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[KOPIM]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOPIM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DKWEG]"
+                      dataType="wstr"
+                      length="1"
+                      name="DKWEG" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[OFFSACCT]"
+                      dataType="wstr"
+                      length="1"
+                      name="OFFSACCT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[BAPOVAR]"
+                      dataType="wstr"
+                      length="2"
+                      name="BAPOVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCOS]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XCESSION]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCESSION" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XSPLT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSPLT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[SURCCM]"
+                      dataType="wstr"
+                      length="1"
+                      name="SURCCM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTPROV]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTPROV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTAMTC]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTAMTC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTTAXC]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTTAXC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTTDSP]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTTDSP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[DTAXR]"
+                      dataType="wstr"
+                      length="4"
+                      name="DTAXR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XVATDATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVATDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[PST_PER_VAR]"
+                      dataType="wstr"
+                      length="1"
+                      name="PST_PER_VAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[XBBSC]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBSC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001].ExternalColumns[FM_DERIVE_ACC]"
+                      dataType="wstr"
+                      length="1"
+                      name="FM_DERIVE_ACC" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read T001\Dest_SAP_T001.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read T001\Dest_SAP_T001.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read T001\Dest_SAP_T001.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read T001\Dest_SAP_T001.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read T001\SAP_T001"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_T001">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">T001
+     
+     </property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">5000</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUTXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;name of company code or company&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ORT01&lt;/ColName&gt;
+        &lt;ColDescription&gt;city&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LAND1&lt;/ColName&gt;
+        &lt;ColDescription&gt;country key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAERS&lt;/ColName&gt;
+        &lt;ColDescription&gt;currency key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+        &lt;ColDescription&gt;language key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTOPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;chart of accounts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAABW&lt;/ColName&gt;
+        &lt;ColDescription&gt;maximum exchange rate deviation in percent&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PERIV&lt;/ColName&gt;
+        &lt;ColDescription&gt;fiscal year variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOKFI&lt;/ColName&gt;
+        &lt;ColDescription&gt;allocation indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RCOMP&lt;/ColName&gt;
+        &lt;ColDescription&gt;company&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ADRNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;address&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STCEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;vat registration number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FIKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;financial management area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFMCO&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: project cash management active?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFMCB&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: cash budget management active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFMCA&lt;/ColName&gt;
+        &lt;ColDescription&gt;activate update in funds management&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXJCD&lt;/ColName&gt;
+        &lt;ColDescription&gt;jurisdiction for tax calculation - tax jurisdiction code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMHRDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;funds center can be assigned to an account in hr from&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUVAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;company code variant (screen)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FDBUK&lt;/ColName&gt;
+        &lt;ColDescription&gt;cash management and forecast company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFDIS&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: cash management activated?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XVALV&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: propose current date as value date ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSKFN&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: discount base amount is the net value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KKBER&lt;/ColName&gt;
+        &lt;ColDescription&gt;credit control area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XMWSN&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: base amount for tax is net of discount ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MREGL&lt;/ColName&gt;
+        &lt;ColDescription&gt;rules for copying from the sample account for g/l accounts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XGSBE&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: business area financial statements required?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XGJRV&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: propose fiscal year ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XKDFT&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: post translations for exchange rate differences ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XPROD&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: productive company code?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XEINK&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: purchase account processing is active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XJVAA&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: jva active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XVVWA&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: financial assets management active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSLTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: no ex.rate difference when clearing in local crcy&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFDMM&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: updating mm in cash mgmt/forecast activated?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFDSD&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: updating sd in cash mgmt/forecast activated?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XEXTB&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: company code is in another system&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EBUKR&lt;/ColName&gt;
+        &lt;ColDescription&gt;original key of the company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTOP2&lt;/ColName&gt;
+        &lt;ColDescription&gt;chart of accounts according to country legislation&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;sales/purchases tax group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS_GLOB&lt;/ColName&gt;
+        &lt;ColDescription&gt;name of global company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FSTVA&lt;/ColName&gt;
+        &lt;ColDescription&gt;field status variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OPVAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;posting period variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XCOVR&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: hedge request active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;foreign currency translation for tax items&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WFVAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;workflow variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBBBF&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account authorization check in inventory management&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBBBE&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account authorization check in po/scheduling agreement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBBBA&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account authorization check in purchase requisitions&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBBKO&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account authorization check in contracts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSTDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: document date as the basis for tax determination&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MWSKV&lt;/ColName&gt;
+        &lt;ColDescription&gt;input tax code for non-taxable transactions&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MWSKA&lt;/ColName&gt;
+        &lt;ColDescription&gt;output tax code for non-taxable transactions&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IMPDA&lt;/ColName&gt;
+        &lt;ColDescription&gt;foreign trade: import data control in mm purchase orders&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XNEGP&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: negative postings permitted&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XKKBI&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: can credit control area be overwritten?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WT_NEWWT&lt;/ColName&gt;
+        &lt;ColDescription&gt;indicator: extended withholding tax active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PP_PDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;procedure for setting the posting date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INFMT&lt;/ColName&gt;
+        &lt;ColDescription&gt;inflation method&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FSTVARE&lt;/ColName&gt;
+        &lt;ColDescription&gt;funds reservation field status var.&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOPIM&lt;/ColName&gt;
+        &lt;ColDescription&gt;foreign trade: import data copying control for gr&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DKWEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;foreign trade: screen ctrl of imp.data f. mm-goods rececipt&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OFFSACCT&lt;/ColName&gt;
+        &lt;ColDescription&gt;method for offsetting account determination&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BAPOVAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;additional settings variant for bus.area financial statemnts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XCOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;cost of sales accounting status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XCESSION&lt;/ColName&gt;
+        &lt;ColDescription&gt;accounts receivable pledging active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSPLT&lt;/ColName&gt;
+        &lt;ColDescription&gt;enable amount split&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SURCCM&lt;/ColName&gt;
+        &lt;ColDescription&gt;surcharge calculation method&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTPROV&lt;/ColName&gt;
+        &lt;ColDescription&gt;document type for provisions for taxes on services received&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTAMTC&lt;/ColName&gt;
+        &lt;ColDescription&gt;document type for journal voucher (amount correction)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTTAXC&lt;/ColName&gt;
+        &lt;ColDescription&gt;document type for journal voucher (tax code correction)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTTDSP&lt;/ColName&gt;
+        &lt;ColDescription&gt;document type for remittance challans&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DTAXR&lt;/ColName&gt;
+        &lt;ColDescription&gt;deferred tax rule&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XVATDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;tax reporting date active in documents&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PST_PER_VAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;manage variant of posting period for company code/ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBBSC&lt;/ColName&gt;
+        &lt;ColDescription&gt;g/l account authorization check in shopping cart&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FM_DERIVE_ACC&lt;/ColName&gt;
+        &lt;ColDescription&gt;activate account assignment derivation in funds management&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read T001\SAP_T001.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read T001\SAP_T001.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS]"
+                      name="BUKRS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUTXT]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUTXT]"
+                      name="BUTXT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ORT01]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ORT01]"
+                      name="ORT01" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[LAND1]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[LAND1]"
+                      name="LAND1" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAERS]"
+                      name="WAERS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SPRAS]"
+                      name="SPRAS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOPL]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOPL]"
+                      name="KTOPL" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAABW]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WAABW]"
+                      name="WAABW" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PERIV]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PERIV]"
+                      name="PERIV" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOKFI]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOKFI]"
+                      name="KOKFI" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[RCOMP]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[RCOMP]"
+                      name="RCOMP" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ADRNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[ADRNR]"
+                      name="ADRNR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[STCEG]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[STCEG]"
+                      name="STCEG" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FIKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FIKRS]"
+                      name="FIKRS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCO]"
+                      name="XFMCO" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCB]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCB]"
+                      name="XFMCB" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFMCA]"
+                      name="XFMCA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXJCD]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXJCD]"
+                      name="TXJCD" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FMHRDATE]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FMHRDATE]"
+                      name="FMHRDATE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUVAR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUVAR]"
+                      name="BUVAR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FDBUK]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FDBUK]"
+                      name="FDBUK" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDIS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDIS]"
+                      name="XFDIS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVALV]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVALV]"
+                      name="XVALV" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSKFN]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSKFN]"
+                      name="XSKFN" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KKBER]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KKBER]"
+                      name="KKBER" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XMWSN]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XMWSN]"
+                      name="XMWSN" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MREGL]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MREGL]"
+                      name="MREGL" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGSBE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGSBE]"
+                      name="XGSBE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGJRV]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XGJRV]"
+                      name="XGJRV" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKDFT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKDFT]"
+                      name="XKDFT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XPROD]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XPROD]"
+                      name="XPROD" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEINK]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEINK]"
+                      name="XEINK" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XJVAA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XJVAA]"
+                      name="XJVAA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVVWA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVVWA]"
+                      name="XVVWA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSLTA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSLTA]"
+                      name="XSLTA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDMM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDMM]"
+                      name="XFDMM" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDSD]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XFDSD]"
+                      name="XFDSD" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEXTB]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XEXTB]"
+                      name="XEXTB" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[EBUKR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[EBUKR]"
+                      name="EBUKR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOP2]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KTOP2]"
+                      name="KTOP2" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[UMKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[UMKRS]"
+                      name="UMKRS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS_GLOB]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BUKRS_GLOB]"
+                      name="BUKRS_GLOB" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVA]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVA]"
+                      name="FSTVA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OPVAR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OPVAR]"
+                      name="OPVAR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOVR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOVR]"
+                      name="XCOVR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXKRS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[TXKRS]"
+                      name="TXKRS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WFVAR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WFVAR]"
+                      name="WFVAR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBF]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBF]"
+                      name="XBBBF" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBE]"
+                      name="XBBBE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBBA]"
+                      name="XBBBA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBKO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBKO]"
+                      name="XBBKO" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSTDT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSTDT]"
+                      name="XSTDT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKV]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKV]"
+                      name="MWSKV" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKA]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[MWSKA]"
+                      name="MWSKA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[IMPDA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[IMPDA]"
+                      name="IMPDA" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XNEGP]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XNEGP]"
+                      name="XNEGP" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKKBI]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XKKBI]"
+                      name="XKKBI" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WT_NEWWT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[WT_NEWWT]"
+                      name="WT_NEWWT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PP_PDATE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PP_PDATE]"
+                      name="PP_PDATE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[INFMT]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[INFMT]"
+                      name="INFMT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVARE]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FSTVARE]"
+                      name="FSTVARE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOPIM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[KOPIM]"
+                      name="KOPIM" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DKWEG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DKWEG]"
+                      name="DKWEG" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OFFSACCT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[OFFSACCT]"
+                      name="OFFSACCT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BAPOVAR]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[BAPOVAR]"
+                      name="BAPOVAR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCOS]"
+                      name="XCOS" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCESSION]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XCESSION]"
+                      name="XCESSION" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSPLT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XSPLT]"
+                      name="XSPLT" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SURCCM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[SURCCM]"
+                      name="SURCCM" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTPROV]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTPROV]"
+                      name="DTPROV" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAMTC]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAMTC]"
+                      name="DTAMTC" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTAXC]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTAXC]"
+                      name="DTTAXC" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTDSP]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTTDSP]"
+                      name="DTTDSP" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAXR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[DTAXR]"
+                      name="DTAXR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVATDATE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XVATDATE]"
+                      name="XVATDATE" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PST_PER_VAR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[PST_PER_VAR]"
+                      name="PST_PER_VAR" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBSC]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[XBBSC]"
+                      name="XBBSC" />
+                    <outputColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FM_DERIVE_ACC]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read T001\SAP_T001.Outputs[XtractOutput].Columns[FM_DERIVE_ACC]"
+                      name="FM_DERIVE_ACC" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="BUKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[BUTXT]"
+                      dataType="wstr"
+                      length="25"
+                      name="BUTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[ORT01]"
+                      dataType="wstr"
+                      length="25"
+                      name="ORT01" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[LAND1]"
+                      dataType="wstr"
+                      length="3"
+                      name="LAND1" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[WAERS]"
+                      dataType="wstr"
+                      length="5"
+                      name="WAERS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[SPRAS]"
+                      dataType="wstr"
+                      length="2"
+                      name="SPRAS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[KTOPL]"
+                      dataType="wstr"
+                      length="4"
+                      name="KTOPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[WAABW]"
+                      dataType="wstr"
+                      length="2"
+                      name="WAABW" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[PERIV]"
+                      dataType="wstr"
+                      length="2"
+                      name="PERIV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[KOKFI]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOKFI" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[RCOMP]"
+                      dataType="wstr"
+                      length="6"
+                      name="RCOMP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[ADRNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="ADRNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[STCEG]"
+                      dataType="wstr"
+                      length="20"
+                      name="STCEG" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FIKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="FIKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFMCO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCO" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFMCB]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFMCA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFMCA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[TXJCD]"
+                      dataType="wstr"
+                      length="15"
+                      name="TXJCD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FMHRDATE]"
+                      dataType="wstr"
+                      length="8"
+                      name="FMHRDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[BUVAR]"
+                      dataType="wstr"
+                      length="1"
+                      name="BUVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FDBUK]"
+                      dataType="wstr"
+                      length="4"
+                      name="FDBUK" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFDIS]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDIS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XVALV]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVALV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XSKFN]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSKFN" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[KKBER]"
+                      dataType="wstr"
+                      length="4"
+                      name="KKBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XMWSN]"
+                      dataType="wstr"
+                      length="1"
+                      name="XMWSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[MREGL]"
+                      dataType="wstr"
+                      length="4"
+                      name="MREGL" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XGSBE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XGSBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XGJRV]"
+                      dataType="wstr"
+                      length="1"
+                      name="XGJRV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XKDFT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XKDFT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XPROD]"
+                      dataType="wstr"
+                      length="1"
+                      name="XPROD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XEINK]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEINK" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XJVAA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XJVAA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XVVWA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVVWA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XSLTA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSLTA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFDMM]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDMM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XFDSD]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFDSD" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XEXTB]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEXTB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[EBUKR]"
+                      dataType="wstr"
+                      length="4"
+                      name="EBUKR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[KTOP2]"
+                      dataType="wstr"
+                      length="4"
+                      name="KTOP2" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[UMKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="UMKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[BUKRS_GLOB]"
+                      dataType="wstr"
+                      length="6"
+                      name="BUKRS_GLOB" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FSTVA]"
+                      dataType="wstr"
+                      length="4"
+                      name="FSTVA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[OPVAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="OPVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XCOVR]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCOVR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[TXKRS]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[WFVAR]"
+                      dataType="wstr"
+                      length="4"
+                      name="WFVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XBBBF]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBF" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XBBBE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XBBBA]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBBA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XBBKO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBKO" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XSTDT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSTDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[MWSKV]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSKV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[MWSKA]"
+                      dataType="wstr"
+                      length="2"
+                      name="MWSKA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[IMPDA]"
+                      dataType="wstr"
+                      length="1"
+                      name="IMPDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XNEGP]"
+                      dataType="wstr"
+                      length="1"
+                      name="XNEGP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XKKBI]"
+                      dataType="wstr"
+                      length="1"
+                      name="XKKBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[WT_NEWWT]"
+                      dataType="wstr"
+                      length="1"
+                      name="WT_NEWWT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[PP_PDATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="PP_PDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[INFMT]"
+                      dataType="wstr"
+                      length="4"
+                      name="INFMT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FSTVARE]"
+                      dataType="wstr"
+                      length="4"
+                      name="FSTVARE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[KOPIM]"
+                      dataType="wstr"
+                      length="1"
+                      name="KOPIM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DKWEG]"
+                      dataType="wstr"
+                      length="1"
+                      name="DKWEG" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[OFFSACCT]"
+                      dataType="wstr"
+                      length="1"
+                      name="OFFSACCT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[BAPOVAR]"
+                      dataType="wstr"
+                      length="2"
+                      name="BAPOVAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XCOS]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XCESSION]"
+                      dataType="wstr"
+                      length="1"
+                      name="XCESSION" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XSPLT]"
+                      dataType="wstr"
+                      length="1"
+                      name="XSPLT" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[SURCCM]"
+                      dataType="wstr"
+                      length="1"
+                      name="SURCCM" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DTPROV]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTPROV" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DTAMTC]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTAMTC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DTTAXC]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTTAXC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DTTDSP]"
+                      dataType="wstr"
+                      length="2"
+                      name="DTTDSP" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[DTAXR]"
+                      dataType="wstr"
+                      length="4"
+                      name="DTAXR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XVATDATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="XVATDATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[PST_PER_VAR]"
+                      dataType="wstr"
+                      length="1"
+                      name="PST_PER_VAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[XBBSC]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBBSC" />
+                    <externalMetadataColumn
+                      refId="Package\Read T001\SAP_T001.Outputs[XtractOutput].ExternalColumns[FM_DERIVE_ACC]"
+                      dataType="wstr"
+                      length="1"
+                      name="FM_DERIVE_ACC" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read T001.Paths[SAP_T001_XtractOutput_Dest_SAP_T001]"
+              endId="Package\Read T001\Dest_SAP_T001.Inputs[SAP_T001_XtractOutput_Dest_SAP_T001]"
+              name="SAP_T001_XtractOutput_Dest_SAP_T001"
+              startId="Package\Read T001\SAP_T001.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_T001"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{061D9755-68DA-4976-BEE9-43952D910523}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_T001"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EFAA589D-F287-4897-B75D-802B7495E1DE}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_T001]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_T001_To_Read T001]"
+      DTS:CreationName=""
+      DTS:DTSID="{134F184B-8CCA-4435-A51C-9BF7DBB523EB}"
+      DTS:From="Package\TRUNCATE SAP_T001"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_T001_To_Read T001"
+      DTS:To="Package\Read T001" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

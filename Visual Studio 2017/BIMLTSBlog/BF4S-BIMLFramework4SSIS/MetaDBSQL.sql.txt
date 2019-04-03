@@ -52,23 +52,33 @@ CREATE TABLE [meta].[SAP_FieldInfo](
 	[DECIMALS] [nvarchar](6) NULL,
 	[KEYFLAG] [nvarchar](1) NULL,
 	[CHECKTABLE] [nvarchar](30) NULL,
-	[DDTEXT] [nvarchar](60) NULL
+	[DDTEXT] [nvarchar](60) NULL,
+	[OUTPUTLEN] [nvarchar](6) NULL
 ) ON [PRIMARY]
 GO
 
 
-CREATE VIEW [meta].[SAP_UseColumns] AS
-SELECT *, CASE WHEN inttype IN ('P') THEN 'Decimal'
-          WHEN inttype IN ('C', 'N', 'D', 'T', 'F', 'X') THEN 'String'
-          WHEN inttype IN ('I') THEN 'Int64' ELSE 'UNKNOWN' END BimlType
-FROM(SELECT SAP.*
-     FROM [meta].[SAP_FieldInfo] SAP
-          INNER JOIN meta.sap_columns COL ON SAP.tabname=COL.tabname AND SAP.FIELDNAME=COL.fieldname
-     UNION ALL
-     SELECT SAP.*
-     FROM [meta].[SAP_FieldInfo] SAP
-          LEFT JOIN meta.sap_columns COL ON SAP.tabname=COL.tabname
-     WHERE COL.tabname IS NULL)a;
+
+
+--  VIEW [meta].[SAP_UseColumns]
+CREATE VIEW [meta].[SAP_UseColumns]
+AS
+SELECT        TABNAME, FIELDNAME, POSITION, INTTYPE, LENG, DECIMALS, KEYFLAG, CHECKTABLE, DDTEXT,OUTPUTLEN, 
+CASE 
+WHEN inttype IN ('P') THEN 'Decimal' 
+WHEN inttype IN ('F') THEN 'Double' 
+WHEN inttype IN ('C', 'N', 'D', 'T', 'X') THEN 'String' 
+WHEN inttype IN ('I') THEN 'Int64' 
+ELSE 'UNKNOWN' END AS BimlType
+FROM            (SELECT        SAP.TABNAME, SAP.FIELDNAME, SAP.POSITION, SAP.INTTYPE, SAP.LENG, SAP.DECIMALS, SAP.KEYFLAG, SAP.CHECKTABLE, SAP.DDTEXT, SAP.OUTPUTLEN
+                          FROM            meta.SAP_FieldInfo AS SAP INNER JOIN
+                                                    meta.SAP_Columns AS COL ON SAP.TABNAME = COL.TABNAME AND SAP.FIELDNAME = COL.FIELDNAME
+                          UNION ALL
+                          SELECT        SAP.TABNAME, SAP.FIELDNAME, SAP.POSITION, SAP.INTTYPE, SAP.LENG, SAP.DECIMALS, SAP.KEYFLAG, SAP.CHECKTABLE, SAP.DDTEXT,OUTPUTLEN
+                          FROM            meta.SAP_FieldInfo AS SAP LEFT OUTER JOIN
+                                                   meta.SAP_Columns AS COL ON SAP.TABNAME = COL.TABNAME
+                          WHERE        (COL.TABNAME IS NULL)) AS a
+GO
 
 
 -- Insert Data section 

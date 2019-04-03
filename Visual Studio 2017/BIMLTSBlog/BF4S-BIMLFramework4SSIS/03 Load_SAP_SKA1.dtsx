@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:30" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{F98B455B-6EC8-4378-A45E-129B0DBFDFA1}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_SKA1" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{1BAC12B8-2F37-4D8E-8B27-BDE561B697B3}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{487537E6-D107-47C2-B522-A9D9AEE3B638}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{84C789D3-A394-4C9D-A80E-ADC3E13FC857}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{0A7EDDB3-8A24-4791-821E-4FF41DC6FD17}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_SKA1" DTS:refId="Package\TRUNCATE SAP_SKA1" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_SKA1]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{2F09657E-1012-495E-8774-5EBB58A3B2E9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read SKA1" DTS:refId="Package\Read SKA1" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_SKA1" refId="Package\Read SKA1\SAP_SKA1">
+              <connections>
+                <connection connectionManagerID="{84C789D3-A394-4C9D-A80E-ADC3E13FC857}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read SKA1\SAP_SKA1.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOPL" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[KTOPL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XBILK" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[XBILK]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKAN" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[SAKAN]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BILKT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[BILKT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GVTYP" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[GVTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOKS" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[KTOKS]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="MUSTR" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[MUSTR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VBUND" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[VBUND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLOEV" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[XLOEV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEA" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[XSPEA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEB" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[XSPEB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEP" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[XSPEP]" />
+                    <externalMetadataColumn dataType="wstr" length="25" name="MCOD1" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[MCOD1]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FUNC_AREA" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].ExternalColumns[FUNC_AREA]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOPL]" name="KTOPL" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOPL]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKNR]" name="SAKNR" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XBILK]" name="XBILK" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XBILK]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKAN]" name="SAKAN" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKAN]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[BILKT]" name="BILKT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[BILKT]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERDAT]" name="ERDAT" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERNAM]" name="ERNAM" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERNAM]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[GVTYP]" name="GVTYP" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[GVTYP]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOKS]" name="KTOKS" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOKS]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MUSTR]" name="MUSTR" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MUSTR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[VBUND]" name="VBUND" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[VBUND]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XLOEV]" name="XLOEV" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XLOEV]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEA]" name="XSPEA" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEB]" name="XSPEB" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEB]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEP]" name="XSPEP" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEP]" />
+                    <outputColumn dataType="wstr" length="25" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MCOD1]" name="MCOD1" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MCOD1]" />
+                    <outputColumn dataType="wstr" length="16" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[FUNC_AREA]" name="FUNC_AREA" refId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[FUNC_AREA]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">SKA1</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTOPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Chart of Accounts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L Account Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBILK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Account is a balance sheet account?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKAN&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L account number, significant length&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BILKT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Group Account Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on which the Record Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Name of Person who Created the Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GVTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;P&amp;amp;L statement account type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTOKS&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L Account Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MUSTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of the sample account&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBUND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company ID of trading partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XLOEV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Account marked for deletion?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSPEA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: account is blocked for creation ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSPEB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Is Account Blocked for Posting?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSPEP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: account blocked for planning ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MCOD1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Search Term for Using Matchcode&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FUNC_AREA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Functional Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_SKA1" name="Dest_SAP_SKA1" refId="Package\Read SKA1\Dest_SAP_SKA1" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{487537E6-D107-47C2-B522-A9D9AEE3B638}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read SKA1\Dest_SAP_SKA1.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_SKA1_XtractOutput_Dest_SAP_SKA1" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOPL" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[KTOPL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XBILK" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XBILK]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKAN" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[SAKAN]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BILKT" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[BILKT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GVTYP" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[GVTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOKS" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[KTOKS]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="MUSTR" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MUSTR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VBUND" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[VBUND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLOEV" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XLOEV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEA" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEB" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSPEP" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEP]" />
+                    <externalMetadataColumn dataType="wstr" length="25" name="MCOD1" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MCOD1]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FUNC_AREA" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[FUNC_AREA]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MANDT]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KTOPL" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[KTOPL]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOPL]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[KTOPL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SAKNR" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[SAKNR]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKNR]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[SAKNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XBILK" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XBILK]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XBILK]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[XBILK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SAKAN" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[SAKAN]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[SAKAN]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[SAKAN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="BILKT" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[BILKT]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[BILKT]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[BILKT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="ERDAT" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[ERDAT]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERDAT]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[ERDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="ERNAM" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[ERNAM]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[ERNAM]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[ERNAM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="GVTYP" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[GVTYP]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[GVTYP]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[GVTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KTOKS" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[KTOKS]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[KTOKS]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[KTOKS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="MUSTR" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MUSTR]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MUSTR]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[MUSTR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="VBUND" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[VBUND]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[VBUND]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[VBUND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XLOEV" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XLOEV]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XLOEV]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[XLOEV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XSPEA" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEA]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEA]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[XSPEA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XSPEB" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEB]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEB]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[XSPEB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XSPEP" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[XSPEP]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[XSPEP]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[XSPEP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="25" cachedName="MCOD1" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[MCOD1]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[MCOD1]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[MCOD1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="16" cachedName="FUNC_AREA" externalMetadataColumnId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].ExternalColumns[FUNC_AREA]" lineageId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput].Columns[FUNC_AREA]" name="" refId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1].Columns[FUNC_AREA]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read SKA1\Dest_SAP_SKA1.Outputs[Error]" synchronousInputId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read SKA1\Dest_SAP_SKA1.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read SKA1\Dest_SAP_SKA1.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read SKA1\Dest_SAP_SKA1.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read SKA1\Dest_SAP_SKA1.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_SKA1</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read SKA1\Dest_SAP_SKA1.Inputs[SAP_SKA1_XtractOutput_Dest_SAP_SKA1]" name="SAP_SKA1_XtractOutput_Dest_SAP_SKA1" refId="Package\Read SKA1.Paths[SAP_SKA1_XtractOutput_Dest_SAP_SKA1]" startId="Package\Read SKA1\SAP_SKA1.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{50F4A13D-0D50-4D82-80F1-3D0EE383AE3B}" DTS:From="Package\TRUNCATE SAP_SKA1" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_SKA1_To_Read SKA1" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_SKA1_To_Read SKA1]" DTS:To="Package\Read SKA1" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

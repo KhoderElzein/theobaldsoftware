@@ -12,22 +12,22 @@
   <CustomProperties>
     <CustomProperty 
      Name="TableName" 
-     DataType="String"><#=tbl.GetTag("SAP_Name")#>
-     </CustomProperty>
-    <CustomProperty Name="MaxRows" DataType="Int32"><#=tbl.GetTag("MaxRows")#></CustomProperty>
-    <CustomProperty Name="PackageSize" DataType="Int32"><#=tbl.GetTag("PackageSize")#></CustomProperty>
-    <CustomProperty Name="WhereClause" DataType="String"> <#=tbl.GetTag("WhereClause")#></CustomProperty>
-    <CustomProperty Name="CustomFunctionName" DataType="String"><#=tbl.GetTag("CUSTOM_Function")#></CustomProperty>
-    <CustomProperty Name="StringConversion" DataType="Int32">0</CustomProperty>
-    <CustomProperty Name="Delimiter" DataType="String"></CustomProperty>
-    <CustomProperty Name="OrderBy" DataType="String"></CustomProperty>
+     Description="Specify the SAP table to be extracted"
+     DataType="String"><#=tbl.GetTag("SAP_Name")#></CustomProperty>
+    <CustomProperty Name="MaxRows" DataType="Int32" Description="Specify the maximum number of rows to be extracted (0 is unlimited)"><#=tbl.GetTag("MaxRows")#></CustomProperty>
+    <CustomProperty Name="PackageSize" DataType="Int32" Description="Specify the package size for large data extraction (0 is unlimited)"><#=tbl.GetTag("PackageSize")#></CustomProperty>
+    <CustomProperty Name="WhereClause" DataType="String" Description="Specify WHERE clause for extraction"> <#=tbl.GetTag("WhereClause")#></CustomProperty>
+    <CustomProperty Name="CustomFunctionName" DataType="String" Description="Name of the SAP custom function module if you like to use it"><#=tbl.GetTag("CUSTOM_Function")#></CustomProperty>
+    <CustomProperty Name="StringConversion" DataType="Int32" Description="String Conversion">0</CustomProperty>
+    <CustomProperty Name="Delimiter" DataType="String" Description="Delimiter"></CustomProperty>
+    <CustomProperty Name="OrderBy" DataType="String" Description="Order By clause"></CustomProperty>
     <!-- the InternalXML custom property defines the columns of the SAP source -->
-    <CustomProperty Name="InternalXML" DataType="String">
+    <CustomProperty Name="InternalXML" DataType="String" Description="Internal properties, Please use the editor">
       &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
       <# foreach (var col in tbl.Columns){#>
       &lt;TableColumns&gt;
         &lt;ColName&gt;<#= col.Name #>&lt;/ColName&gt;
-        &lt;ColDescription&gt;<#=col.GetTag("Description").ToLower()#>&lt;/ColDescription&gt;
+        &lt;ColDescription&gt;<#= System.Security.SecurityElement.Escape(col.GetTag("Description")) #>&lt;/ColDescription&gt;
         &lt;ColLength&gt;<#=col.GetTag("Length") #>&lt;/ColLength&gt;
         &lt;ColSelected&gt;true&lt;/ColSelected&gt;
         &lt;ABAPType&gt;<#=col.GetTag("SAP_IntType").ToLower()#>&lt;/ABAPType&gt;

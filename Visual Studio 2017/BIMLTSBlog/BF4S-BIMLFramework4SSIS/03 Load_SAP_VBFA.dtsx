@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:32" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{4D7DEA63-A65B-419B-A8AE-798DD2BA356D}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_VBFA" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{6793A02F-05BC-4C9F-846D-9821F5C88C79}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{8819DFA9-238D-4A2A-9FD5-35AF7DB7F838}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{3EA14E7E-3053-4C1B-9569-FF8CAADF4658}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{3886949D-7972-450D-871F-4FC6C93BE2E3}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_VBFA" DTS:refId="Package\TRUNCATE SAP_VBFA" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_VBFA]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{B8737A89-B402-48D7-95BF-89999451D994}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read VBFA" DTS:refId="Package\Read VBFA" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_VBFA" refId="Package\Read VBFA\SAP_VBFA">
+              <connections>
+                <connection connectionManagerID="{3EA14E7E-3053-4C1B-9569-FF8CAADF4658}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read VBFA\SAP_VBFA.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELV" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBELV]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNV" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[POSNV]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[POSNN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VBTYP_N" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBTYP_N]" />
+                    <externalMetadataColumn dataType="numeric" name="RFMNG" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[RFMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="numeric" name="RFWRT" precision="21" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[RFWRT]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="WAERS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[WAERS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VBTYP_V" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBTYP_V]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLMIN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[PLMIN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TAQUI" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[TAQUI]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ERZET" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[ERZET]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[MATNR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BWART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[BWART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BDART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[BDART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[PLART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="STUFE" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[STUFE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="LGNUM" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[LGNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="AEDAT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[AEDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKTYP" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[FKTYP]" />
+                    <externalMetadataColumn dataType="numeric" name="BRGEW" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[BRGEW]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GEWEI" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[GEWEI]" />
+                    <externalMetadataColumn dataType="numeric" name="VOLUM" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VOLUM]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VOLEH" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VOLEH]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="FPLNR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[FPLNR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="FPLTR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[FPLTR]" />
+                    <externalMetadataColumn dataType="r8" name="RFMNG_FLO" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[RFMNG_FLO]" />
+                    <externalMetadataColumn dataType="r8" name="RFMNG_FLT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[RFMNG_FLT]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VRKME" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VRKME]" />
+                    <externalMetadataColumn dataType="r8" name="ABGES" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[ABGES]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SOBKZ" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[SOBKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="SONUM" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[SONUM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KZBEF" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[KZBEF]" />
+                    <externalMetadataColumn dataType="numeric" name="NTGEW" precision="17" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[NTGEW]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LOGSYS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[LOGSYS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WBSTA" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[WBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMETH" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[CMETH]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="MJAHR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[MJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VBTYPEXT_V" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBTYPEXT_V]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VBTYPEXT_N" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].ExternalColumns[VBTYPEXT_N]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELV]" name="VBELV" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELV]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNV]" name="POSNV" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNV]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELN]" name="VBELN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELN]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNN]" name="POSNN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNN]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_N]" name="VBTYP_N" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_N]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG]" name="RFMNG" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MEINS]" name="MEINS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MEINS]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFWRT]" name="RFWRT" precision="21" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFWRT]" scale="2" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WAERS]" name="WAERS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WAERS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_V]" name="VBTYP_V" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_V]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLMIN]" name="PLMIN" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLMIN]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[TAQUI]" name="TAQUI" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[TAQUI]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERDAT]" name="ERDAT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERZET]" name="ERZET" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERZET]" />
+                    <outputColumn dataType="wstr" length="18" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MATNR]" name="MATNR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MATNR]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BWART]" name="BWART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BWART]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BDART]" name="BDART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BDART]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLART]" name="PLART" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLART]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[STUFE]" name="STUFE" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[STUFE]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LGNUM]" name="LGNUM" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LGNUM]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[AEDAT]" name="AEDAT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[AEDAT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FKTYP]" name="FKTYP" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FKTYP]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BRGEW]" name="BRGEW" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BRGEW]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[GEWEI]" name="GEWEI" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[GEWEI]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLUM]" name="VOLUM" precision="19" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLUM]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLEH]" name="VOLEH" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLEH]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLNR]" name="FPLNR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLNR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLTR]" name="FPLTR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLTR]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLO]" name="RFMNG_FLO" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLO]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLT]" name="RFMNG_FLT" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLT]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VRKME]" name="VRKME" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VRKME]" />
+                    <outputColumn dataType="r8" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ABGES]" name="ABGES" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ABGES]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SOBKZ]" name="SOBKZ" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SOBKZ]" />
+                    <outputColumn dataType="wstr" length="16" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SONUM]" name="SONUM" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SONUM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[KZBEF]" name="KZBEF" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[KZBEF]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[NTGEW]" name="NTGEW" precision="17" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[NTGEW]" scale="3" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LOGSYS]" name="LOGSYS" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LOGSYS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WBSTA]" name="WBSTA" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WBSTA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[CMETH]" name="CMETH" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[CMETH]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MJAHR]" name="MJAHR" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MJAHR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_V]" name="VBTYPEXT_V" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_V]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_N]" name="VBTYPEXT_N" refId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_N]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">VBFA</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Preceding sales and distribution document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;POSNV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Preceding item of an SD document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Subsequent sales and distribution document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;POSNN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Subsequent item of an SD document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBTYP_N&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document category of subsequent document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFMNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Referenced quantity in base unit of measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;19&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Base Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFWRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAERS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Statistics currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBTYP_V&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document category of preceding SD document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLMIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Quantity is calculated positively, negatively or not at all&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TAQUI&lt;/ColName&gt;
+        &lt;ColDescription&gt;ID: MM-WM transfer order confirmed&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on Which Record Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERZET&lt;/ColName&gt;
+        &lt;ColDescription&gt;Entry time&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BWART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Movement Type (Inventory Management)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BDART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requirement type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planning type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STUFE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Level of the document flow record&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LGNUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Warehouse Number / Warehouse Complex&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AEDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Changed On&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FKTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Billing category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BRGEW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Gross weight&lt;/ColDescription&gt;
+        &lt;ColLength&gt;19&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GEWEI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Weight Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VOLUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Volume&lt;/ColDescription&gt;
+        &lt;ColLength&gt;19&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VOLEH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Volume unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FPLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Billing plan number / invoicing plan number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FPLTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item for billing plan/invoice plan/payment cards&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFMNG_FLO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Referenced quantity in sales unit (float)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RFMNG_FLT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Referenced quantity in base unit of measure (float)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRKME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABGES&lt;/ColName&gt;
+        &lt;ColDescription&gt;Guaranteed (factor between 0 and 1)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SOBKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special Stock Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SONUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special Stock Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZBEF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator Inventory Management active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NTGEW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Net Weight&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOGSYS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical system&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WBSTA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Goods movement status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CMETH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Quantity Conversion Method&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Document Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBTYPEXT_V&lt;/ColName&gt;
+        &lt;ColDescription&gt;Extension of SD document category of preceding document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBTYPEXT_N&lt;/ColName&gt;
+        &lt;ColDescription&gt;Extension of Subsequent SD Document Category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_VBFA" name="Dest_SAP_VBFA" refId="Package\Read VBFA\Dest_SAP_VBFA" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{8819DFA9-238D-4A2A-9FD5-35AF7DB7F838}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read VBFA\Dest_SAP_VBFA.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_VBFA_XtractOutput_Dest_SAP_VBFA" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELV" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBELV]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNV" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[POSNV]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="VBELN" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="POSNN" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[POSNN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VBTYP_N" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYP_N]" />
+                    <externalMetadataColumn dataType="numeric" name="RFMNG" precision="19" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="numeric" name="RFWRT" precision="21" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFWRT]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="WAERS" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[WAERS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="VBTYP_V" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYP_V]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLMIN" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[PLMIN]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TAQUI" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[TAQUI]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ERZET" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ERZET]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MATNR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BWART" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BWART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BDART" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BDART]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLART" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[PLART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="STUFE" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[STUFE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="LGNUM" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[LGNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="AEDAT" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[AEDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FKTYP" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FKTYP]" />
+                    <externalMetadataColumn dataType="numeric" name="BRGEW" precision="19" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BRGEW]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GEWEI" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[GEWEI]" />
+                    <externalMetadataColumn dataType="numeric" name="VOLUM" precision="19" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VOLUM]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VOLEH" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VOLEH]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="FPLNR" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FPLNR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="FPLTR" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FPLTR]" />
+                    <externalMetadataColumn dataType="r8" name="RFMNG_FLO" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG_FLO]" />
+                    <externalMetadataColumn dataType="r8" name="RFMNG_FLT" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG_FLT]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VRKME" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VRKME]" />
+                    <externalMetadataColumn dataType="r8" name="ABGES" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ABGES]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SOBKZ" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[SOBKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="SONUM" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[SONUM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KZBEF" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[KZBEF]" />
+                    <externalMetadataColumn dataType="numeric" name="NTGEW" precision="17" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[NTGEW]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LOGSYS" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[LOGSYS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WBSTA" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[WBSTA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CMETH" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[CMETH]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="MJAHR" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VBTYPEXT_V" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYPEXT_V]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VBTYPEXT_N" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYPEXT_N]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MANDT]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="VBELV" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBELV]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELV]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBELV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="POSNV" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[POSNV]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNV]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[POSNV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="VBELN" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBELN]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBELN]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBELN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="POSNN" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[POSNN]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[POSNN]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[POSNN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="VBTYP_N" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYP_N]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_N]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBTYP_N]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RFMNG" cachedPrecision="19" cachedScale="3" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[RFMNG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MEINS" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MEINS]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MEINS]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[MEINS]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RFWRT" cachedPrecision="21" cachedScale="2" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFWRT]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFWRT]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[RFWRT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="WAERS" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[WAERS]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WAERS]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[WAERS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="VBTYP_V" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYP_V]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYP_V]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBTYP_V]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PLMIN" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[PLMIN]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLMIN]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[PLMIN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="TAQUI" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[TAQUI]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[TAQUI]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[TAQUI]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="ERDAT" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ERDAT]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERDAT]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[ERDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="ERZET" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ERZET]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ERZET]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[ERZET]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="18" cachedName="MATNR" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MATNR]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MATNR]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[MATNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="BWART" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BWART]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BWART]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[BWART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="BDART" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BDART]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BDART]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[BDART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PLART" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[PLART]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[PLART]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[PLART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="STUFE" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[STUFE]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[STUFE]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[STUFE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="LGNUM" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[LGNUM]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LGNUM]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[LGNUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="AEDAT" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[AEDAT]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[AEDAT]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[AEDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FKTYP" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FKTYP]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FKTYP]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[FKTYP]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BRGEW" cachedPrecision="19" cachedScale="3" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[BRGEW]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[BRGEW]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[BRGEW]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="GEWEI" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[GEWEI]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[GEWEI]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[GEWEI]" />
+                    <inputColumn cachedDataType="numeric" cachedName="VOLUM" cachedPrecision="19" cachedScale="3" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VOLUM]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLUM]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VOLUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="VOLEH" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VOLEH]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VOLEH]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VOLEH]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="FPLNR" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FPLNR]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLNR]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[FPLNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="FPLTR" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[FPLTR]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[FPLTR]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[FPLTR]" />
+                    <inputColumn cachedDataType="r8" cachedName="RFMNG_FLO" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG_FLO]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLO]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[RFMNG_FLO]" />
+                    <inputColumn cachedDataType="r8" cachedName="RFMNG_FLT" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[RFMNG_FLT]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[RFMNG_FLT]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[RFMNG_FLT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="VRKME" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VRKME]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VRKME]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VRKME]" />
+                    <inputColumn cachedDataType="r8" cachedName="ABGES" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[ABGES]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[ABGES]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[ABGES]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SOBKZ" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[SOBKZ]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SOBKZ]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[SOBKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="16" cachedName="SONUM" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[SONUM]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[SONUM]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[SONUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KZBEF" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[KZBEF]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[KZBEF]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[KZBEF]" />
+                    <inputColumn cachedDataType="numeric" cachedName="NTGEW" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[NTGEW]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[NTGEW]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[NTGEW]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LOGSYS" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[LOGSYS]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[LOGSYS]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[LOGSYS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WBSTA" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[WBSTA]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[WBSTA]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[WBSTA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CMETH" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[CMETH]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[CMETH]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[CMETH]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="MJAHR" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[MJAHR]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[MJAHR]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[MJAHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VBTYPEXT_V" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYPEXT_V]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_V]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBTYPEXT_V]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VBTYPEXT_N" externalMetadataColumnId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].ExternalColumns[VBTYPEXT_N]" lineageId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput].Columns[VBTYPEXT_N]" name="" refId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA].Columns[VBTYPEXT_N]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read VBFA\Dest_SAP_VBFA.Outputs[Error]" synchronousInputId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read VBFA\Dest_SAP_VBFA.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read VBFA\Dest_SAP_VBFA.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read VBFA\Dest_SAP_VBFA.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read VBFA\Dest_SAP_VBFA.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_VBFA</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read VBFA\Dest_SAP_VBFA.Inputs[SAP_VBFA_XtractOutput_Dest_SAP_VBFA]" name="SAP_VBFA_XtractOutput_Dest_SAP_VBFA" refId="Package\Read VBFA.Paths[SAP_VBFA_XtractOutput_Dest_SAP_VBFA]" startId="Package\Read VBFA\SAP_VBFA.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{502C07D9-0F68-43FF-B170-46F636B2A4B5}" DTS:From="Package\TRUNCATE SAP_VBFA" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_VBFA_To_Read VBFA" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_VBFA_To_Read VBFA]" DTS:To="Package\Read VBFA" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

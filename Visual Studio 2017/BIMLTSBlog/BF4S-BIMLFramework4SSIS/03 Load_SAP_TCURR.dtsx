@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/03/2019 16:09:30" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{DE8A0504-F8FC-4D9F-8ECB-8354BE74AD25}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_TCURR" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{4380A6BD-57E1-4DF0-8677-F690012743B8}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{BB255394-5038-4B5B-B3B8-B7ED68FCB1F8}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{E74323A6-5718-4C28-8B2B-CBDB74E3122C}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=DE CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{E882D16A-D864-45C2-884C-A255FB6B088C}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_TCURR" DTS:refId="Package\TRUNCATE SAP_TCURR" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_TCURR]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{9480ED2B-1714-4DAB-86C1-E84260D169C8}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read TCURR" DTS:refId="Package\Read TCURR" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_TCURR" refId="Package\Read TCURR\SAP_TCURR">
+              <connections>
+                <connection connectionManagerID="{E74323A6-5718-4C28-8B2B-CBDB74E3122C}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read TCURR\SAP_TCURR.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KURST" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[KURST]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="FCURR" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[FCURR]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="TCURR" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[TCURR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="GDATU" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[GDATU]" />
+                    <externalMetadataColumn dataType="numeric" name="UKURS" precision="12" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[UKURS]" scale="5" />
+                    <externalMetadataColumn dataType="numeric" name="FFACT" precision="11" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[FFACT]" />
+                    <externalMetadataColumn dataType="numeric" name="TFACT" precision="11" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].ExternalColumns[TFACT]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[KURST]" name="KURST" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[KURST]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FCURR]" name="FCURR" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FCURR]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TCURR]" name="TCURR" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TCURR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[GDATU]" name="GDATU" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[GDATU]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[UKURS]" name="UKURS" precision="12" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[UKURS]" scale="5" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FFACT]" name="FFACT" precision="11" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FFACT]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TFACT]" name="TFACT" precision="11" refId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TFACT]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">TCURR</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">100</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">5000</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KURST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Exchange Rate Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCURR&lt;/ColName&gt;
+        &lt;ColDescription&gt;From currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TCURR&lt;/ColName&gt;
+        &lt;ColDescription&gt;To-currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GDATU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date As of Which the Exchange Rate Is Effective&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UKURS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Exchange Rate&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;5&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FFACT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Ratio for the &amp;quot;From&amp;quot; Currency Units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;11&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TFACT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Ratio for the &amp;quot;To&amp;quot; Currency Units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;11&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_TCURR" name="Dest_SAP_TCURR" refId="Package\Read TCURR\Dest_SAP_TCURR" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{BB255394-5038-4B5B-B3B8-B7ED68FCB1F8}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read TCURR\Dest_SAP_TCURR.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_TCURR_XtractOutput_Dest_SAP_TCURR" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KURST" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[KURST]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="FCURR" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[FCURR]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="TCURR" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[TCURR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="GDATU" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[GDATU]" />
+                    <externalMetadataColumn dataType="numeric" name="UKURS" precision="12" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[UKURS]" scale="5" />
+                    <externalMetadataColumn dataType="numeric" name="FFACT" precision="11" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[FFACT]" />
+                    <externalMetadataColumn dataType="numeric" name="TFACT" precision="11" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[TFACT]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[MANDT]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KURST" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[KURST]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[KURST]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[KURST]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="FCURR" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[FCURR]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FCURR]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[FCURR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="TCURR" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[TCURR]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TCURR]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[TCURR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="GDATU" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[GDATU]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[GDATU]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[GDATU]" />
+                    <inputColumn cachedDataType="numeric" cachedName="UKURS" cachedPrecision="12" cachedScale="5" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[UKURS]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[UKURS]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[UKURS]" />
+                    <inputColumn cachedDataType="numeric" cachedName="FFACT" cachedPrecision="11" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[FFACT]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[FFACT]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[FFACT]" />
+                    <inputColumn cachedDataType="numeric" cachedName="TFACT" cachedPrecision="11" externalMetadataColumnId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].ExternalColumns[TFACT]" lineageId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput].Columns[TFACT]" name="" refId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR].Columns[TFACT]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read TCURR\Dest_SAP_TCURR.Outputs[Error]" synchronousInputId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read TCURR\Dest_SAP_TCURR.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read TCURR\Dest_SAP_TCURR.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read TCURR\Dest_SAP_TCURR.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read TCURR\Dest_SAP_TCURR.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_TCURR</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read TCURR\Dest_SAP_TCURR.Inputs[SAP_TCURR_XtractOutput_Dest_SAP_TCURR]" name="SAP_TCURR_XtractOutput_Dest_SAP_TCURR" refId="Package\Read TCURR.Paths[SAP_TCURR_XtractOutput_Dest_SAP_TCURR]" startId="Package\Read TCURR\SAP_TCURR.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1D458E83-64E8-42A5-909B-AF02AC323D25}" DTS:From="Package\TRUNCATE SAP_TCURR" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_TCURR_To_Read TCURR" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_TCURR_To_Read TCURR]" DTS:To="Package\Read TCURR" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>
