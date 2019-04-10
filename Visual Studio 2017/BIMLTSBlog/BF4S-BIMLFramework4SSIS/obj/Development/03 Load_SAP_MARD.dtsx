@@ -1,0 +1,1910 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{5EFD9F36-9DCC-4C06-B3D4-E6EFBCD0E2E7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_MARD"
+  DTS:VersionGUID="{C485DC3B-49A8-4123-8506-2E44FAB0D58E}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{05C1695D-46E9-4165-A7F5-4178C2CBA3B5}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D6673FBA-FB74-4068-9FC4-86D095DB7760}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read MARD"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{852809E9-788B-49E9-A870-EADC71CEC12A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read MARD"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read MARD\Dest_SAP_MARD"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_MARD"
+              name="Dest_SAP_MARD"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_MARD</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MARD\Dest_SAP_MARD.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_MARD_XtractOutput_Dest_SAP_MARD">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MANDT]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[MATNR]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="MATNR"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MATNR]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MATNR]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[WERKS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="WERKS"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[WERKS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[WERKS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LGORT]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="LGORT"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LGORT]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGORT]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[PSTAT]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="PSTAT"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[PSTAT]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PSTAT]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LVORM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="LVORM"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LVORM]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LVORM]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LFGJA]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="LFGJA"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LFGJA]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFGJA]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LFMON]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="LFMON"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LFMON]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFMON]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[SPERR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="SPERR"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[SPERR]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPERR]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LABST]"
+                      cachedDataType="numeric"
+                      cachedName="LABST"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LABST]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LABST]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[UMLME]"
+                      cachedDataType="numeric"
+                      cachedName="UMLME"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[UMLME]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[UMLME]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[INSME]"
+                      cachedDataType="numeric"
+                      cachedName="INSME"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[INSME]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[INSME]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[EINME]"
+                      cachedDataType="numeric"
+                      cachedName="EINME"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EINME]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EINME]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[SPEME]"
+                      cachedDataType="numeric"
+                      cachedName="SPEME"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[SPEME]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPEME]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[RETME]"
+                      cachedDataType="numeric"
+                      cachedName="RETME"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[RETME]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[RETME]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMLAB]"
+                      cachedDataType="numeric"
+                      cachedName="VMLAB"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMLAB]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMLAB]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMUML]"
+                      cachedDataType="numeric"
+                      cachedName="VMUML"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMUML]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMUML]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMINS]"
+                      cachedDataType="numeric"
+                      cachedName="VMINS"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMINS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMINS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMEIN]"
+                      cachedDataType="numeric"
+                      cachedName="VMEIN"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMEIN]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMEIN]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMSPE]"
+                      cachedDataType="numeric"
+                      cachedName="VMSPE"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMSPE]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMSPE]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VMRET]"
+                      cachedDataType="numeric"
+                      cachedName="VMRET"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMRET]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMRET]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZILL]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZILL"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILL]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILL]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZILQ]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZILQ"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILQ]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILQ]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZILE]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZILE"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILE]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILE]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZILS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZILS"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZVLL]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZVLL"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLL]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLL]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZVLQ]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZVLQ"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLQ]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLQ]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZVLE]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZVLE"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLE]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLE]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KZVLS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KZVLS"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[DISKZ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="DISKZ"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[DISKZ]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DISKZ]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LSOBS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="LSOBS"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LSOBS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LSOBS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LMINB]"
+                      cachedDataType="numeric"
+                      cachedName="LMINB"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LMINB]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LMINB]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LBSTF]"
+                      cachedDataType="numeric"
+                      cachedName="LBSTF"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LBSTF]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LBSTF]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[HERKL]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="HERKL"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[HERKL]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[HERKL]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[EXPPG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="EXPPG"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EXPPG]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXPPG]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[EXVER]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="EXVER"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EXVER]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXVER]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LGPBE]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LGPBE"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LGPBE]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGPBE]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KLABS]"
+                      cachedDataType="numeric"
+                      cachedName="KLABS"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KLABS]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KLABS]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KINSM]"
+                      cachedDataType="numeric"
+                      cachedName="KINSM"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KINSM]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KINSM]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KEINM]"
+                      cachedDataType="numeric"
+                      cachedName="KEINM"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KEINM]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KEINM]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[KSPEM]"
+                      cachedDataType="numeric"
+                      cachedName="KSPEM"
+                      cachedPrecision="18"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KSPEM]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KSPEM]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[DLINL]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DLINL"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[DLINL]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DLINL]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[PRCTL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="PRCTL"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[PRCTL]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PRCTL]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[ERSDA]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="ERSDA"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[ERSDA]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[ERSDA]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VKLAB]"
+                      cachedDataType="numeric"
+                      cachedName="VKLAB"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VKLAB]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKLAB]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[VKUML]"
+                      cachedDataType="numeric"
+                      cachedName="VKUML"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VKUML]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKUML]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[LWMKB]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LWMKB"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LWMKB]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LWMKB]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[BSKRF]"
+                      cachedDataType="r8"
+                      cachedName="BSKRF"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[BSKRF]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[BSKRF]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[MDRUE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MDRUE"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MDRUE]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDRUE]" />
+                    <inputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].Columns[MDJIN]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="MDJIN"
+                      externalMetadataColumnId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MDJIN]"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDJIN]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[WERKS]"
+                      dataType="wstr"
+                      length="4"
+                      name="WERKS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LGORT]"
+                      dataType="wstr"
+                      length="4"
+                      name="LGORT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[PSTAT]"
+                      dataType="wstr"
+                      length="15"
+                      name="PSTAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LVORM]"
+                      dataType="wstr"
+                      length="1"
+                      name="LVORM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LFGJA]"
+                      dataType="wstr"
+                      length="4"
+                      name="LFGJA" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LFMON]"
+                      dataType="wstr"
+                      length="2"
+                      name="LFMON" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[SPERR]"
+                      dataType="wstr"
+                      length="1"
+                      name="SPERR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LABST]"
+                      dataType="numeric"
+                      name="LABST"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[UMLME]"
+                      dataType="numeric"
+                      name="UMLME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[INSME]"
+                      dataType="numeric"
+                      name="INSME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EINME]"
+                      dataType="numeric"
+                      name="EINME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[SPEME]"
+                      dataType="numeric"
+                      name="SPEME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[RETME]"
+                      dataType="numeric"
+                      name="RETME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMLAB]"
+                      dataType="numeric"
+                      name="VMLAB"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMUML]"
+                      dataType="numeric"
+                      name="VMUML"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMINS]"
+                      dataType="numeric"
+                      name="VMINS"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMEIN]"
+                      dataType="numeric"
+                      name="VMEIN"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMSPE]"
+                      dataType="numeric"
+                      name="VMSPE"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VMRET]"
+                      dataType="numeric"
+                      name="VMRET"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILL]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILQ]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILQ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILE]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZILS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLL]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLQ]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLQ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLE]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KZVLS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[DISKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="DISKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LSOBS]"
+                      dataType="wstr"
+                      length="2"
+                      name="LSOBS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LMINB]"
+                      dataType="numeric"
+                      name="LMINB"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LBSTF]"
+                      dataType="numeric"
+                      name="LBSTF"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[HERKL]"
+                      dataType="wstr"
+                      length="3"
+                      name="HERKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EXPPG]"
+                      dataType="wstr"
+                      length="1"
+                      name="EXPPG" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[EXVER]"
+                      dataType="wstr"
+                      length="2"
+                      name="EXVER" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LGPBE]"
+                      dataType="wstr"
+                      length="10"
+                      name="LGPBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KLABS]"
+                      dataType="numeric"
+                      name="KLABS"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KINSM]"
+                      dataType="numeric"
+                      name="KINSM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KEINM]"
+                      dataType="numeric"
+                      name="KEINM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[KSPEM]"
+                      dataType="numeric"
+                      name="KSPEM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[DLINL]"
+                      dataType="wstr"
+                      length="8"
+                      name="DLINL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[PRCTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="PRCTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERSDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VKLAB]"
+                      dataType="numeric"
+                      name="VKLAB"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[VKUML]"
+                      dataType="numeric"
+                      name="VKUML"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[LWMKB]"
+                      dataType="wstr"
+                      length="3"
+                      name="LWMKB" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[BSKRF]"
+                      dataType="r8"
+                      name="BSKRF" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MDRUE]"
+                      dataType="wstr"
+                      length="1"
+                      name="MDRUE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD].ExternalColumns[MDJIN]"
+                      dataType="wstr"
+                      length="4"
+                      name="MDJIN" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read MARD\Dest_SAP_MARD.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read MARD\Dest_SAP_MARD.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read MARD\Dest_SAP_MARD.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read MARD\Dest_SAP_MARD.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read MARD\SAP_MARD"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_MARD">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">MARD</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WERKS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Plant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LGORT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Storage Location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PSTAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Maintenance status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LVORM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Flag Material for Deletion at Storage Location Level&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFGJA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year of Current Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFMON&lt;/ColName&gt;
+        &lt;ColDescription&gt;Current period (posting period)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPERR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical Inventory Blocking Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LABST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuated Unrestricted-Use Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMLME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock in transfer (from one storage location to another)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INSME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock in Quality Inspection&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EINME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Total Stock of All Restricted Batches&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPEME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocked Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RETME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocked Stock Returns&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMLAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuated unrestricted-use stock in previous period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMUML&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock in Transfer in Previous Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMINS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock in Quality Inspection in Previous Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMEIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Restricted-Use Stock in Previous Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMSPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocked stock of previous period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMRET&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocked Stock Returns in Previous Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZILL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical inventory indicator for whse stock in current year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZILQ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phys. inventory ind. f. stock in qual. insp. in current year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZILE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical inventory indicator for restricted-use stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZILS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical inventory indicator for blocked stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZVLL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical inventory indicator for stock in previous year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZVLQ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phys. inventory ind. f. stock in qual. insp. in prev. period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZVLE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Physical inventory ind. for restricted-use stock, prev.pd&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZVLS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phys. inventory indicator for blocked stock in prev. period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DISKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Storage location MRP indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LSOBS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special procurement type at storage location level&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LMINB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reorder point for storage location MRP&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LBSTF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Replenishment quantity for storage location MRP&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HERKL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Country of origin of the material&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EXPPG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Preference indicator (deactivated)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EXVER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Export indicator (deactivated)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LGPBE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Storage Bin&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KLABS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unrestricted-Use Consignment Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KINSM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Consignment Stock in Quality Inspection&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KEINM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Restricted-Use Consignment Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSPEM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocked Consignment Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DLINL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date of Last Posted Count for Unrestricted-Use Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRCTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Profit Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERSDA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Created On&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VKLAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock value of a value-only material at sales price&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VKUML&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales value in stock transfer (SLOc to SLoc)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LWMKB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Picking area for lean WM&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BSKRF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Inventory correction factor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;f&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MDRUE&lt;/ColName&gt;
+        &lt;ColDescription&gt;MARDH rec. already exists for per. before last of MARD per.&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MDJIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal year of current physical inventory indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MARD\SAP_MARD.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MATNR]"
+                      name="MATNR" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[WERKS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[WERKS]"
+                      name="WERKS" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGORT]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGORT]"
+                      name="LGORT" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PSTAT]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PSTAT]"
+                      name="PSTAT" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LVORM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LVORM]"
+                      name="LVORM" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFGJA]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFGJA]"
+                      name="LFGJA" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFMON]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LFMON]"
+                      name="LFMON" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPERR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPERR]"
+                      name="SPERR" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LABST]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LABST]"
+                      name="LABST"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[UMLME]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[UMLME]"
+                      name="UMLME"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[INSME]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[INSME]"
+                      name="INSME"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EINME]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EINME]"
+                      name="EINME"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPEME]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[SPEME]"
+                      name="SPEME"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[RETME]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[RETME]"
+                      name="RETME"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMLAB]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMLAB]"
+                      name="VMLAB"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMUML]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMUML]"
+                      name="VMUML"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMINS]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMINS]"
+                      name="VMINS"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMEIN]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMEIN]"
+                      name="VMEIN"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMSPE]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMSPE]"
+                      name="VMSPE"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMRET]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VMRET]"
+                      name="VMRET"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILL]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILL]"
+                      name="KZILL" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILQ]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILQ]"
+                      name="KZILQ" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILE]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILE]"
+                      name="KZILE" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZILS]"
+                      name="KZILS" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLL]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLL]"
+                      name="KZVLL" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLQ]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLQ]"
+                      name="KZVLQ" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLE]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLE]"
+                      name="KZVLE" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KZVLS]"
+                      name="KZVLS" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DISKZ]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DISKZ]"
+                      name="DISKZ" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LSOBS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LSOBS]"
+                      name="LSOBS" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LMINB]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LMINB]"
+                      name="LMINB"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LBSTF]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LBSTF]"
+                      name="LBSTF"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[HERKL]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[HERKL]"
+                      name="HERKL" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXPPG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXPPG]"
+                      name="EXPPG" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXVER]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[EXVER]"
+                      name="EXVER" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGPBE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LGPBE]"
+                      name="LGPBE" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KLABS]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KLABS]"
+                      name="KLABS"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KINSM]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KINSM]"
+                      name="KINSM"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KEINM]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KEINM]"
+                      name="KEINM"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KSPEM]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[KSPEM]"
+                      name="KSPEM"
+                      precision="18"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DLINL]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[DLINL]"
+                      name="DLINL" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PRCTL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[PRCTL]"
+                      name="PRCTL" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[ERSDA]"
+                      name="ERSDA" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKLAB]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKLAB]"
+                      name="VKLAB"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKUML]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[VKUML]"
+                      name="VKUML"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LWMKB]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[LWMKB]"
+                      name="LWMKB" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[BSKRF]"
+                      dataType="r8"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[BSKRF]"
+                      name="BSKRF" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDRUE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDRUE]"
+                      name="MDRUE" />
+                    <outputColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDJIN]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].Columns[MDJIN]"
+                      name="MDJIN" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[WERKS]"
+                      dataType="wstr"
+                      length="4"
+                      name="WERKS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LGORT]"
+                      dataType="wstr"
+                      length="4"
+                      name="LGORT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[PSTAT]"
+                      dataType="wstr"
+                      length="15"
+                      name="PSTAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LVORM]"
+                      dataType="wstr"
+                      length="1"
+                      name="LVORM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LFGJA]"
+                      dataType="wstr"
+                      length="4"
+                      name="LFGJA" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LFMON]"
+                      dataType="wstr"
+                      length="2"
+                      name="LFMON" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[SPERR]"
+                      dataType="wstr"
+                      length="1"
+                      name="SPERR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LABST]"
+                      dataType="numeric"
+                      name="LABST"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[UMLME]"
+                      dataType="numeric"
+                      name="UMLME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[INSME]"
+                      dataType="numeric"
+                      name="INSME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[EINME]"
+                      dataType="numeric"
+                      name="EINME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[SPEME]"
+                      dataType="numeric"
+                      name="SPEME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[RETME]"
+                      dataType="numeric"
+                      name="RETME"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMLAB]"
+                      dataType="numeric"
+                      name="VMLAB"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMUML]"
+                      dataType="numeric"
+                      name="VMUML"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMINS]"
+                      dataType="numeric"
+                      name="VMINS"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMEIN]"
+                      dataType="numeric"
+                      name="VMEIN"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMSPE]"
+                      dataType="numeric"
+                      name="VMSPE"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VMRET]"
+                      dataType="numeric"
+                      name="VMRET"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZILL]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZILQ]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILQ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZILE]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZILS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZILS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZVLL]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZVLQ]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLQ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZVLE]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KZVLS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KZVLS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[DISKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="DISKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LSOBS]"
+                      dataType="wstr"
+                      length="2"
+                      name="LSOBS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LMINB]"
+                      dataType="numeric"
+                      name="LMINB"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LBSTF]"
+                      dataType="numeric"
+                      name="LBSTF"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[HERKL]"
+                      dataType="wstr"
+                      length="3"
+                      name="HERKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[EXPPG]"
+                      dataType="wstr"
+                      length="1"
+                      name="EXPPG" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[EXVER]"
+                      dataType="wstr"
+                      length="2"
+                      name="EXVER" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LGPBE]"
+                      dataType="wstr"
+                      length="10"
+                      name="LGPBE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KLABS]"
+                      dataType="numeric"
+                      name="KLABS"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KINSM]"
+                      dataType="numeric"
+                      name="KINSM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KEINM]"
+                      dataType="numeric"
+                      name="KEINM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[KSPEM]"
+                      dataType="numeric"
+                      name="KSPEM"
+                      precision="18"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[DLINL]"
+                      dataType="wstr"
+                      length="8"
+                      name="DLINL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[PRCTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="PRCTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERSDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VKLAB]"
+                      dataType="numeric"
+                      name="VKLAB"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[VKUML]"
+                      dataType="numeric"
+                      name="VKUML"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[LWMKB]"
+                      dataType="wstr"
+                      length="3"
+                      name="LWMKB" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[BSKRF]"
+                      dataType="r8"
+                      name="BSKRF" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[MDRUE]"
+                      dataType="wstr"
+                      length="1"
+                      name="MDRUE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput].ExternalColumns[MDJIN]"
+                      dataType="wstr"
+                      length="4"
+                      name="MDJIN" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read MARD.Paths[SAP_MARD_XtractOutput_Dest_SAP_MARD]"
+              endId="Package\Read MARD\Dest_SAP_MARD.Inputs[SAP_MARD_XtractOutput_Dest_SAP_MARD]"
+              name="SAP_MARD_XtractOutput_Dest_SAP_MARD"
+              startId="Package\Read MARD\SAP_MARD.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_MARD"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{4C10BE49-480C-4C8D-AAB3-39ABAF876DF4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_MARD"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D6673FBA-FB74-4068-9FC4-86D095DB7760}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_MARD]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MARD_To_Read MARD]"
+      DTS:CreationName=""
+      DTS:DTSID="{D772070E-5560-4546-AB12-893A0C6525AB}"
+      DTS:From="Package\TRUNCATE SAP_MARD"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_MARD_To_Read MARD"
+      DTS:To="Package\Read MARD" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

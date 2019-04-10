@@ -1,0 +1,718 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:35 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{540FFBD5-196B-4B10-BBD1-0594E9B4351B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_LFBK"
+  DTS:VersionGUID="{3658B752-8DE8-4CF8-B339-917527753FD3}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{814CB04A-206F-44F7-AE8A-2101C11122A2}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3AAEDBAD-A296-4ADB-9729-463AA24937BA}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read LFBK"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{7A598EFA-C135-45B9-BF67-D98CCE9FF6FD}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read LFBK"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read LFBK\Dest_SAP_LFBK"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_LFBK"
+              name="Dest_SAP_LFBK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_LFBK</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read LFBK\Dest_SAP_LFBK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_LFBK_XtractOutput_Dest_SAP_LFBK">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[MANDT]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[LIFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LIFNR"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[LIFNR]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BANKS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="BANKS"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKS]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKS]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BANKL]"
+                      cachedDataType="wstr"
+                      cachedLength="15"
+                      cachedName="BANKL"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKL]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKL]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BANKN]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="BANKN"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKN]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKN]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BKONT]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BKONT"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BKONT]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKONT]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BVTYP]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="BVTYP"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BVTYP]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BVTYP]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[XEZER]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XEZER"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[XEZER]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[XEZER]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[BKREF]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="BKREF"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BKREF]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKREF]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[KOINH]"
+                      cachedDataType="wstr"
+                      cachedLength="60"
+                      cachedName="KOINH"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOINH]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOINH]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[EBPP_ACCNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="EBPP_ACCNAME"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[EBPP_ACCNAME]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_ACCNAME]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[EBPP_BVSTATUS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="EBPP_BVSTATUS"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[EBPP_BVSTATUS]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_BVSTATUS]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[KOVON]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="KOVON"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOVON]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOVON]" />
+                    <inputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].Columns[KOBIS]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="KOBIS"
+                      externalMetadataColumnId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOBIS]"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOBIS]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKS]"
+                      dataType="wstr"
+                      length="3"
+                      name="BANKS" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKL]"
+                      dataType="wstr"
+                      length="15"
+                      name="BANKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BANKN]"
+                      dataType="wstr"
+                      length="18"
+                      name="BANKN" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BKONT]"
+                      dataType="wstr"
+                      length="2"
+                      name="BKONT" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BVTYP]"
+                      dataType="wstr"
+                      length="4"
+                      name="BVTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[XEZER]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEZER" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[BKREF]"
+                      dataType="wstr"
+                      length="20"
+                      name="BKREF" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOINH]"
+                      dataType="wstr"
+                      length="60"
+                      name="KOINH" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[EBPP_ACCNAME]"
+                      dataType="wstr"
+                      length="40"
+                      name="EBPP_ACCNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[EBPP_BVSTATUS]"
+                      dataType="wstr"
+                      length="1"
+                      name="EBPP_BVSTATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOVON]"
+                      dataType="wstr"
+                      length="8"
+                      name="KOVON" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK].ExternalColumns[KOBIS]"
+                      dataType="wstr"
+                      length="8"
+                      name="KOBIS" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read LFBK\Dest_SAP_LFBK.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read LFBK\Dest_SAP_LFBK.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read LFBK\Dest_SAP_LFBK.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read LFBK\Dest_SAP_LFBK.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read LFBK\SAP_LFBK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_LFBK">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">LFBK</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Number of Vendor or Creditor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BANKS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank country key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BANKL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank Keys&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BANKN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank account number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BKONT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank Control Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BVTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Partner Bank Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XEZER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Is there collection authorization ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BKREF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference specifications for bank details&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOINH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Holder Name&lt;/ColDescription&gt;
+        &lt;ColLength&gt;60&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EBPP_ACCNAME&lt;/ColName&gt;
+        &lt;ColDescription&gt;User-Defined Name of Bank Details&lt;/ColDescription&gt;
+        &lt;ColLength&gt;40&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EBPP_BVSTATUS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of Bank Details in Biller Direct&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOVON&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank Details Valid From&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOBIS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bank details valid to&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read LFBK\SAP_LFBK.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[LIFNR]"
+                      name="LIFNR" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKS]"
+                      name="BANKS" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKL]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKL]"
+                      name="BANKL" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKN]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BANKN]"
+                      name="BANKN" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKONT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKONT]"
+                      name="BKONT" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BVTYP]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BVTYP]"
+                      name="BVTYP" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[XEZER]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[XEZER]"
+                      name="XEZER" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKREF]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[BKREF]"
+                      name="BKREF" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOINH]"
+                      dataType="wstr"
+                      length="60"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOINH]"
+                      name="KOINH" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_ACCNAME]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_ACCNAME]"
+                      name="EBPP_ACCNAME" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_BVSTATUS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[EBPP_BVSTATUS]"
+                      name="EBPP_BVSTATUS" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOVON]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOVON]"
+                      name="KOVON" />
+                    <outputColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOBIS]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].Columns[KOBIS]"
+                      name="KOBIS" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BANKS]"
+                      dataType="wstr"
+                      length="3"
+                      name="BANKS" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BANKL]"
+                      dataType="wstr"
+                      length="15"
+                      name="BANKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BANKN]"
+                      dataType="wstr"
+                      length="18"
+                      name="BANKN" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BKONT]"
+                      dataType="wstr"
+                      length="2"
+                      name="BKONT" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BVTYP]"
+                      dataType="wstr"
+                      length="4"
+                      name="BVTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[XEZER]"
+                      dataType="wstr"
+                      length="1"
+                      name="XEZER" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[BKREF]"
+                      dataType="wstr"
+                      length="20"
+                      name="BKREF" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[KOINH]"
+                      dataType="wstr"
+                      length="60"
+                      name="KOINH" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[EBPP_ACCNAME]"
+                      dataType="wstr"
+                      length="40"
+                      name="EBPP_ACCNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[EBPP_BVSTATUS]"
+                      dataType="wstr"
+                      length="1"
+                      name="EBPP_BVSTATUS" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[KOVON]"
+                      dataType="wstr"
+                      length="8"
+                      name="KOVON" />
+                    <externalMetadataColumn
+                      refId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput].ExternalColumns[KOBIS]"
+                      dataType="wstr"
+                      length="8"
+                      name="KOBIS" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read LFBK.Paths[SAP_LFBK_XtractOutput_Dest_SAP_LFBK]"
+              endId="Package\Read LFBK\Dest_SAP_LFBK.Inputs[SAP_LFBK_XtractOutput_Dest_SAP_LFBK]"
+              name="SAP_LFBK_XtractOutput_Dest_SAP_LFBK"
+              startId="Package\Read LFBK\SAP_LFBK.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_LFBK"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{B9A51374-F8AC-4C65-8420-174663671C13}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_LFBK"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3AAEDBAD-A296-4ADB-9729-463AA24937BA}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_LFBK]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_LFBK_To_Read LFBK]"
+      DTS:CreationName=""
+      DTS:DTSID="{9BF720DE-BCD4-4CC1-81CF-94F5F2A3CF72}"
+      DTS:From="Package\TRUNCATE SAP_LFBK"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_LFBK_To_Read LFBK"
+      DTS:To="Package\Read LFBK" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

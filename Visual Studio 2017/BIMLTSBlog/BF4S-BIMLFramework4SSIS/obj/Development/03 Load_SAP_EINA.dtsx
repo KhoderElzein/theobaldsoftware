@@ -1,0 +1,1466 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:30 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{0206130B-C50D-45E6-B0BE-57852888C412}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_EINA"
+  DTS:VersionGUID="{3056F604-912B-4BD2-9635-437355A18A67}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{62FCEB91-CF63-49C5-A508-849A488A6BC3}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B4DA43F1-CD5A-4261-856F-6DAC221A5EED}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read EINA"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{AC542666-FBB4-4651-9385-6D9FB1F5DB6D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read EINA"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read EINA\Dest_SAP_EINA"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_EINA"
+              name="Dest_SAP_EINA"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_EINA</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read EINA\Dest_SAP_EINA.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_EINA_XtractOutput_Dest_SAP_EINA">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MANDT]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[INFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="INFNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[INFNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[INFNR]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MATNR]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="MATNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MATNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATNR]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MATKL]"
+                      cachedDataType="wstr"
+                      cachedLength="9"
+                      cachedName="MATKL"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MATKL]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATKL]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LIFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LIFNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LOEKZ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="LOEKZ"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LOEKZ]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LOEKZ]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[ERDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="ERDAT"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ERDAT]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[ERNAM]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="ERNAM"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ERNAM]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERNAM]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[TXZ01]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="TXZ01"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[TXZ01]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TXZ01]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[SORTL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SORTL"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[SORTL]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[SORTL]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MEINS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MEINS"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MEINS]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MEINS]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[UMREZ]"
+                      cachedDataType="numeric"
+                      cachedName="UMREZ"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[UMREZ]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREZ]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[UMREN]"
+                      cachedDataType="numeric"
+                      cachedName="UMREN"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[UMREN]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREN]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[IDNLF]"
+                      cachedDataType="wstr"
+                      cachedLength="35"
+                      cachedName="IDNLF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[IDNLF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[IDNLF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[VERKF]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="VERKF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[VERKF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VERKF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[TELF1]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="TELF1"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[TELF1]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TELF1]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MAHN1]"
+                      cachedDataType="numeric"
+                      cachedName="MAHN1"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN1]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN1]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MAHN2]"
+                      cachedDataType="numeric"
+                      cachedName="MAHN2"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN2]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN2]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MAHN3]"
+                      cachedDataType="numeric"
+                      cachedName="MAHN3"
+                      cachedPrecision="4"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN3]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN3]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[URZNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="URZNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZNR]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[URZDT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="URZDT"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZDT]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZDT]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[URZLA]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="URZLA"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZLA]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZLA]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[URZTP]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="URZTP"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZTP]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZTP]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[URZZT]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="URZZT"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZZT]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZZT]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LMEIN]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="LMEIN"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LMEIN]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LMEIN]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[REGIO]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="REGIO"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[REGIO]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[REGIO]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[VABME]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="VABME"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[VABME]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VABME]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LTSNR]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="LTSNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LTSNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSNR]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LTSSF]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="LTSSF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LTSSF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSSF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[WGLIF]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="WGLIF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[WGLIF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[WGLIF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[RUECK]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="RUECK"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[RUECK]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RUECK]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LIFAB]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="LIFAB"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFAB]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFAB]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[LIFBI]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="LIFBI"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFBI]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFBI]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[KOLIF]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KOLIF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[KOLIF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[KOLIF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[ANZPU]"
+                      cachedDataType="numeric"
+                      cachedName="ANZPU"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ANZPU]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ANZPU]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[PUNEI]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="PUNEI"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[PUNEI]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[PUNEI]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[RELIF]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="RELIF"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[RELIF]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RELIF]" />
+                    <inputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].Columns[MFRNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="MFRNR"
+                      externalMetadataColumnId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MFRNR]"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MFRNR]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[INFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="INFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MATKL]"
+                      dataType="wstr"
+                      length="9"
+                      name="MATKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="ERNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[TXZ01]"
+                      dataType="wstr"
+                      length="40"
+                      name="TXZ01" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[SORTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="SORTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MEINS]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEINS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[UMREZ]"
+                      dataType="numeric"
+                      name="UMREZ"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[UMREN]"
+                      dataType="numeric"
+                      name="UMREN"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[IDNLF]"
+                      dataType="wstr"
+                      length="35"
+                      name="IDNLF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[VERKF]"
+                      dataType="wstr"
+                      length="30"
+                      name="VERKF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[TELF1]"
+                      dataType="wstr"
+                      length="16"
+                      name="TELF1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN1]"
+                      dataType="numeric"
+                      name="MAHN1"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN2]"
+                      dataType="numeric"
+                      name="MAHN2"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MAHN3]"
+                      dataType="numeric"
+                      name="MAHN3"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="URZNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="URZDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZLA]"
+                      dataType="wstr"
+                      length="3"
+                      name="URZLA" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZTP]"
+                      dataType="wstr"
+                      length="1"
+                      name="URZTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[URZZT]"
+                      dataType="wstr"
+                      length="16"
+                      name="URZZT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      name="LMEIN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[REGIO]"
+                      dataType="wstr"
+                      length="3"
+                      name="REGIO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[VABME]"
+                      dataType="wstr"
+                      length="1"
+                      name="VABME" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LTSNR]"
+                      dataType="wstr"
+                      length="6"
+                      name="LTSNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LTSSF]"
+                      dataType="wstr"
+                      length="5"
+                      name="LTSSF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[WGLIF]"
+                      dataType="wstr"
+                      length="18"
+                      name="WGLIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[RUECK]"
+                      dataType="wstr"
+                      length="2"
+                      name="RUECK" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFAB]"
+                      dataType="wstr"
+                      length="8"
+                      name="LIFAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[LIFBI]"
+                      dataType="wstr"
+                      length="8"
+                      name="LIFBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[KOLIF]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOLIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[ANZPU]"
+                      dataType="numeric"
+                      name="ANZPU"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[PUNEI]"
+                      dataType="wstr"
+                      length="3"
+                      name="PUNEI" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[RELIF]"
+                      dataType="wstr"
+                      length="1"
+                      name="RELIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA].ExternalColumns[MFRNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="MFRNR" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read EINA\Dest_SAP_EINA.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read EINA\Dest_SAP_EINA.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read EINA\Dest_SAP_EINA.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read EINA\Dest_SAP_EINA.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read EINA\SAP_EINA"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_EINA">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">EINA</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Purchasing Info Record&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATKL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;9&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor Account Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOEKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchasing info: General data flagged for deletion&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on Which Record Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Name of Person who Created the Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXZ01&lt;/ColName&gt;
+        &lt;ColDescription&gt;Short Text for Purchasing Info Record&lt;/ColDescription&gt;
+        &lt;ColLength&gt;40&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SORTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sort Term for Non-Stock Info Records&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchase Order Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMREZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Numerator for Conversion of Order Unit to Base Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMREN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Denominator for Conversion of Order Unit to Base Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IDNLF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number Used by Vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;35&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERKF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Salesperson Responsible in the Event of Queries&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TELF1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor&amp;apos;s Telephone Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAHN1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Days for First Reminder/Expediter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAHN2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Days for Second Reminder/Expediter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAHN3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Days for Third Reminder/Expediter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URZNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Certificate Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URZDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Certificate of Origin Valid Until&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URZLA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Country of Issue of Certificate of Origin&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URZTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Certificate Category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;URZZT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LMEIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Base Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REGIO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Region (State, Province, County)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VABME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Variable Purchase Order Unit Active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LTSNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor Subrange&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LTSSF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sort Sequence Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WGLIF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor Material Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RUECK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Return Agreement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Available (Deliverable) From&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFBI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Available (Deliverable) Until&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOLIF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Prior Vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ANZPU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Points&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PUNEI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Points unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RELIF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Regular Vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MFRNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Manufacturer&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read EINA\SAP_EINA.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[INFNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[INFNR]"
+                      name="INFNR" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATNR]"
+                      name="MATNR" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATKL]"
+                      dataType="wstr"
+                      length="9"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MATKL]"
+                      name="MATKL" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFNR]"
+                      name="LIFNR" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LOEKZ]"
+                      name="LOEKZ" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERDAT]"
+                      name="ERDAT" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ERNAM]"
+                      name="ERNAM" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TXZ01]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TXZ01]"
+                      name="TXZ01" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[SORTL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[SORTL]"
+                      name="SORTL" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MEINS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MEINS]"
+                      name="MEINS" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREZ]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREZ]"
+                      name="UMREZ"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREN]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[UMREN]"
+                      name="UMREN"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[IDNLF]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[IDNLF]"
+                      name="IDNLF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VERKF]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VERKF]"
+                      name="VERKF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TELF1]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[TELF1]"
+                      name="TELF1" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN1]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN1]"
+                      name="MAHN1"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN2]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN2]"
+                      name="MAHN2"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN3]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MAHN3]"
+                      name="MAHN3"
+                      precision="4" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZNR]"
+                      name="URZNR" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZDT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZDT]"
+                      name="URZDT" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZLA]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZLA]"
+                      name="URZLA" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZTP]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZTP]"
+                      name="URZTP" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZZT]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[URZZT]"
+                      name="URZZT" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LMEIN]"
+                      name="LMEIN" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[REGIO]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[REGIO]"
+                      name="REGIO" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VABME]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[VABME]"
+                      name="VABME" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSNR]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSNR]"
+                      name="LTSNR" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSSF]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LTSSF]"
+                      name="LTSSF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[WGLIF]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[WGLIF]"
+                      name="WGLIF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RUECK]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RUECK]"
+                      name="RUECK" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFAB]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFAB]"
+                      name="LIFAB" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFBI]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[LIFBI]"
+                      name="LIFBI" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[KOLIF]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[KOLIF]"
+                      name="KOLIF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ANZPU]"
+                      dataType="numeric"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[ANZPU]"
+                      name="ANZPU"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[PUNEI]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[PUNEI]"
+                      name="PUNEI" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RELIF]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[RELIF]"
+                      name="RELIF" />
+                    <outputColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MFRNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].Columns[MFRNR]"
+                      name="MFRNR" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[INFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="INFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MATKL]"
+                      dataType="wstr"
+                      length="9"
+                      name="MATKL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LIFNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="LIFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="ERNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[TXZ01]"
+                      dataType="wstr"
+                      length="40"
+                      name="TXZ01" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[SORTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="SORTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MEINS]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEINS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[UMREZ]"
+                      dataType="numeric"
+                      name="UMREZ"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[UMREN]"
+                      dataType="numeric"
+                      name="UMREN"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[IDNLF]"
+                      dataType="wstr"
+                      length="35"
+                      name="IDNLF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[VERKF]"
+                      dataType="wstr"
+                      length="30"
+                      name="VERKF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[TELF1]"
+                      dataType="wstr"
+                      length="16"
+                      name="TELF1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MAHN1]"
+                      dataType="numeric"
+                      name="MAHN1"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MAHN2]"
+                      dataType="numeric"
+                      name="MAHN2"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MAHN3]"
+                      dataType="numeric"
+                      name="MAHN3"
+                      precision="4" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[URZNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="URZNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[URZDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="URZDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[URZLA]"
+                      dataType="wstr"
+                      length="3"
+                      name="URZLA" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[URZTP]"
+                      dataType="wstr"
+                      length="1"
+                      name="URZTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[URZZT]"
+                      dataType="wstr"
+                      length="16"
+                      name="URZZT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LMEIN]"
+                      dataType="wstr"
+                      length="3"
+                      name="LMEIN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[REGIO]"
+                      dataType="wstr"
+                      length="3"
+                      name="REGIO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[VABME]"
+                      dataType="wstr"
+                      length="1"
+                      name="VABME" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LTSNR]"
+                      dataType="wstr"
+                      length="6"
+                      name="LTSNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LTSSF]"
+                      dataType="wstr"
+                      length="5"
+                      name="LTSSF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[WGLIF]"
+                      dataType="wstr"
+                      length="18"
+                      name="WGLIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[RUECK]"
+                      dataType="wstr"
+                      length="2"
+                      name="RUECK" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LIFAB]"
+                      dataType="wstr"
+                      length="8"
+                      name="LIFAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[LIFBI]"
+                      dataType="wstr"
+                      length="8"
+                      name="LIFBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[KOLIF]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOLIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[ANZPU]"
+                      dataType="numeric"
+                      name="ANZPU"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[PUNEI]"
+                      dataType="wstr"
+                      length="3"
+                      name="PUNEI" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[RELIF]"
+                      dataType="wstr"
+                      length="1"
+                      name="RELIF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput].ExternalColumns[MFRNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="MFRNR" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read EINA.Paths[SAP_EINA_XtractOutput_Dest_SAP_EINA]"
+              endId="Package\Read EINA\Dest_SAP_EINA.Inputs[SAP_EINA_XtractOutput_Dest_SAP_EINA]"
+              name="SAP_EINA_XtractOutput_Dest_SAP_EINA"
+              startId="Package\Read EINA\SAP_EINA.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_EINA"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{77FEB2F3-7101-4408-AE22-D89DDFE488D9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_EINA"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B4DA43F1-CD5A-4261-856F-6DAC221A5EED}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_EINA]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_EINA_To_Read EINA]"
+      DTS:CreationName=""
+      DTS:DTSID="{74C784E7-EDD5-4F64-96E3-0FFF9600F2E2}"
+      DTS:From="Package\TRUNCATE SAP_EINA"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_EINA_To_Read EINA"
+      DTS:To="Package\Read EINA" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

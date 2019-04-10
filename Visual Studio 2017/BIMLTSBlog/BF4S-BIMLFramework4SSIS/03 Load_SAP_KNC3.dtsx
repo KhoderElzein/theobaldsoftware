@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:34" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{177E4B09-1994-4D67-8079-A920C02A872B}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_KNC3" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{69460311-CCBC-4D4D-84E4-3A709A07E09A}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{BC9E5D38-D59D-44B4-AD78-5BFF099F6F9B}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{9554A40F-BD50-4DA4-A3E9-37462E821E7C}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{63E55FF6-097B-4F25-B2ED-E96DFAAF1928}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_KNC3" DTS:refId="Package\TRUNCATE SAP_KNC3" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_KNC3]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{C7797A92-3606-4DE3-8D87-56C4F728D332}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read KNC3" DTS:refId="Package\Read KNC3" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_KNC3" refId="Package\Read KNC3\SAP_KNC3">
+              <connections>
+                <connection connectionManagerID="{9554A40F-BD50-4DA4-A3E9-37462E821E7C}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read KNC3\SAP_KNC3.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SHBKZ" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[SHBKZ]" />
+                    <externalMetadataColumn dataType="numeric" name="SALDV" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[SALDV]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="SOLLL" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[SOLLL]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="HABNL" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].ExternalColumns[HABNL]" scale="2" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[KUNNR]" name="KUNNR" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[BUKRS]" name="BUKRS" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[GJAHR]" name="GJAHR" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SHBKZ]" name="SHBKZ" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SHBKZ]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SALDV]" name="SALDV" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SALDV]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SOLLL]" name="SOLLL" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SOLLL]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[HABNL]" name="HABNL" precision="20" refId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[HABNL]" scale="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">KNC3</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SHBKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special G/L Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SALDV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Balance Carried Forward in Local Currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SOLLL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Total of the Debit Postings in the Current Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HABNL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Credit Postings Total in the Current Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_KNC3" name="Dest_SAP_KNC3" refId="Package\Read KNC3\Dest_SAP_KNC3" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{BC9E5D38-D59D-44B4-AD78-5BFF099F6F9B}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read KNC3\Dest_SAP_KNC3.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_KNC3_XtractOutput_Dest_SAP_KNC3" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SHBKZ" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SHBKZ]" />
+                    <externalMetadataColumn dataType="numeric" name="SALDV" precision="20" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SALDV]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="SOLLL" precision="20" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SOLLL]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="HABNL" precision="20" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[HABNL]" scale="2" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[MANDT]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KUNNR" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[KUNNR]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[KUNNR]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[KUNNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BUKRS" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[BUKRS]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[BUKRS]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[BUKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GJAHR" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[GJAHR]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[GJAHR]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[GJAHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SHBKZ" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SHBKZ]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SHBKZ]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[SHBKZ]" />
+                    <inputColumn cachedDataType="numeric" cachedName="SALDV" cachedPrecision="20" cachedScale="2" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SALDV]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SALDV]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[SALDV]" />
+                    <inputColumn cachedDataType="numeric" cachedName="SOLLL" cachedPrecision="20" cachedScale="2" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[SOLLL]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[SOLLL]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[SOLLL]" />
+                    <inputColumn cachedDataType="numeric" cachedName="HABNL" cachedPrecision="20" cachedScale="2" externalMetadataColumnId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].ExternalColumns[HABNL]" lineageId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput].Columns[HABNL]" name="" refId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3].Columns[HABNL]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read KNC3\Dest_SAP_KNC3.Outputs[Error]" synchronousInputId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read KNC3\Dest_SAP_KNC3.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read KNC3\Dest_SAP_KNC3.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read KNC3\Dest_SAP_KNC3.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read KNC3\Dest_SAP_KNC3.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_KNC3</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read KNC3\Dest_SAP_KNC3.Inputs[SAP_KNC3_XtractOutput_Dest_SAP_KNC3]" name="SAP_KNC3_XtractOutput_Dest_SAP_KNC3" refId="Package\Read KNC3.Paths[SAP_KNC3_XtractOutput_Dest_SAP_KNC3]" startId="Package\Read KNC3\SAP_KNC3.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{D0BECB06-C593-4C7D-87FA-DFFFAB1C07E7}" DTS:From="Package\TRUNCATE SAP_KNC3" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_KNC3_To_Read KNC3" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_KNC3_To_Read KNC3]" DTS:To="Package\Read KNC3" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

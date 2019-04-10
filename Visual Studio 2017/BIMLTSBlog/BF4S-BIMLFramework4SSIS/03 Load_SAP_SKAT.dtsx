@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:43" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{752FCB16-E2C8-41CA-8A2E-96CB342E414A}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_SKAT" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{3353468C-3634-4A11-BE9F-945479764335}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{A746F674-4F0E-455D-B50E-C937BDB6EE2D}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{58BC83F1-CC04-4D4E-84D1-D754F6178BA8}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{7B1AE3C5-D405-403C-B619-2B4F7E275A75}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_SKAT" DTS:refId="Package\TRUNCATE SAP_SKAT" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_SKAT]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{4E23E2CA-BFC1-48FF-87DF-AB5F0EB7EF4D}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read SKAT" DTS:refId="Package\Read SKAT" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_SKAT" refId="Package\Read SKAT\SAP_SKAT">
+              <connections>
+                <connection connectionManagerID="{58BC83F1-CC04-4D4E-84D1-D754F6178BA8}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read SKAT\SAP_SKAT.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SPRAS" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[SPRAS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOPL" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[KTOPL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="TXT20" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[TXT20]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="TXT50" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[TXT50]" />
+                    <externalMetadataColumn dataType="wstr" length="25" name="MCOD1" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].ExternalColumns[MCOD1]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SPRAS]" name="SPRAS" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SPRAS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[KTOPL]" name="KTOPL" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[KTOPL]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SAKNR]" name="SAKNR" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SAKNR]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT20]" name="TXT20" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT20]" />
+                    <outputColumn dataType="wstr" length="50" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT50]" name="TXT50" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT50]" />
+                    <outputColumn dataType="wstr" length="25" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MCOD1]" name="MCOD1" refId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MCOD1]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">SKAT</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPRAS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Language Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTOPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Chart of Accounts&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L Account Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXT20&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L account short text&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXT50&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L Account Long Text&lt;/ColDescription&gt;
+        &lt;ColLength&gt;50&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MCOD1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Search Term for Matchcode Search&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_SKAT" name="Dest_SAP_SKAT" refId="Package\Read SKAT\Dest_SAP_SKAT" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{A746F674-4F0E-455D-B50E-C937BDB6EE2D}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read SKAT\Dest_SAP_SKAT.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_SKAT_XtractOutput_Dest_SAP_SKAT" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SPRAS" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[SPRAS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KTOPL" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[KTOPL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="TXT20" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[TXT20]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="TXT50" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[TXT50]" />
+                    <externalMetadataColumn dataType="wstr" length="25" name="MCOD1" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[MCOD1]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[MANDT]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="SPRAS" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[SPRAS]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SPRAS]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[SPRAS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KTOPL" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[KTOPL]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[KTOPL]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[KTOPL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SAKNR" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[SAKNR]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[SAKNR]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[SAKNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="TXT20" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[TXT20]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT20]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[TXT20]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="50" cachedName="TXT50" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[TXT50]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[TXT50]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[TXT50]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="25" cachedName="MCOD1" externalMetadataColumnId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].ExternalColumns[MCOD1]" lineageId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput].Columns[MCOD1]" name="" refId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT].Columns[MCOD1]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read SKAT\Dest_SAP_SKAT.Outputs[Error]" synchronousInputId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read SKAT\Dest_SAP_SKAT.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read SKAT\Dest_SAP_SKAT.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read SKAT\Dest_SAP_SKAT.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read SKAT\Dest_SAP_SKAT.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_SKAT</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read SKAT\Dest_SAP_SKAT.Inputs[SAP_SKAT_XtractOutput_Dest_SAP_SKAT]" name="SAP_SKAT_XtractOutput_Dest_SAP_SKAT" refId="Package\Read SKAT.Paths[SAP_SKAT_XtractOutput_Dest_SAP_SKAT]" startId="Package\Read SKAT\SAP_SKAT.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{2E964CDC-96FE-417A-860D-030CC2CD04A8}" DTS:From="Package\TRUNCATE SAP_SKAT" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_SKAT_To_Read SKAT" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_SKAT_To_Read SKAT]" DTS:To="Package\Read SKAT" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

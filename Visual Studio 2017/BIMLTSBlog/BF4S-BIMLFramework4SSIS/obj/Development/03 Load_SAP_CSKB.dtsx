@@ -1,0 +1,873 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:26 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{2E12B462-A0D3-423E-95CA-15F24AB06825}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_CSKB"
+  DTS:VersionGUID="{B5FB9A5F-E7DD-435C-9B0A-277000B480B3}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{95A16ED5-CA0D-4009-927F-CBDBED18A3F4}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DD03A428-A49A-4EC9-8DE2-C3139580FD4D}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read CSKB"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{50CD79B8-6A45-46D2-BDFE-FBA66ADABB48}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read CSKB"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read CSKB\Dest_SAP_CSKB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_CSKB"
+              name="Dest_SAP_CSKB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_CSKB</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read CSKB\Dest_SAP_CSKB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_CSKB_XtractOutput_Dest_SAP_CSKB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MANDT]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[KOKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KOKRS"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KOKRS]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOKRS]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[KSTAR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KSTAR"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KSTAR]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KSTAR]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[DATBI]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DATBI"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DATBI]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATBI]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[DATAB]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DATAB"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DATAB]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATAB]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[KATYP]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="KATYP"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KATYP]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KATYP]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[ERSDA]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="ERSDA"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[ERSDA]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[ERSDA]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[USNAM]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="USNAM"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[USNAM]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[USNAM]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[EIGEN]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="EIGEN"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[EIGEN]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[EIGEN]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[PLAZU]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="PLAZU"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAZU]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAZU]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[PLAOR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="PLAOR"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAOR]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAOR]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[PLAUS]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="PLAUS"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAUS]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAUS]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[KOSTL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KOSTL"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KOSTL]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOSTL]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[AUFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="AUFNR"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[AUFNR]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[AUFNR]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[MGEFL]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MGEFL"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MGEFL]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MGEFL]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[MSEHI]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MSEHI"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MSEHI]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MSEHI]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[DEAKT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="DEAKT"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DEAKT]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DEAKT]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[LOEVM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="LOEVM"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[LOEVM]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[LOEVM]" />
+                    <inputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].Columns[RECID]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="RECID"
+                      externalMetadataColumnId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[RECID]"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[RECID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KSTAR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KSTAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DATBI]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DATAB]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KATYP]"
+                      dataType="wstr"
+                      length="2"
+                      name="KATYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERSDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[EIGEN]"
+                      dataType="wstr"
+                      length="8"
+                      name="EIGEN" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAZU]"
+                      dataType="wstr"
+                      length="1"
+                      name="PLAZU" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAOR]"
+                      dataType="wstr"
+                      length="1"
+                      name="PLAOR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[PLAUS]"
+                      dataType="wstr"
+                      length="2"
+                      name="PLAUS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="AUFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MGEFL]"
+                      dataType="wstr"
+                      length="1"
+                      name="MGEFL" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      name="MSEHI" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[DEAKT]"
+                      dataType="wstr"
+                      length="1"
+                      name="DEAKT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[LOEVM]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEVM" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB].ExternalColumns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      name="RECID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read CSKB\Dest_SAP_CSKB.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read CSKB\Dest_SAP_CSKB.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read CSKB\Dest_SAP_CSKB.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read CSKB\Dest_SAP_CSKB.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read CSKB\SAP_CSKB"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_CSKB">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">CSKB</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Controlling Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATBI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valid To Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valid-From Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KATYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost element category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERSDA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Created on&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Entered by&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EIGEN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost element attributes&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLAZU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for planning access&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLAOR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for the planning location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLAUS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicators for planning user&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOSTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MGEFL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for Recording Consumption Quantities&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MSEHI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Measurement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DEAKT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Cost element deactivated&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOEVM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Cost element is flagged for deletion&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RECID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Recovery Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read CSKB\SAP_CSKB.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOKRS]"
+                      name="KOKRS" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KSTAR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KSTAR]"
+                      name="KSTAR" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATBI]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATBI]"
+                      name="DATBI" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATAB]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DATAB]"
+                      name="DATAB" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KATYP]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KATYP]"
+                      name="KATYP" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[ERSDA]"
+                      name="ERSDA" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[USNAM]"
+                      name="USNAM" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[EIGEN]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[EIGEN]"
+                      name="EIGEN" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAZU]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAZU]"
+                      name="PLAZU" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAOR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAOR]"
+                      name="PLAOR" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAUS]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[PLAUS]"
+                      name="PLAUS" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[KOSTL]"
+                      name="KOSTL" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[AUFNR]"
+                      name="AUFNR" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MGEFL]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MGEFL]"
+                      name="MGEFL" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[MSEHI]"
+                      name="MSEHI" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DEAKT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[DEAKT]"
+                      name="DEAKT" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[LOEVM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[LOEVM]"
+                      name="LOEVM" />
+                    <outputColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].Columns[RECID]"
+                      name="RECID" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[KSTAR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KSTAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[DATBI]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[DATAB]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[KATYP]"
+                      dataType="wstr"
+                      length="2"
+                      name="KATYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[ERSDA]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERSDA" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[EIGEN]"
+                      dataType="wstr"
+                      length="8"
+                      name="EIGEN" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[PLAZU]"
+                      dataType="wstr"
+                      length="1"
+                      name="PLAZU" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[PLAOR]"
+                      dataType="wstr"
+                      length="1"
+                      name="PLAOR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[PLAUS]"
+                      dataType="wstr"
+                      length="2"
+                      name="PLAUS" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="AUFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[MGEFL]"
+                      dataType="wstr"
+                      length="1"
+                      name="MGEFL" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      name="MSEHI" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[DEAKT]"
+                      dataType="wstr"
+                      length="1"
+                      name="DEAKT" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[LOEVM]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEVM" />
+                    <externalMetadataColumn
+                      refId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput].ExternalColumns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      name="RECID" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read CSKB.Paths[SAP_CSKB_XtractOutput_Dest_SAP_CSKB]"
+              endId="Package\Read CSKB\Dest_SAP_CSKB.Inputs[SAP_CSKB_XtractOutput_Dest_SAP_CSKB]"
+              name="SAP_CSKB_XtractOutput_Dest_SAP_CSKB"
+              startId="Package\Read CSKB\SAP_CSKB.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_CSKB"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{3A60FB98-C172-4DD6-AAED-4F44DD5F532B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_CSKB"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DD03A428-A49A-4EC9-8DE2-C3139580FD4D}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_CSKB]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_CSKB_To_Read CSKB]"
+      DTS:CreationName=""
+      DTS:DTSID="{69CE9B1C-4087-4077-AC1D-758CE47AE36B}"
+      DTS:From="Package\TRUNCATE SAP_CSKB"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_CSKB_To_Read CSKB"
+      DTS:To="Package\Read CSKB" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

@@ -1,0 +1,973 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:35" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{C5A2CE7D-1980-4A5E-AC09-2DA39439AA56}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_LFB1" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{DA9AFC70-5ECD-423F-B433-8A06FA42D6CF}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{573D3305-5B54-43ED-BECC-3D210F856220}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{127D39C5-9A46-4A8D-8D50-72D3A08958EE}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{B6C2D64A-1AF2-408B-BBB0-EA955EE3CD78}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_LFB1" DTS:refId="Package\TRUNCATE SAP_LFB1" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_LFB1]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{C0F49735-7AEF-49A6-ABE2-647208832E89}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read LFB1" DTS:refId="Package\Read LFB1" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_LFB1" refId="Package\Read LFB1\SAP_LFB1">
+              <connections>
+                <connection connectionManagerID="{127D39C5-9A46-4A8D-8D50-72D3A08958EE}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read LFB1\SAP_LFB1.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PERNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[PERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPERR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[SPERR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LOEVM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[LOEVM]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ZUAWA" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZUAWA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AKONT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[AKONT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BEGRU" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[BEGRU]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="VZSKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[VZSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ZWELS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZWELS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XVERR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XVERR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ZAHLS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZAHLS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ZTERM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZTERM]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="EIKTO" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[EIKTO]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="ZSABE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZSABE]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="KVERM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[KVERM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="FDGRV" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[FDGRV]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BUSAB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[BUSAB]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LNRZE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[LNRZE]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LNRZB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[LNRZB]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ZINDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZINDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZINRT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZINRT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="DATLZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[DATLZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XDEZV" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XDEZV]" />
+                    <externalMetadataColumn dataType="numeric" name="WEBTR" precision="16" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[WEBTR]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="KULTG" precision="3" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[KULTG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="REPRF" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[REPRF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOGRU" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[TOGRU]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="HBKID" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[HBKID]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XPORE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XPORE]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="QSZNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QSZNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="QSZDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QSZDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="QSSKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QSSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BLNKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[BLNKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MINDK" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[MINDK]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ALTKN" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ALTKN]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZGRUP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ZGRUP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="MGRUP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[MGRUP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="UZAWE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[UZAWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="QSREC" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QSREC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="QSBGR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QSBGR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="QLAND" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[QLAND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XEDIP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XEDIP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FRGRP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[FRGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOGRR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[TOGRR]" />
+                    <externalMetadataColumn dataType="wstr" length="31" name="TLFXS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[TLFXS]" />
+                    <externalMetadataColumn dataType="wstr" length="130" name="INTAD" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[INTAD]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLFZB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XLFZB]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GUZTE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[GUZTE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRICD" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[GRICD]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRIDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[GRIDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XAUSZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[XAUSZ]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="CERDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[CERDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CONFS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[CONFS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="UPDAT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[UPDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="UPTIM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[UPTIM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="NODEL" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[NODEL]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="TLFNS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[TLFNS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="AVSND" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[AVSND]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AD_HASH" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[AD_HASH]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_SC_SUBCONTYPE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[J_SC_SUBCONTYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="J_SC_COMPDATE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[J_SC_COMPDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_SC_OFFSM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[J_SC_OFFSM]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="J_SC_OFFSR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[J_SC_OFFSR]" />
+                    <externalMetadataColumn dataType="numeric" name="BASIS_PNT" precision="7" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[BASIS_PNT]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="GMVKZK" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[GMVKZK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PREPAY_RELEVANT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[PREPAY_RELEVANT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ASSIGN_TEST" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].ExternalColumns[ASSIGN_TEST]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LIFNR]" name="LIFNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUKRS]" name="BUKRS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PERNR]" name="PERNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PERNR]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERDAT]" name="ERDAT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERNAM]" name="ERNAM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERNAM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[SPERR]" name="SPERR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[SPERR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LOEVM]" name="LOEVM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LOEVM]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZUAWA]" name="ZUAWA" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZUAWA]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AKONT]" name="AKONT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AKONT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BEGRU]" name="BEGRU" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BEGRU]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[VZSKZ]" name="VZSKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[VZSKZ]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZWELS]" name="ZWELS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZWELS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XVERR]" name="XVERR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XVERR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZAHLS]" name="ZAHLS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZAHLS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZTERM]" name="ZTERM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZTERM]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[EIKTO]" name="EIKTO" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[EIKTO]" />
+                    <outputColumn dataType="wstr" length="15" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZSABE]" name="ZSABE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZSABE]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KVERM]" name="KVERM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KVERM]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FDGRV]" name="FDGRV" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FDGRV]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUSAB]" name="BUSAB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUSAB]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZE]" name="LNRZE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZE]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZB]" name="LNRZB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZB]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINDT]" name="ZINDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINDT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINRT]" name="ZINRT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINRT]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[DATLZ]" name="DATLZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[DATLZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XDEZV]" name="XDEZV" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XDEZV]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[WEBTR]" name="WEBTR" precision="16" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[WEBTR]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KULTG]" name="KULTG" precision="3" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KULTG]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[REPRF]" name="REPRF" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[REPRF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRU]" name="TOGRU" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRU]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[HBKID]" name="HBKID" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[HBKID]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XPORE]" name="XPORE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XPORE]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZNR]" name="QSZNR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZNR]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZDT]" name="QSZDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZDT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSSKZ]" name="QSSKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSSKZ]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BLNKZ]" name="BLNKZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BLNKZ]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MINDK]" name="MINDK" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MINDK]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ALTKN]" name="ALTKN" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ALTKN]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZGRUP]" name="ZGRUP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZGRUP]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MGRUP]" name="MGRUP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MGRUP]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UZAWE]" name="UZAWE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UZAWE]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSREC]" name="QSREC" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSREC]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSBGR]" name="QSBGR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSBGR]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QLAND]" name="QLAND" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QLAND]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XEDIP]" name="XEDIP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XEDIP]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FRGRP]" name="FRGRP" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FRGRP]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRR]" name="TOGRR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRR]" />
+                    <outputColumn dataType="wstr" length="31" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFXS]" name="TLFXS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFXS]" />
+                    <outputColumn dataType="wstr" length="130" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[INTAD]" name="INTAD" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[INTAD]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XLFZB]" name="XLFZB" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XLFZB]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GUZTE]" name="GUZTE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GUZTE]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRICD]" name="GRICD" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRICD]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRIDT]" name="GRIDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRIDT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XAUSZ]" name="XAUSZ" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XAUSZ]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CERDT]" name="CERDT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CERDT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CONFS]" name="CONFS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CONFS]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPDAT]" name="UPDAT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPDAT]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPTIM]" name="UPTIM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPTIM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[NODEL]" name="NODEL" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[NODEL]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFNS]" name="TLFNS" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFNS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AVSND]" name="AVSND" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AVSND]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AD_HASH]" name="AD_HASH" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AD_HASH]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_SUBCONTYPE]" name="J_SC_SUBCONTYPE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_SUBCONTYPE]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_COMPDATE]" name="J_SC_COMPDATE" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_COMPDATE]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSM]" name="J_SC_OFFSM" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSM]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSR]" name="J_SC_OFFSR" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSR]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BASIS_PNT]" name="BASIS_PNT" precision="7" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BASIS_PNT]" scale="3" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GMVKZK]" name="GMVKZK" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GMVKZK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PREPAY_RELEVANT]" name="PREPAY_RELEVANT" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PREPAY_RELEVANT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ASSIGN_TEST]" name="ASSIGN_TEST" refId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ASSIGN_TEST]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">LFB1</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Number of Vendor or Creditor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PERNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Personnel Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on which the Record Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Name of Person who Created the Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPERR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting block for company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOEVM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Deletion Flag for Master Record (Company Code Level)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZUAWA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Key for sorting according to assignment numbers&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AKONT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reconciliation Account in General Ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BEGRU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Authorization Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VZSKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Interest calculation indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZWELS&lt;/ColName&gt;
+        &lt;ColDescription&gt;List of the Payment Methods to be Considered&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XVERR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Clearing between customer and vendor?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZAHLS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Block Key for Payment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZTERM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Terms of Payment Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EIKTO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Our account number with the vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZSABE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Clerk at vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVERM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Memo&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FDGRV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planning group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUSAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Accounting clerk&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LNRZE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Head office account number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LNRZB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account number of the alternative payee&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZINDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Key date of the last interest calculation&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZINRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Interest calculation frequency in months&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATLZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date of the last interest calculation run&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XDEZV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Local processing?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEBTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Bill of exchange limit (in local currency)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KULTG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Probable time until check is paid&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REPRF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Check Flag for Double Invoices or Credit Memos&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TOGRU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tolerance group for the business partner/G/L account&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HBKID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Short Key for a House Bank&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XPORE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Pay all items separately ?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QSZNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Certificate Number of the Withholding Tax Exemption&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QSZDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Validity Date for Withholding Tax Exemption Certificate&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QSSKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Withholding Tax Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLNKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Subsidy indicator for determining the reduction rates&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MINDK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Minority Indicators&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ALTKN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Previous Master Record Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZGRUP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Key for Payment Grouping&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MGRUP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Key for dunning notice grouping&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UZAWE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Payment Method Supplement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QSREC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor Recipient Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QSBGR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Authority for Exemption from Withholding Tax&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;QLAND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Withholding Tax Country Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XEDIP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Send Payment Advices by EDI&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FRGRP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Release Approval Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TOGRR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tolerance group; Invoice Verification&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TLFXS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Accounting clerk&amp;apos;s fax number at the customer/vendor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;31&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INTAD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internet address of partner company clerk&lt;/ColDescription&gt;
+        &lt;ColLength&gt;130&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XLFZB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Alternative payee using account number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GUZTE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Payment Terms Key for Credit Memos&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRICD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Activity Code for Gross Income Tax&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRIDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Type for Employment Tax&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XAUSZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for periodic account statements&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CERDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Certification date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CONFS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status of Change Authorization (Company Code Level)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UPDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on Which the Changes Were Confirmed&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UPTIM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time of Last Change Confirmation&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NODEL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Deletion bock for master record (company code level)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TLFNS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Accounting clerk&amp;apos;s telephone number at business partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AVSND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Send Payment Advice by XML&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AD_HASH&lt;/ColName&gt;
+        &lt;ColDescription&gt;E-Mail Address for Avis: Hash Value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_SC_SUBCONTYPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Subcontractor Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_SC_COMPDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Completion Date Of Inspection&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_SC_OFFSM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Offset Method&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;J_SC_OFFSR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Offset Percentage&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BASIS_PNT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Average daily basis points for purchase cards&lt;/ColDescription&gt;
+        &lt;ColLength&gt;7&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GMVKZK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vendor is in execution&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PREPAY_RELEVANT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Prepayment Relevance (Vendor Master)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ASSIGN_TEST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Assignment Test Group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_LFB1" name="Dest_SAP_LFB1" refId="Package\Read LFB1\Dest_SAP_LFB1" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{573D3305-5B54-43ED-BECC-3D210F856220}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read LFB1\Dest_SAP_LFB1.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_LFB1_XtractOutput_Dest_SAP_LFB1" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PERNR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[PERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPERR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[SPERR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LOEVM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LOEVM]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ZUAWA" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZUAWA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AKONT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AKONT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BEGRU" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BEGRU]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="VZSKZ" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[VZSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ZWELS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZWELS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XVERR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XVERR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ZAHLS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZAHLS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ZTERM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZTERM]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="EIKTO" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[EIKTO]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="ZSABE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZSABE]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="KVERM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[KVERM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="FDGRV" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[FDGRV]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BUSAB" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BUSAB]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LNRZE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LNRZE]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LNRZB" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LNRZB]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ZINDT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZINDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZINRT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZINRT]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="DATLZ" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[DATLZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XDEZV" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XDEZV]" />
+                    <externalMetadataColumn dataType="numeric" name="WEBTR" precision="16" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[WEBTR]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="KULTG" precision="3" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[KULTG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="REPRF" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[REPRF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOGRU" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TOGRU]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="HBKID" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[HBKID]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XPORE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XPORE]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="QSZNR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSZNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="QSZDT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSZDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="QSSKZ" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BLNKZ" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BLNKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MINDK" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MINDK]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ALTKN" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ALTKN]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZGRUP" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZGRUP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="MGRUP" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MGRUP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="UZAWE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UZAWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="QSREC" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSREC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="QSBGR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSBGR]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="QLAND" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QLAND]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XEDIP" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XEDIP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FRGRP" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[FRGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOGRR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TOGRR]" />
+                    <externalMetadataColumn dataType="wstr" length="31" name="TLFXS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TLFXS]" />
+                    <externalMetadataColumn dataType="wstr" length="130" name="INTAD" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[INTAD]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLFZB" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XLFZB]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GUZTE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GUZTE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRICD" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GRICD]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRIDT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GRIDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XAUSZ" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XAUSZ]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="CERDT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[CERDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CONFS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[CONFS]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="UPDAT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UPDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="UPTIM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UPTIM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="NODEL" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[NODEL]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="TLFNS" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TLFNS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="AVSND" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AVSND]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AD_HASH" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AD_HASH]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_SC_SUBCONTYPE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_SUBCONTYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="J_SC_COMPDATE" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_COMPDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="J_SC_OFFSM" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_OFFSM]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="J_SC_OFFSR" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_OFFSR]" />
+                    <externalMetadataColumn dataType="numeric" name="BASIS_PNT" precision="7" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BASIS_PNT]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="GMVKZK" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GMVKZK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PREPAY_RELEVANT" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[PREPAY_RELEVANT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ASSIGN_TEST" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ASSIGN_TEST]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MANDT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LIFNR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LIFNR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LIFNR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[LIFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BUKRS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BUKRS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUKRS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[BUKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="PERNR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[PERNR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PERNR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[PERNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="ERDAT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ERDAT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERDAT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ERDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="ERNAM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ERNAM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ERNAM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ERNAM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPERR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[SPERR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[SPERR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[SPERR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LOEVM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LOEVM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LOEVM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[LOEVM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ZUAWA" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZUAWA]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZUAWA]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZUAWA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="AKONT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AKONT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AKONT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[AKONT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BEGRU" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BEGRU]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BEGRU]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[BEGRU]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="VZSKZ" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[VZSKZ]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[VZSKZ]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[VZSKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="ZWELS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZWELS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZWELS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZWELS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XVERR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XVERR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XVERR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XVERR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ZAHLS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZAHLS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZAHLS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZAHLS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ZTERM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZTERM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZTERM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZTERM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="EIKTO" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[EIKTO]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[EIKTO]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[EIKTO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="15" cachedName="ZSABE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZSABE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZSABE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZSABE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="KVERM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[KVERM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KVERM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[KVERM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="FDGRV" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[FDGRV]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FDGRV]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[FDGRV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="BUSAB" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BUSAB]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BUSAB]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[BUSAB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LNRZE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LNRZE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[LNRZE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LNRZB" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[LNRZB]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[LNRZB]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[LNRZB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="ZINDT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZINDT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINDT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZINDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ZINRT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZINRT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZINRT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZINRT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="DATLZ" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[DATLZ]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[DATLZ]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[DATLZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XDEZV" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XDEZV]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XDEZV]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XDEZV]" />
+                    <inputColumn cachedDataType="numeric" cachedName="WEBTR" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[WEBTR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[WEBTR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[WEBTR]" />
+                    <inputColumn cachedDataType="numeric" cachedName="KULTG" cachedPrecision="3" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[KULTG]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[KULTG]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[KULTG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="REPRF" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[REPRF]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[REPRF]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[REPRF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="TOGRU" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TOGRU]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRU]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[TOGRU]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="HBKID" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[HBKID]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[HBKID]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[HBKID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XPORE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XPORE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XPORE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XPORE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="QSZNR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSZNR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZNR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QSZNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="QSZDT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSZDT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSZDT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QSZDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="QSSKZ" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSSKZ]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSSKZ]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QSSKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="BLNKZ" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BLNKZ]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BLNKZ]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[BLNKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MINDK" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MINDK]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MINDK]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[MINDK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="ALTKN" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ALTKN]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ALTKN]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ALTKN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ZGRUP" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ZGRUP]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ZGRUP]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ZGRUP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="MGRUP" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[MGRUP]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[MGRUP]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[MGRUP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="UZAWE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UZAWE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UZAWE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[UZAWE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="QSREC" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSREC]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSREC]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QSREC]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="QSBGR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QSBGR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QSBGR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QSBGR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="QLAND" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[QLAND]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[QLAND]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[QLAND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XEDIP" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XEDIP]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XEDIP]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XEDIP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FRGRP" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[FRGRP]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[FRGRP]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[FRGRP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="TOGRR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TOGRR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TOGRR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[TOGRR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="31" cachedName="TLFXS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TLFXS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFXS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[TLFXS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="130" cachedName="INTAD" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[INTAD]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[INTAD]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[INTAD]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XLFZB" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XLFZB]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XLFZB]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XLFZB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GUZTE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GUZTE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GUZTE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[GUZTE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="GRICD" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GRICD]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRICD]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[GRICD]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="GRIDT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GRIDT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GRIDT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[GRIDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XAUSZ" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[XAUSZ]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[XAUSZ]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[XAUSZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="CERDT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[CERDT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CERDT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[CERDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CONFS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[CONFS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[CONFS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[CONFS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="UPDAT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UPDAT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPDAT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[UPDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="UPTIM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[UPTIM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[UPTIM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[UPTIM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="NODEL" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[NODEL]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[NODEL]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[NODEL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="TLFNS" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[TLFNS]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[TLFNS]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[TLFNS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="AVSND" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AVSND]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AVSND]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[AVSND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="AD_HASH" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[AD_HASH]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[AD_HASH]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[AD_HASH]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="J_SC_SUBCONTYPE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_SUBCONTYPE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_SUBCONTYPE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[J_SC_SUBCONTYPE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="J_SC_COMPDATE" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_COMPDATE]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_COMPDATE]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[J_SC_COMPDATE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="J_SC_OFFSM" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_OFFSM]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSM]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[J_SC_OFFSM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="J_SC_OFFSR" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[J_SC_OFFSR]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[J_SC_OFFSR]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[J_SC_OFFSR]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BASIS_PNT" cachedPrecision="7" cachedScale="3" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[BASIS_PNT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[BASIS_PNT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[BASIS_PNT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="GMVKZK" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[GMVKZK]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[GMVKZK]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[GMVKZK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PREPAY_RELEVANT" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[PREPAY_RELEVANT]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[PREPAY_RELEVANT]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[PREPAY_RELEVANT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ASSIGN_TEST" externalMetadataColumnId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].ExternalColumns[ASSIGN_TEST]" lineageId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput].Columns[ASSIGN_TEST]" name="" refId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1].Columns[ASSIGN_TEST]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read LFB1\Dest_SAP_LFB1.Outputs[Error]" synchronousInputId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read LFB1\Dest_SAP_LFB1.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read LFB1\Dest_SAP_LFB1.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read LFB1\Dest_SAP_LFB1.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read LFB1\Dest_SAP_LFB1.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_LFB1</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read LFB1\Dest_SAP_LFB1.Inputs[SAP_LFB1_XtractOutput_Dest_SAP_LFB1]" name="SAP_LFB1_XtractOutput_Dest_SAP_LFB1" refId="Package\Read LFB1.Paths[SAP_LFB1_XtractOutput_Dest_SAP_LFB1]" startId="Package\Read LFB1\SAP_LFB1.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{097202B2-9F44-438D-91A3-1E02561C920A}" DTS:From="Package\TRUNCATE SAP_LFB1" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_LFB1_To_Read LFB1" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_LFB1_To_Read LFB1]" DTS:To="Package\Read LFB1" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

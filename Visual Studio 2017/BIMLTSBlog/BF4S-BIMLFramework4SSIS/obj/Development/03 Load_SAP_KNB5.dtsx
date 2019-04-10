@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:34 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{EA5F0585-83E5-4246-9FB5-032B8032BDC8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_KNB5"
+  DTS:VersionGUID="{E447C514-E31D-4806-91B2-9E43A45E489B}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{390A2C88-9B9B-483F-8E80-9C519040A0CA}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{825C1C4E-A474-46EB-9C9B-22274995817F}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read KNB5"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{903155C7-571D-4B11-8A88-C2D0EAF6FA96}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read KNB5"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read KNB5\Dest_SAP_KNB5"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_KNB5"
+              name="Dest_SAP_KNB5"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_KNB5</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read KNB5\Dest_SAP_KNB5.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_KNB5_XtractOutput_Dest_SAP_KNB5">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MANDT]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[KUNNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KUNNR"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[KUNNR]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[BUKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="BUKRS"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[BUKRS]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MABER]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MABER"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MABER]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MABER]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MAHNA]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="MAHNA"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MAHNA]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNA]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MANSP]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MANSP"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MANSP]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANSP]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MADAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="MADAT"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MADAT]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MADAT]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[MAHNS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MAHNS"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MAHNS]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNS]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[KNRMA]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KNRMA"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[KNRMA]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KNRMA]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[GMVDT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="GMVDT"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[GMVDT]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[GMVDT]" />
+                    <inputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].Columns[BUSAB]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BUSAB"
+                      externalMetadataColumnId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[BUSAB]"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUSAB]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KUNNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="BUKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MABER]"
+                      dataType="wstr"
+                      length="2"
+                      name="MABER" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MAHNA]"
+                      dataType="wstr"
+                      length="4"
+                      name="MAHNA" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MANSP]"
+                      dataType="wstr"
+                      length="1"
+                      name="MANSP" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MADAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="MADAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[MAHNS]"
+                      dataType="wstr"
+                      length="1"
+                      name="MAHNS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[KNRMA]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNRMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[GMVDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="GMVDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5].ExternalColumns[BUSAB]"
+                      dataType="wstr"
+                      length="2"
+                      name="BUSAB" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read KNB5\Dest_SAP_KNB5.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read KNB5\Dest_SAP_KNB5.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read KNB5\Dest_SAP_KNB5.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read KNB5\Dest_SAP_KNB5.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read KNB5\SAP_KNB5"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_KNB5">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">KNB5</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MABER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dunning Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAHNA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dunning Procedure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MANSP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dunning block&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MADAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Last dunned on&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAHNS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dunning level&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNRMA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account number of the dunning recipient&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GMVDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date of the legal dunning proceedings&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUSAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dunning clerk&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read KNB5\SAP_KNB5.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KUNNR]"
+                      name="KUNNR" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUKRS]"
+                      name="BUKRS" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MABER]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MABER]"
+                      name="MABER" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNA]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNA]"
+                      name="MAHNA" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANSP]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MANSP]"
+                      name="MANSP" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MADAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MADAT]"
+                      name="MADAT" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[MAHNS]"
+                      name="MAHNS" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KNRMA]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[KNRMA]"
+                      name="KNRMA" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[GMVDT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[GMVDT]"
+                      name="GMVDT" />
+                    <outputColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUSAB]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].Columns[BUSAB]"
+                      name="BUSAB" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[KUNNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KUNNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[BUKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="BUKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MABER]"
+                      dataType="wstr"
+                      length="2"
+                      name="MABER" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MAHNA]"
+                      dataType="wstr"
+                      length="4"
+                      name="MAHNA" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MANSP]"
+                      dataType="wstr"
+                      length="1"
+                      name="MANSP" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MADAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="MADAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[MAHNS]"
+                      dataType="wstr"
+                      length="1"
+                      name="MAHNS" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[KNRMA]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNRMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[GMVDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="GMVDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput].ExternalColumns[BUSAB]"
+                      dataType="wstr"
+                      length="2"
+                      name="BUSAB" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read KNB5.Paths[SAP_KNB5_XtractOutput_Dest_SAP_KNB5]"
+              endId="Package\Read KNB5\Dest_SAP_KNB5.Inputs[SAP_KNB5_XtractOutput_Dest_SAP_KNB5]"
+              name="SAP_KNB5_XtractOutput_Dest_SAP_KNB5"
+              startId="Package\Read KNB5\SAP_KNB5.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_KNB5"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{CC8D3672-39F5-4C45-A906-BF38C45F5AFF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_KNB5"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{825C1C4E-A474-46EB-9C9B-22274995817F}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_KNB5]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_KNB5_To_Read KNB5]"
+      DTS:CreationName=""
+      DTS:DTSID="{6AE6FF41-A16E-4824-B322-E8C4C6079D1A}"
+      DTS:From="Package\TRUNCATE SAP_KNB5"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_KNB5_To_Read KNB5"
+      DTS:To="Package\Read KNB5" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

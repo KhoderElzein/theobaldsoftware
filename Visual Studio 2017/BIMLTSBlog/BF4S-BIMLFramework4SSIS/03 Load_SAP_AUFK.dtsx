@@ -1,0 +1,1585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:15" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{1A6A3659-5AC9-4356-B50F-9659412CE5DD}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_AUFK" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{63FC071E-0C75-4A3C-8DA6-FD5E60D1471E}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{155F4609-0CFE-42A9-91FC-3985508161E9}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{30FDBF54-0483-41C9-8DC8-808EAF8E779D}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{A464B0B9-453E-410C-9AE9-18F851250652}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_AUFK" DTS:refId="Package\TRUNCATE SAP_AUFK" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_AUFK]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{EAC336C0-38FE-4A8E-975C-0819FE48C4EB}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read AUFK" DTS:refId="Package\Read AUFK" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_AUFK" refId="Package\Read AUFK\SAP_AUFK">
+              <connections>
+                <connection connectionManagerID="{30FDBF54-0483-41C9-8DC8-808EAF8E779D}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read AUFK\SAP_AUFK.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AUFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="AUART" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AUART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="AUTYP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AUTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="REFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[REFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AENAM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AENAM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="AEDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AEDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="40" name="KTEXT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KTEXT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LTEXT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[LTEXT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WERKS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[WERKS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GSBER" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[GSBER]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KOKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KOKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="23" name="CCKEY" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[CCKEY]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KOSTV" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KOSTV]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="STORT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[STORT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="SOWRK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SOWRK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ASTKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ASTKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="WAERS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[WAERS]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ASTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ASTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="STDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[STDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ESTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ESTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS0" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PHAS0]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PHAS1]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PHAS2]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PHAS3]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PDAT1]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PDAT2]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PDAT3]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[IDAT1]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[IDAT2]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[IDAT3]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="OBJID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[OBJID]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VOGRP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[VOGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LOEKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[LOEKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLGKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PLGKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KVEWE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KVEWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="KAPPL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KAPPL]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="KALSM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KALSM]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ZSCHL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ZSCHL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ABKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ABKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KOSTL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KOSTL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="SETNM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SETNM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="CYCLE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[CYCLE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="SDATE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="SEQNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SEQNR]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER0" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER0]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER1]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER2]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER3]" />
+                    <externalMetadataColumn dataType="numeric" name="USER4" precision="14" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER4]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER5" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER5]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="USER6" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER6]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER7" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER7]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER8" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER8]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="USER9" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[USER9]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PRCTR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PRCTR]" />
+                    <externalMetadataColumn dataType="wstr" length="24" name="PSPEL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PSPEL]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="AWSLS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AWSLS]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ABGSL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ABGSL]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="TXJCD" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[TXJCD]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FUNC_AREA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[FUNC_AREA]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="SCOPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SCOPE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLINT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PLINT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KDAUF" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KDAUF]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="KDPOS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KDPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="AUFEX" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AUFEX]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="IVPRO" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[IVPRO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LOGSYSTEM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[LOGSYSTEM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FLG_MLTPS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[FLG_MLTPS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ABUKR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ABUKR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AKSTL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AKSTL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SIZECL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[SIZECL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="IZWEK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[IZWEK]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="UMWKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[UMWKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KSTEMPF" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[KSTEMPF]" />
+                    <externalMetadataColumn dataType="wstr" length="7" name="ZSCHM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ZSCHM]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="PKOSA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PKOSA]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ANFAUFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ANFAUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="PROCNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PROCNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="PROTY" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[PROTY]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSORD" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[RSORD]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BEMOT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[BEMOT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ADRNRA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ADRNRA]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ERFZEIT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ERFZEIT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="AEZEIT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AEZEIT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="CSTG_VRNT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[CSTG_VRNT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="COSTESTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[COSTESTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="VERAA_USER" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[VERAA_USER]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DUMMY_CI_AUFK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[DUMMY_CI_AUFK]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VNAME" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[VNAME]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="RECID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[RECID]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ETYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[ETYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="OTYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[OTYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="JV_JIBCL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[JV_JIBCL]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="JV_JIBSA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[JV_JIBSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="JV_OCO" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[JV_OCO]" />
+                    <externalMetadataColumn dataType="numeric" name="CPD_UPDAT" precision="19" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[CPD_UPDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/CUM/INDCU" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/CUM/INDCU]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="/CUM/CMNUM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/CUM/CMNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/CUM/AUEST" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/CUM/AUEST]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="/CUM/DESNUM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/CUM/DESNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="/MRSS/PL_STRU_ID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/PL_STRU_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/PL_MAN_TYP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/PL_MAN_TYP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="/MRSS/ORDER_PROB" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/ORDER_PROB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/ACT_TYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/ACT_TYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/INIT_DONE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/INIT_DONE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/DATACHANGE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/DATACHANGE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="/MRSS/SALES_ORG" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/SALES_ORG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/NW_BOOKED" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[/MRSS/NW_BOOKED]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="VAPLZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[VAPLZ]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WAWRK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[WAWRK]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FERC_IND" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[FERC_IND]" />
+                    <externalMetadataColumn dataType="wstr" length="11" name="AUFK_STATUS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[AUFK_STATUS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CLAIM_CONTROL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[CLAIM_CONTROL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UPDATE_NEEDED" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[UPDATE_NEEDED]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UPDATE_CONTROL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].ExternalColumns[UPDATE_CONTROL]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFNR]" name="AUFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUART]" name="AUART" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUART]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUTYP]" name="AUTYP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUTYP]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[REFNR]" name="REFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[REFNR]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERNAM]" name="ERNAM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERNAM]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERDAT]" name="ERDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AENAM]" name="AENAM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AENAM]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEDAT]" name="AEDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEDAT]" />
+                    <outputColumn dataType="wstr" length="40" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KTEXT]" name="KTEXT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KTEXT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LTEXT]" name="LTEXT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LTEXT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BUKRS]" name="BUKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WERKS]" name="WERKS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WERKS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[GSBER]" name="GSBER" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[GSBER]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOKRS]" name="KOKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOKRS]" />
+                    <outputColumn dataType="wstr" length="23" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CCKEY]" name="CCKEY" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CCKEY]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTV]" name="KOSTV" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTV]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STORT]" name="STORT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STORT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SOWRK]" name="SOWRK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SOWRK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTKZ]" name="ASTKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTKZ]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAERS]" name="WAERS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAERS]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTNR]" name="ASTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTNR]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STDAT]" name="STDAT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STDAT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ESTNR]" name="ESTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ESTNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS0]" name="PHAS0" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS0]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS1]" name="PHAS1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS1]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS2]" name="PHAS2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS2]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS3]" name="PHAS3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS3]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT1]" name="PDAT1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT1]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT2]" name="PDAT2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT2]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT3]" name="PDAT3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT3]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT1]" name="IDAT1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT1]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT2]" name="IDAT2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT2]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT3]" name="IDAT3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT3]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJID]" name="OBJID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJID]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VOGRP]" name="VOGRP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VOGRP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOEKZ]" name="LOEKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOEKZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLGKZ]" name="PLGKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLGKZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KVEWE]" name="KVEWE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KVEWE]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KAPPL]" name="KAPPL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KAPPL]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KALSM]" name="KALSM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KALSM]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHL]" name="ZSCHL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHL]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABKRS]" name="ABKRS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABKRS]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTAR]" name="KSTAR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTAR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTL]" name="KOSTL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTL]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SAKNR]" name="SAKNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SAKNR]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SETNM]" name="SETNM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SETNM]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CYCLE]" name="CYCLE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CYCLE]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SDATE]" name="SDATE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SDATE]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SEQNR]" name="SEQNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SEQNR]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER0]" name="USER0" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER0]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER1]" name="USER1" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER1]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER2]" name="USER2" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER2]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER3]" name="USER3" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER3]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER4]" name="USER4" precision="14" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER4]" scale="2" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER5]" name="USER5" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER5]" />
+                    <outputColumn dataType="wstr" length="15" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER6]" name="USER6" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER6]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER7]" name="USER7" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER7]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER8]" name="USER8" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER8]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER9]" name="USER9" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER9]" />
+                    <outputColumn dataType="wstr" length="22" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJNR]" name="OBJNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJNR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PRCTR]" name="PRCTR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PRCTR]" />
+                    <outputColumn dataType="wstr" length="24" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PSPEL]" name="PSPEL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PSPEL]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AWSLS]" name="AWSLS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AWSLS]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABGSL]" name="ABGSL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABGSL]" />
+                    <outputColumn dataType="wstr" length="15" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[TXJCD]" name="TXJCD" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[TXJCD]" />
+                    <outputColumn dataType="wstr" length="16" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FUNC_AREA]" name="FUNC_AREA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FUNC_AREA]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SCOPE]" name="SCOPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SCOPE]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLINT]" name="PLINT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLINT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDAUF]" name="KDAUF" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDAUF]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDPOS]" name="KDPOS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDPOS]" />
+                    <outputColumn dataType="wstr" length="20" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFEX]" name="AUFEX" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFEX]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IVPRO]" name="IVPRO" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IVPRO]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOGSYSTEM]" name="LOGSYSTEM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOGSYSTEM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FLG_MLTPS]" name="FLG_MLTPS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FLG_MLTPS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABUKR]" name="ABUKR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABUKR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AKSTL]" name="AKSTL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AKSTL]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SIZECL]" name="SIZECL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SIZECL]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IZWEK]" name="IZWEK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IZWEK]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UMWKZ]" name="UMWKZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UMWKZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTEMPF]" name="KSTEMPF" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTEMPF]" />
+                    <outputColumn dataType="wstr" length="7" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHM]" name="ZSCHM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHM]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PKOSA]" name="PKOSA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PKOSA]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ANFAUFNR]" name="ANFAUFNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ANFAUFNR]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROCNR]" name="PROCNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROCNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROTY]" name="PROTY" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROTY]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RSORD]" name="RSORD" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RSORD]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BEMOT]" name="BEMOT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BEMOT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ADRNRA]" name="ADRNRA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ADRNRA]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERFZEIT]" name="ERFZEIT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERFZEIT]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEZEIT]" name="AEZEIT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEZEIT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CSTG_VRNT]" name="CSTG_VRNT" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CSTG_VRNT]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[COSTESTNR]" name="COSTESTNR" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[COSTESTNR]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VERAA_USER]" name="VERAA_USER" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VERAA_USER]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[DUMMY_CI_AUFK]" name="DUMMY_CI_AUFK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[DUMMY_CI_AUFK]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VNAME]" name="VNAME" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VNAME]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RECID]" name="RECID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RECID]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ETYPE]" name="ETYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ETYPE]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OTYPE]" name="OTYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OTYPE]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBCL]" name="JV_JIBCL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBCL]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBSA]" name="JV_JIBSA" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBSA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_OCO]" name="JV_OCO" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_OCO]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CPD_UPDAT]" name="CPD_UPDAT" precision="19" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CPD_UPDAT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/INDCU]" name="/CUM/INDCU" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/INDCU]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/CMNUM]" name="/CUM/CMNUM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/CMNUM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/AUEST]" name="/CUM/AUEST" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/AUEST]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/DESNUM]" name="/CUM/DESNUM" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/DESNUM]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_STRU_ID]" name="/MRSS/PL_STRU_ID" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_STRU_ID]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_MAN_TYP]" name="/MRSS/PL_MAN_TYP" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_MAN_TYP]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ORDER_PROB]" name="/MRSS/ORDER_PROB" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ORDER_PROB]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ACT_TYPE]" name="/MRSS/ACT_TYPE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ACT_TYPE]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/INIT_DONE]" name="/MRSS/INIT_DONE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/INIT_DONE]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/DATACHANGE]" name="/MRSS/DATACHANGE" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/DATACHANGE]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/SALES_ORG]" name="/MRSS/SALES_ORG" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/SALES_ORG]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/NW_BOOKED]" name="/MRSS/NW_BOOKED" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/NW_BOOKED]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VAPLZ]" name="VAPLZ" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VAPLZ]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAWRK]" name="WAWRK" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAWRK]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FERC_IND]" name="FERC_IND" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FERC_IND]" />
+                    <outputColumn dataType="wstr" length="11" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFK_STATUS]" name="AUFK_STATUS" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFK_STATUS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CLAIM_CONTROL]" name="CLAIM_CONTROL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CLAIM_CONTROL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_NEEDED]" name="UPDATE_NEEDED" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_NEEDED]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_CONTROL]" name="UPDATE_CONTROL" refId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_CONTROL]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">AUFK</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference order number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Entered by&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Created on&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AENAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Last changed by&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AEDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Change date for Order Master&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KTEXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Description&lt;/ColDescription&gt;
+        &lt;ColLength&gt;40&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LTEXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Long Text Exists&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WERKS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Plant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GSBER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Controlling Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CCKEY&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost collector key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;23&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOSTV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Responsible cost center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STORT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SOWRK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Location plant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ASTKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Identifier for statistical order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAERS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ASTNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order status&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date of last status change&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ESTNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status reached so far&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PHAS0&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phase &amp;quot;Order created&amp;quot;&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PHAS1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phase &amp;quot;Order released&amp;quot;&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PHAS2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phase &amp;quot;order completed&amp;quot;&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PHAS3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Phase &amp;quot;order closed&amp;quot;&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PDAT1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planned release date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PDAT2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planned completion date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PDAT3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Planned closing date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IDAT1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Release date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IDAT2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Technical completion date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IDAT3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Close date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object ID&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VOGRP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Group of disallowed transactions&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOEKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Deletion flag&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLGKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Identifier for planning with line items&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KVEWE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Usage of the condition table&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KAPPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Application&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KALSM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Costing Sheet&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZSCHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Overhead key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Processing group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Settlement cost element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOSTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost center for basic settlement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L account for basic settlement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SETNM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Allocation set&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CYCLE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost center to which costs are actually posted&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SDATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Start Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SEQNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sequence number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER0&lt;/ColName&gt;
+        &lt;ColDescription&gt;Applicant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Applicant&amp;apos;s telephone number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Person responsible&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Telephone number of person in charge&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER4&lt;/ColName&gt;
+        &lt;ColDescription&gt;Estimated total costs of order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;14&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER5&lt;/ColName&gt;
+        &lt;ColDescription&gt;Application Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER6&lt;/ColName&gt;
+        &lt;ColDescription&gt;Department&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER7&lt;/ColName&gt;
+        &lt;ColDescription&gt;Work Start&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER8&lt;/ColName&gt;
+        &lt;ColDescription&gt;End of Work&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USER9&lt;/ColName&gt;
+        &lt;ColDescription&gt;Identifier for work permit issued&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRCTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Profit Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PSPEL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Work breakdown structure element (WBS element)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;24&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWSLS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Variance Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABGSL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Results Analysis Key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXJCD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tax Jurisdiction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FUNC_AREA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Functional Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SCOPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object Class&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PLINT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for Integrated Planning&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KDAUF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Order Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KDPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number in Sales Order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFEX&lt;/ColName&gt;
+        &lt;ColDescription&gt;External order number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IVPRO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Investment measure profile&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOGSYSTEM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical System&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FLG_MLTPS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order with multiple items&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABUKR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requesting company code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AKSTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requesting cost center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SIZECL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Scale of investment objects&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IZWEK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reason for investment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMWKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reason for environmental investment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTEMPF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Direct cost collector&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZSCHM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Interest Profile for Project/Order Interest Calculation&lt;/ColDescription&gt;
+        &lt;ColLength&gt;7&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PKOSA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost collector for production process PROCNR&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ANFAUFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Requesting order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PROCNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Production Process&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PROTY&lt;/ColName&gt;
+        &lt;ColDescription&gt;Process Category (Procurement/Consumption)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RSORD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Refurbishment order indicator (PM)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BEMOT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Accounting Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ADRNRA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Address number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERFZEIT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AEZEIT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Changed at&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CSTG_VRNT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Costing Variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;COSTESTNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Estimate Number for Cost Est. w/o Qty Structure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERAA_USER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Person Responsible for CO Internal Order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DUMMY_CI_AUFK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Single-Character Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VNAME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Joint Venture&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RECID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Recovery Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ETYPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Equity type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OTYPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Joint Venture Object Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;JV_JIBCL&lt;/ColName&gt;
+        &lt;ColDescription&gt;JIB/JIBE Class&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;JV_JIBSA&lt;/ColName&gt;
+        &lt;ColDescription&gt;JIB/JIBE Subclass A&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;JV_OCO&lt;/ColName&gt;
+        &lt;ColDescription&gt;JV original cost object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPD_UPDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time Stamp&lt;/ColDescription&gt;
+        &lt;ColLength&gt;19&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/CUM/INDCU&lt;/ColName&gt;
+        &lt;ColDescription&gt;CU: Order is Used for Compatible Units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/CUM/CMNUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;CU: Construction Measure Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/CUM/AUEST&lt;/ColName&gt;
+        &lt;ColDescription&gt;CU: Automatic Copy of Estimated Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/CUM/DESNUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;CU: Design Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/PL_STRU_ID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Resource planning nodes&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/PL_MAN_TYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Assignment to resource planner or contact person&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/ORDER_PROB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order probability in percent&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/ACT_TYPE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Process variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/INIT_DONE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal initialization carried out once&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/DATACHANGE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Data was changed in the controls on the user screen&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/SALES_ORG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Organization&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;/MRSS/NW_BOOKED&lt;/ColName&gt;
+        &lt;ColDescription&gt;Network Set to &amp;quot;Booked&amp;quot;&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VAPLZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Main work center for maintenance tasks&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WAWRK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Plant associated with main work center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FERC_IND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Regulatory indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFK_STATUS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Status Combination&lt;/ColDescription&gt;
+        &lt;ColLength&gt;11&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;x&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CLAIM_CONTROL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Claim creation control indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UPDATE_NEEDED&lt;/ColName&gt;
+        &lt;ColDescription&gt;Claim inconsistency with order indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UPDATE_CONTROL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Claim update trigger point from service order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_AUFK" name="Dest_SAP_AUFK" refId="Package\Read AUFK\Dest_SAP_AUFK" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{155F4609-0CFE-42A9-91FC-3985508161E9}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read AUFK\Dest_SAP_AUFK.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_AUFK_XtractOutput_Dest_SAP_AUFK" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AUFNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="AUART" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="AUTYP" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="REFNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[REFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ERNAM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERNAM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="ERDAT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="AENAM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AENAM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="AEDAT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AEDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="40" name="KTEXT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KTEXT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LTEXT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LTEXT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WERKS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WERKS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GSBER" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[GSBER]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KOKRS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="23" name="CCKEY" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CCKEY]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KOSTV" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOSTV]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="STORT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[STORT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="SOWRK" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SOWRK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="ASTKZ" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ASTKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="WAERS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WAERS]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ASTNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ASTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="STDAT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[STDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ESTNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ESTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS0" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS0]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS1" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS1]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS2" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS2]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PHAS3" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS3]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT1" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT1]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT2" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT2]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PDAT3" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT3]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT1" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT1]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT2" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT2]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="IDAT3" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT3]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="OBJID" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OBJID]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VOGRP" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VOGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LOEKZ" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LOEKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLGKZ" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PLGKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KVEWE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KVEWE]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="KAPPL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KAPPL]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="KALSM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KALSM]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ZSCHL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ZSCHL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ABKRS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KOSTL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOSTL]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SAKNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SAKNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="SETNM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SETNM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="CYCLE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CYCLE]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="SDATE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SDATE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="SEQNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SEQNR]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER0" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER0]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER1" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER1]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER2" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER2]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="USER3" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER3]" />
+                    <externalMetadataColumn dataType="numeric" name="USER4" precision="14" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER4]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER5" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER5]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="USER6" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER6]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER7" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER7]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="USER8" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER8]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="USER9" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER9]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PRCTR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PRCTR]" />
+                    <externalMetadataColumn dataType="wstr" length="24" name="PSPEL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PSPEL]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="AWSLS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AWSLS]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ABGSL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABGSL]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="TXJCD" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[TXJCD]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FUNC_AREA" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FUNC_AREA]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="SCOPE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SCOPE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PLINT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PLINT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KDAUF" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KDAUF]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="KDPOS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KDPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="20" name="AUFEX" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFEX]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="IVPRO" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IVPRO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LOGSYSTEM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LOGSYSTEM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="FLG_MLTPS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FLG_MLTPS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ABUKR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABUKR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="AKSTL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AKSTL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SIZECL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SIZECL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="IZWEK" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IZWEK]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="UMWKZ" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UMWKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KSTEMPF" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KSTEMPF]" />
+                    <externalMetadataColumn dataType="wstr" length="7" name="ZSCHM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ZSCHM]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="PKOSA" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PKOSA]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="ANFAUFNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ANFAUFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="PROCNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PROCNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="PROTY" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PROTY]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSORD" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[RSORD]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="BEMOT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[BEMOT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ADRNRA" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ADRNRA]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="ERFZEIT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERFZEIT]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="AEZEIT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AEZEIT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="CSTG_VRNT" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CSTG_VRNT]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="COSTESTNR" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[COSTESTNR]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="VERAA_USER" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VERAA_USER]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DUMMY_CI_AUFK" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[DUMMY_CI_AUFK]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VNAME" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VNAME]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="RECID" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[RECID]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ETYPE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ETYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="OTYPE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OTYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="JV_JIBCL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_JIBCL]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="JV_JIBSA" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_JIBSA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="JV_OCO" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_OCO]" />
+                    <externalMetadataColumn dataType="numeric" name="CPD_UPDAT" precision="19" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CPD_UPDAT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/CUM/INDCU" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/INDCU]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="/CUM/CMNUM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/CMNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/CUM/AUEST" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/AUEST]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="/CUM/DESNUM" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/DESNUM]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="/MRSS/PL_STRU_ID" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/PL_STRU_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/PL_MAN_TYP" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/PL_MAN_TYP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="/MRSS/ORDER_PROB" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/ORDER_PROB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/ACT_TYPE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/ACT_TYPE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/INIT_DONE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/INIT_DONE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/DATACHANGE" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/DATACHANGE]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="/MRSS/SALES_ORG" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/SALES_ORG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="/MRSS/NW_BOOKED" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/NW_BOOKED]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="VAPLZ" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VAPLZ]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WAWRK" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WAWRK]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FERC_IND" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FERC_IND]" />
+                    <externalMetadataColumn dataType="wstr" length="11" name="AUFK_STATUS" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFK_STATUS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CLAIM_CONTROL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CLAIM_CONTROL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UPDATE_NEEDED" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UPDATE_NEEDED]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="UPDATE_CONTROL" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UPDATE_CONTROL]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[MANDT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="AUFNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AUFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="AUART" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUART]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUART]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AUART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="AUTYP" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUTYP]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUTYP]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AUTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="REFNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[REFNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[REFNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[REFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="ERNAM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERNAM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERNAM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ERNAM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="ERDAT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERDAT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERDAT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ERDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="AENAM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AENAM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AENAM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AENAM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="AEDAT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AEDAT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEDAT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AEDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="40" cachedName="KTEXT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KTEXT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KTEXT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KTEXT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LTEXT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LTEXT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LTEXT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[LTEXT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BUKRS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[BUKRS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BUKRS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[BUKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="WERKS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WERKS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WERKS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[WERKS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GSBER" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[GSBER]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[GSBER]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[GSBER]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KOKRS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOKRS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOKRS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KOKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="23" cachedName="CCKEY" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CCKEY]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CCKEY]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[CCKEY]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KOSTV" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOSTV]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTV]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KOSTV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="STORT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[STORT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STORT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[STORT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="SOWRK" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SOWRK]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SOWRK]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SOWRK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="ASTKZ" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ASTKZ]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTKZ]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ASTKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="WAERS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WAERS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAERS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[WAERS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ASTNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ASTNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ASTNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ASTNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="STDAT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[STDAT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[STDAT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[STDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ESTNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ESTNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ESTNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ESTNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PHAS0" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS0]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS0]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PHAS0]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PHAS1" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS1]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS1]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PHAS1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PHAS2" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS2]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS2]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PHAS2]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PHAS3" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PHAS3]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PHAS3]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PHAS3]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="PDAT1" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT1]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT1]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PDAT1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="PDAT2" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT2]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT2]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PDAT2]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="PDAT3" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PDAT3]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PDAT3]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PDAT3]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="IDAT1" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT1]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT1]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[IDAT1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="IDAT2" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT2]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT2]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[IDAT2]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="IDAT3" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IDAT3]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IDAT3]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[IDAT3]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="OBJID" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OBJID]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJID]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[OBJID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VOGRP" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VOGRP]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VOGRP]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[VOGRP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LOEKZ" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LOEKZ]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOEKZ]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[LOEKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PLGKZ" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PLGKZ]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLGKZ]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PLGKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KVEWE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KVEWE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KVEWE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KVEWE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="KAPPL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KAPPL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KAPPL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KAPPL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="KALSM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KALSM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KALSM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KALSM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="ZSCHL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ZSCHL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ZSCHL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ABKRS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABKRS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABKRS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ABKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KSTAR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KSTAR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTAR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KSTAR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KOSTL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KOSTL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KOSTL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KOSTL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SAKNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SAKNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SAKNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SAKNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="SETNM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SETNM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SETNM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SETNM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="CYCLE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CYCLE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CYCLE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[CYCLE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="SDATE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SDATE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SDATE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SDATE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="SEQNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SEQNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SEQNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SEQNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="USER0" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER0]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER0]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER0]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="USER1" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER1]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER1]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER1]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="USER2" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER2]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER2]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER2]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="USER3" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER3]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER3]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER3]" />
+                    <inputColumn cachedDataType="numeric" cachedName="USER4" cachedPrecision="14" cachedScale="2" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER4]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER4]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER4]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="USER5" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER5]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER5]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER5]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="15" cachedName="USER6" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER6]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER6]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER6]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="USER7" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER7]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER7]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER7]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="USER8" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER8]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER8]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER8]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="USER9" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[USER9]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[USER9]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[USER9]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="22" cachedName="OBJNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OBJNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OBJNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[OBJNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="PRCTR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PRCTR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PRCTR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PRCTR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="24" cachedName="PSPEL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PSPEL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PSPEL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PSPEL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="AWSLS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AWSLS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AWSLS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AWSLS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="ABGSL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABGSL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABGSL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ABGSL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="15" cachedName="TXJCD" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[TXJCD]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[TXJCD]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[TXJCD]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="16" cachedName="FUNC_AREA" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FUNC_AREA]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FUNC_AREA]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[FUNC_AREA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="SCOPE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SCOPE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SCOPE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SCOPE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PLINT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PLINT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PLINT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PLINT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KDAUF" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KDAUF]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDAUF]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KDAUF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="KDPOS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KDPOS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KDPOS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KDPOS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="20" cachedName="AUFEX" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFEX]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFEX]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AUFEX]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="IVPRO" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IVPRO]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IVPRO]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[IVPRO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LOGSYSTEM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[LOGSYSTEM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[LOGSYSTEM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[LOGSYSTEM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="FLG_MLTPS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FLG_MLTPS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FLG_MLTPS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[FLG_MLTPS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ABUKR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ABUKR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ABUKR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ABUKR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="AKSTL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AKSTL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AKSTL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AKSTL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="SIZECL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[SIZECL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[SIZECL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[SIZECL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="IZWEK" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[IZWEK]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[IZWEK]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[IZWEK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="UMWKZ" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UMWKZ]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UMWKZ]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[UMWKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KSTEMPF" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[KSTEMPF]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[KSTEMPF]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[KSTEMPF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="7" cachedName="ZSCHM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ZSCHM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ZSCHM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ZSCHM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="PKOSA" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PKOSA]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PKOSA]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PKOSA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="ANFAUFNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ANFAUFNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ANFAUFNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ANFAUFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="PROCNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PROCNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROCNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PROCNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="PROTY" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[PROTY]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[PROTY]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[PROTY]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RSORD" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[RSORD]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RSORD]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[RSORD]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="BEMOT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[BEMOT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[BEMOT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[BEMOT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="ADRNRA" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ADRNRA]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ADRNRA]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ADRNRA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="ERFZEIT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ERFZEIT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ERFZEIT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ERFZEIT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="AEZEIT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AEZEIT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AEZEIT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AEZEIT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="CSTG_VRNT" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CSTG_VRNT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CSTG_VRNT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[CSTG_VRNT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="COSTESTNR" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[COSTESTNR]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[COSTESTNR]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[COSTESTNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="VERAA_USER" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VERAA_USER]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VERAA_USER]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[VERAA_USER]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="DUMMY_CI_AUFK" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[DUMMY_CI_AUFK]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[DUMMY_CI_AUFK]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[DUMMY_CI_AUFK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="VNAME" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VNAME]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VNAME]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[VNAME]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="RECID" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[RECID]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[RECID]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[RECID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ETYPE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[ETYPE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[ETYPE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[ETYPE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="OTYPE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[OTYPE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[OTYPE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[OTYPE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="JV_JIBCL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_JIBCL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBCL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[JV_JIBCL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="JV_JIBSA" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_JIBSA]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_JIBSA]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[JV_JIBSA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="JV_OCO" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[JV_OCO]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[JV_OCO]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[JV_OCO]" />
+                    <inputColumn cachedDataType="numeric" cachedName="CPD_UPDAT" cachedPrecision="19" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CPD_UPDAT]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CPD_UPDAT]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[CPD_UPDAT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/CUM/INDCU" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/INDCU]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/INDCU]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/CUM/INDCU]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="/CUM/CMNUM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/CMNUM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/CMNUM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/CUM/CMNUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/CUM/AUEST" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/AUEST]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/AUEST]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/CUM/AUEST]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="/CUM/DESNUM" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/CUM/DESNUM]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/CUM/DESNUM]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/CUM/DESNUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="/MRSS/PL_STRU_ID" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/PL_STRU_ID]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_STRU_ID]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/PL_STRU_ID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/MRSS/PL_MAN_TYP" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/PL_MAN_TYP]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/PL_MAN_TYP]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/PL_MAN_TYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="/MRSS/ORDER_PROB" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/ORDER_PROB]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ORDER_PROB]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/ORDER_PROB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/MRSS/ACT_TYPE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/ACT_TYPE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/ACT_TYPE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/ACT_TYPE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/MRSS/INIT_DONE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/INIT_DONE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/INIT_DONE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/INIT_DONE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/MRSS/DATACHANGE" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/DATACHANGE]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/DATACHANGE]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/DATACHANGE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="/MRSS/SALES_ORG" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/SALES_ORG]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/SALES_ORG]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/SALES_ORG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="/MRSS/NW_BOOKED" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[/MRSS/NW_BOOKED]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[/MRSS/NW_BOOKED]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[/MRSS/NW_BOOKED]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="VAPLZ" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[VAPLZ]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[VAPLZ]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[VAPLZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="WAWRK" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[WAWRK]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[WAWRK]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[WAWRK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FERC_IND" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[FERC_IND]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[FERC_IND]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[FERC_IND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="11" cachedName="AUFK_STATUS" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[AUFK_STATUS]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[AUFK_STATUS]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[AUFK_STATUS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CLAIM_CONTROL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[CLAIM_CONTROL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[CLAIM_CONTROL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[CLAIM_CONTROL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UPDATE_NEEDED" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UPDATE_NEEDED]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_NEEDED]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[UPDATE_NEEDED]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="UPDATE_CONTROL" externalMetadataColumnId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].ExternalColumns[UPDATE_CONTROL]" lineageId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput].Columns[UPDATE_CONTROL]" name="" refId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK].Columns[UPDATE_CONTROL]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read AUFK\Dest_SAP_AUFK.Outputs[Error]" synchronousInputId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read AUFK\Dest_SAP_AUFK.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read AUFK\Dest_SAP_AUFK.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read AUFK\Dest_SAP_AUFK.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read AUFK\Dest_SAP_AUFK.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_AUFK</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read AUFK\Dest_SAP_AUFK.Inputs[SAP_AUFK_XtractOutput_Dest_SAP_AUFK]" name="SAP_AUFK_XtractOutput_Dest_SAP_AUFK" refId="Package\Read AUFK.Paths[SAP_AUFK_XtractOutput_Dest_SAP_AUFK]" startId="Package\Read AUFK\SAP_AUFK.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{92D96CB7-9C38-4005-B28E-19B1E0778C1C}" DTS:From="Package\TRUNCATE SAP_AUFK" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_AUFK_To_Read AUFK" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_AUFK_To_Read AUFK]" DTS:To="Package\Read AUFK" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

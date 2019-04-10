@@ -1,0 +1,1586 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:21 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{01C408ED-D326-4D5C-A4E0-2F5012595C5B}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_COBK"
+  DTS:VersionGUID="{9840090F-6328-46C0-87B0-A0D9204A2EDD}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{25AE1433-D82C-41CB-8A4B-3607A0230F75}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6C214A99-89D9-4FB1-8C52-103CB54211FC}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read COBK"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{8E70EE23-F600-4A28-9447-664F4A4F1A6C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read COBK"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read COBK\Dest_SAP_COBK"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_COBK"
+              name="Dest_SAP_COBK"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_COBK</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read COBK\Dest_SAP_COBK.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_COBK_XtractOutput_Dest_SAP_COBK">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[MANDT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[KOKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KOKRS"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KOKRS]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KOKRS]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[BELNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="BELNR"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BELNR]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BELNR]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[GJAHR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="GJAHR"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[GJAHR]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[VERSN]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="VERSN"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VERSN]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VERSN]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[VRGNG]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="VRGNG"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VRGNG]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VRGNG]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[TIMESTMP]"
+                      cachedDataType="numeric"
+                      cachedName="TIMESTMP"
+                      cachedPrecision="21"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[TIMESTMP]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[TIMESTMP]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[PERAB]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="PERAB"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[PERAB]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERAB]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[PERBI]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="PERBI"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[PERBI]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERBI]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[BLDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="BLDAT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLDAT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLDAT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[BUDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="BUDAT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BUDAT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BUDAT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CPUDT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="CPUDT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CPUDT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUDT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[USNAM]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="USNAM"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[USNAM]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[USNAM]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[BLTXT]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="BLTXT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLTXT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLTXT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[STFLG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="STFLG"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[STFLG]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STFLG]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[STOKZ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="STOKZ"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[STOKZ]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STOKZ]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[REFBT]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="REFBT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[REFBN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="REFBN"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBN]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBN]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[REFBK]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="REFBK"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBK]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBK]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[REFGJ]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="REFGJ"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFGJ]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFGJ]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[BLART]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BLART"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLART]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLART]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[ORGVG]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="ORGVG"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ORGVG]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ORGVG]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[SUMBZ]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="SUMBZ"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[SUMBZ]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[SUMBZ]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[DELBZ]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="DELBZ"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[DELBZ]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[DELBZ]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[WSDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="WSDAT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[WSDAT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[WSDAT]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[KURST]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KURST"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KURST]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KURST]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[VARNR]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="VARNR"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VARNR]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VARNR]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[KWAER]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="KWAER"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KWAER]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KWAER]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CTYP1]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CTYP1"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP1]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP1]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CTYP2]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CTYP2"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP2]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP2]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CTYP3]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CTYP3"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP3]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP3]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CTYP4]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="CTYP4"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP4]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP4]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[AWTYP]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="AWTYP"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWTYP]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWTYP]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[AWORG]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AWORG"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWORG]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[LOGSYSTEM]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LOGSYSTEM"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[LOGSYSTEM]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[LOGSYSTEM]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[CPUTM]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="CPUTM"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CPUTM]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUTM]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[ALEBZ]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="ALEBZ"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ALEBZ]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBZ]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[ALEBN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ALEBN"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ALEBN]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBN]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[AWSYS]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AWSYS"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWSYS]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWSYS]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[AWREF_REV]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AWREF_REV"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWREF_REV]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWREF_REV]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[AWORG_REV]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AWORG_REV"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWORG_REV]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG_REV]" />
+                    <inputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].Columns[VALDT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="VALDT"
+                      externalMetadataColumnId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VALDT]"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VALDT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BELNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="BELNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="GJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      name="VERSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      name="VRGNG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[TIMESTMP]"
+                      dataType="numeric"
+                      name="TIMESTMP"
+                      precision="21" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[PERAB]"
+                      dataType="wstr"
+                      length="3"
+                      name="PERAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[PERBI]"
+                      dataType="wstr"
+                      length="3"
+                      name="PERBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BLDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BUDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="CPUDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLTXT]"
+                      dataType="wstr"
+                      length="50"
+                      name="BLTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[STFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="STFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[STOKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="STOKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBT]"
+                      dataType="wstr"
+                      length="1"
+                      name="REFBT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBN]"
+                      dataType="wstr"
+                      length="10"
+                      name="REFBN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFBK]"
+                      dataType="wstr"
+                      length="4"
+                      name="REFBK" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[REFGJ]"
+                      dataType="wstr"
+                      length="4"
+                      name="REFGJ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLART" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ORGVG]"
+                      dataType="wstr"
+                      length="4"
+                      name="ORGVG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[SUMBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="SUMBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[DELBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="DELBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[WSDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="WSDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KURST]"
+                      dataType="wstr"
+                      length="4"
+                      name="KURST" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VARNR]"
+                      dataType="wstr"
+                      length="5"
+                      name="VARNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[KWAER]"
+                      dataType="wstr"
+                      length="5"
+                      name="KWAER" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP1]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP1" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP2]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP2" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP3]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP3" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CTYP4]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP4" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWTYP]"
+                      dataType="wstr"
+                      length="5"
+                      name="AWTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWORG]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWORG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[LOGSYSTEM]"
+                      dataType="wstr"
+                      length="10"
+                      name="LOGSYSTEM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      name="CPUTM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ALEBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="ALEBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[ALEBN]"
+                      dataType="wstr"
+                      length="10"
+                      name="ALEBN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWREF_REV]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWREF_REV" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[AWORG_REV]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWORG_REV" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK].ExternalColumns[VALDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="VALDT" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read COBK\Dest_SAP_COBK.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read COBK\Dest_SAP_COBK.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read COBK\Dest_SAP_COBK.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read COBK\Dest_SAP_COBK.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read COBK\SAP_COBK"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_COBK">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">COBK</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Controlling Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BELNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERSN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Version in CO Document Header&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRGNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO Business Transaction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TIMESTMP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time created (Greenwich Meantime)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PERAB&lt;/ColName&gt;
+        &lt;ColDescription&gt;From Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PERBI&lt;/ColName&gt;
+        &lt;ColDescription&gt;To period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPUDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date Document Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;User Name&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLTXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Header Text&lt;/ColDescription&gt;
+        &lt;ColLength&gt;50&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STFLG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Identifier for reversal document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STOKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Document Has Been Reversed&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REFBT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document type of reference document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REFBN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REFBK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company code of FI document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;REFGJ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal year of reference document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document type of FI reference document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ORGVG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Original CO business transaction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SUMBZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of posting lines for local objects&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DELBZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of deleted line items&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value Date for Currency Translation&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KURST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Exchange Rate Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VARNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO actual postings fast input: Variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KWAER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Controlling area currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CTYP1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Currency Type 1 in CO Standard Ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CTYP2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Currency Type 2 in CO Standard Ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CTYP3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Currency Type 3 in CO Standard Ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CTYP4&lt;/ColName&gt;
+        &lt;ColDescription&gt;Currency Type 4 in CO Standard Ledger&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Transaction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWORG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Organizational Units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOGSYSTEM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical System&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPUTM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time of Entry&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ALEBZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of posting rows sent to external systems&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ALEBN&lt;/ColName&gt;
+        &lt;ColDescription&gt;For ALE: CO Document Number in Generating System&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWSYS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical system of source document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWREF_REV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reversal: Reverse Document Reference Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWORG_REV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reversal: Reverse Document Reference Organization&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VALDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special Valuation Date for Cost  Accounting&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read COBK\SAP_COBK.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KOKRS]"
+                      name="KOKRS" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BELNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BELNR]"
+                      name="BELNR" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[GJAHR]"
+                      name="GJAHR" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VERSN]"
+                      name="VERSN" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VRGNG]"
+                      name="VRGNG" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[TIMESTMP]"
+                      dataType="numeric"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[TIMESTMP]"
+                      name="TIMESTMP"
+                      precision="21" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERAB]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERAB]"
+                      name="PERAB" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERBI]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[PERBI]"
+                      name="PERBI" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLDAT]"
+                      name="BLDAT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BUDAT]"
+                      name="BUDAT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUDT]"
+                      name="CPUDT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[USNAM]"
+                      name="USNAM" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLTXT]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLTXT]"
+                      name="BLTXT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STFLG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STFLG]"
+                      name="STFLG" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STOKZ]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[STOKZ]"
+                      name="STOKZ" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBT]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBT]"
+                      name="REFBT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBN]"
+                      name="REFBN" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBK]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFBK]"
+                      name="REFBK" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFGJ]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[REFGJ]"
+                      name="REFGJ" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[BLART]"
+                      name="BLART" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ORGVG]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ORGVG]"
+                      name="ORGVG" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[SUMBZ]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[SUMBZ]"
+                      name="SUMBZ" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[DELBZ]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[DELBZ]"
+                      name="DELBZ" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[WSDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[WSDAT]"
+                      name="WSDAT" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KURST]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KURST]"
+                      name="KURST" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VARNR]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VARNR]"
+                      name="VARNR" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KWAER]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[KWAER]"
+                      name="KWAER" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP1]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP1]"
+                      name="CTYP1" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP2]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP2]"
+                      name="CTYP2" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP3]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP3]"
+                      name="CTYP3" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP4]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CTYP4]"
+                      name="CTYP4" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWTYP]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWTYP]"
+                      name="AWTYP" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG]"
+                      name="AWORG" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[LOGSYSTEM]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[LOGSYSTEM]"
+                      name="LOGSYSTEM" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[CPUTM]"
+                      name="CPUTM" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBZ]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBZ]"
+                      name="ALEBZ" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[ALEBN]"
+                      name="ALEBN" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWSYS]"
+                      name="AWSYS" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWREF_REV]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWREF_REV]"
+                      name="AWREF_REV" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG_REV]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[AWORG_REV]"
+                      name="AWORG_REV" />
+                    <outputColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VALDT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].Columns[VALDT]"
+                      name="VALDT" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[BELNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="BELNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="GJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      name="VERSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      name="VRGNG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[TIMESTMP]"
+                      dataType="numeric"
+                      name="TIMESTMP"
+                      precision="21" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[PERAB]"
+                      dataType="wstr"
+                      length="3"
+                      name="PERAB" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[PERBI]"
+                      dataType="wstr"
+                      length="3"
+                      name="PERBI" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BLDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BUDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="CPUDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[BLTXT]"
+                      dataType="wstr"
+                      length="50"
+                      name="BLTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[STFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="STFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[STOKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="STOKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[REFBT]"
+                      dataType="wstr"
+                      length="1"
+                      name="REFBT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[REFBN]"
+                      dataType="wstr"
+                      length="10"
+                      name="REFBN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[REFBK]"
+                      dataType="wstr"
+                      length="4"
+                      name="REFBK" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[REFGJ]"
+                      dataType="wstr"
+                      length="4"
+                      name="REFGJ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLART" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[ORGVG]"
+                      dataType="wstr"
+                      length="4"
+                      name="ORGVG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[SUMBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="SUMBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[DELBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="DELBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[WSDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="WSDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[KURST]"
+                      dataType="wstr"
+                      length="4"
+                      name="KURST" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[VARNR]"
+                      dataType="wstr"
+                      length="5"
+                      name="VARNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[KWAER]"
+                      dataType="wstr"
+                      length="5"
+                      name="KWAER" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CTYP1]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP1" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CTYP2]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP2" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CTYP3]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP3" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CTYP4]"
+                      dataType="wstr"
+                      length="2"
+                      name="CTYP4" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[AWTYP]"
+                      dataType="wstr"
+                      length="5"
+                      name="AWTYP" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[AWORG]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWORG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[LOGSYSTEM]"
+                      dataType="wstr"
+                      length="10"
+                      name="LOGSYSTEM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      name="CPUTM" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[ALEBZ]"
+                      dataType="wstr"
+                      length="3"
+                      name="ALEBZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[ALEBN]"
+                      dataType="wstr"
+                      length="10"
+                      name="ALEBN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[AWREF_REV]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWREF_REV" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[AWORG_REV]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWORG_REV" />
+                    <externalMetadataColumn
+                      refId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput].ExternalColumns[VALDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="VALDT" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read COBK.Paths[SAP_COBK_XtractOutput_Dest_SAP_COBK]"
+              endId="Package\Read COBK\Dest_SAP_COBK.Inputs[SAP_COBK_XtractOutput_Dest_SAP_COBK]"
+              name="SAP_COBK_XtractOutput_Dest_SAP_COBK"
+              startId="Package\Read COBK\SAP_COBK.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_COBK"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{FEC3973D-3E46-4A6D-81F3-7E16CB183763}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_COBK"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6C214A99-89D9-4FB1-8C52-103CB54211FC}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_COBK]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_COBK_To_Read COBK]"
+      DTS:CreationName=""
+      DTS:DTSID="{01ACC713-A69D-4B8C-9C7A-C2B4517E725A}"
+      DTS:From="Package\TRUNCATE SAP_COBK"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_COBK_To_Read COBK"
+      DTS:To="Package\Read COBK" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

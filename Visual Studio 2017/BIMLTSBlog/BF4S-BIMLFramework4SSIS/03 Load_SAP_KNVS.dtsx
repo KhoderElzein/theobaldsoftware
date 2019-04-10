@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:35" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{859AD2C3-D916-4080-83C9-B3D6FCED1B5E}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_KNVS" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{6A38ED4E-9F4A-4AD1-B23E-09925493FBF9}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{85237ABC-E9DB-439F-8522-0B0E72455F27}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{5A8C4BED-7F4E-4263-B3F4-C8261078C6C0}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{F9DCD607-CEF0-4BF1-9A07-E3BC43838EB8}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_KNVS" DTS:refId="Package\TRUNCATE SAP_KNVS" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_KNVS]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{1469BD3D-6D08-4A35-A82B-FA13A05FCE0A}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read KNVS" DTS:refId="Package\Read KNVS" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_KNVS" refId="Package\Read KNVS\SAP_KNVS">
+              <connections>
+                <connection connectionManagerID="{5A8C4BED-7F4E-4263-B3F4-C8261078C6C0}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read KNVS\SAP_KNVS.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VSTEL" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[VSTEL]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="TRANS" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[TRANS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TOPLA" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[TOPLA]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOURN" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[TOURN]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ANFRF" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[ANFRF]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SPDNR" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].ExternalColumns[SPDNR]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[KUNNR]" name="KUNNR" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[VSTEL]" name="VSTEL" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[VSTEL]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TRANS]" name="TRANS" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TRANS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOPLA]" name="TOPLA" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOPLA]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOURN]" name="TOURN" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOURN]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[ANFRF]" name="ANFRF" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[ANFRF]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[SPDNR]" name="SPDNR" refId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[SPDNR]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">KNVS</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VSTEL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Shipping Point/Receiving Point&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TRANS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transit route (sequence of the countries for transportation)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TOPLA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Route planning indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TOURN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Outline tour&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ANFRF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Itinerary for regular route&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPDNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Forwarding agent&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_KNVS" name="Dest_SAP_KNVS" refId="Package\Read KNVS\Dest_SAP_KNVS" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{85237ABC-E9DB-439F-8522-0B0E72455F27}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read KNVS\Dest_SAP_KNVS.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_KNVS_XtractOutput_Dest_SAP_KNVS" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VSTEL" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[VSTEL]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="TRANS" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TRANS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TOPLA" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TOPLA]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="TOURN" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TOURN]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="ANFRF" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[ANFRF]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SPDNR" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[SPDNR]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[MANDT]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KUNNR" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[KUNNR]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[KUNNR]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[KUNNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VSTEL" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[VSTEL]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[VSTEL]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[VSTEL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="TRANS" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TRANS]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TRANS]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[TRANS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="TOPLA" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TOPLA]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOPLA]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[TOPLA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="TOURN" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[TOURN]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[TOURN]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[TOURN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="ANFRF" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[ANFRF]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[ANFRF]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[ANFRF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SPDNR" externalMetadataColumnId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].ExternalColumns[SPDNR]" lineageId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput].Columns[SPDNR]" name="" refId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS].Columns[SPDNR]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read KNVS\Dest_SAP_KNVS.Outputs[Error]" synchronousInputId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read KNVS\Dest_SAP_KNVS.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read KNVS\Dest_SAP_KNVS.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read KNVS\Dest_SAP_KNVS.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read KNVS\Dest_SAP_KNVS.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_KNVS</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read KNVS\Dest_SAP_KNVS.Inputs[SAP_KNVS_XtractOutput_Dest_SAP_KNVS]" name="SAP_KNVS_XtractOutput_Dest_SAP_KNVS" refId="Package\Read KNVS.Paths[SAP_KNVS_XtractOutput_Dest_SAP_KNVS]" startId="Package\Read KNVS\SAP_KNVS.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{B8BF1C21-2684-41F9-A2F7-6B8005838809}" DTS:From="Package\TRUNCATE SAP_KNVS" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_KNVS_To_Read KNVS" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_KNVS_To_Read KNVS]" DTS:To="Package\Read KNVS" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

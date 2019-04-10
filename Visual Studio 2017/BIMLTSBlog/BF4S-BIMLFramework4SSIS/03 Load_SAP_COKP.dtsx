@@ -1,0 +1,829 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:23" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{571CED43-CFA6-4ED4-80E1-E252A27CC38A}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_COKP" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{A54D0E4B-65E4-447A-BA3A-6B7337E33A38}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{FA8CFCB3-D363-4B6D-BF82-C33087F47DB0}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{39BF0DB2-5588-4B86-95FD-3413F5017CE7}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{9FE088A9-A08E-41FE-93A4-05C19C89C5DD}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_COKP" DTS:refId="Package\TRUNCATE SAP_COKP" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_COKP]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{99F0BF6B-8270-4364-BA2F-32D0C0269DC0}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read COKP" DTS:refId="Package\Read COKP" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_COKP" refId="Package\Read COKP\SAP_COKP">
+              <connections>
+                <connection connectionManagerID="{39BF0DB2-5588-4B86-95FD-3413F5017CE7}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read COKP\SAP_COKP.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="LEDNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[LEDNR]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="WRTTP" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WRTTP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VERSN" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[VERSN]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="14" name="HRKFT" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[HRKFT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VRGNG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[VRGNG]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VBUND" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[VBUND]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="PARGB" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[PARGB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BEKNZ" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[BEKNZ]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="TWAER" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[TWAER]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RZTYP" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RZVAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZVAR]" />
+                    <externalMetadataColumn dataType="numeric" name="RZMNG" precision="20" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSTLA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RSTLA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LKSTAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[LKSTAR]" />
+                    <externalMetadataColumn dataType="numeric" name="RZKST" precision="21" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZKST]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSTKA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RSTKA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RZKOA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZKOA]" />
+                    <externalMetadataColumn dataType="numeric" name="RZFKT" precision="11" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZFKT]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="RZPRZ" precision="10" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[RZPRZ]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[WSMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FMMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KKART" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[KKART]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="KALNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[KALNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TXFLG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[TXFLG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWOF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWOV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWOG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWTF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWTV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCWTG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCRKF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCRKV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCRKG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCROF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCROV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCROG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCREF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCREV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].ExternalColumns[FCREG]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LEDNR]" name="LEDNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LEDNR]" />
+                    <outputColumn dataType="wstr" length="22" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[OBJNR]" name="OBJNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[OBJNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[GJAHR]" name="GJAHR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WRTTP]" name="WRTTP" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WRTTP]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VERSN]" name="VERSN" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VERSN]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KSTAR]" name="KSTAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KSTAR]" />
+                    <outputColumn dataType="wstr" length="14" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[HRKFT]" name="HRKFT" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[HRKFT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VRGNG]" name="VRGNG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VRGNG]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VBUND]" name="VBUND" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VBUND]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[PARGB]" name="PARGB" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[PARGB]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[BEKNZ]" name="BEKNZ" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[BEKNZ]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TWAER]" name="TWAER" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TWAER]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZTYP]" name="RZTYP" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZTYP]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZVAR]" name="RZVAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZVAR]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZMNG]" name="RZMNG" precision="20" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZMNG]" scale="3" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTLA]" name="RSTLA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTLA]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LKSTAR]" name="LKSTAR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LKSTAR]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKST]" name="RZKST" precision="21" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKST]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTKA]" name="RSTKA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTKA]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKOA]" name="RZKOA" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKOA]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZFKT]" name="RZFKT" precision="11" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZFKT]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZPRZ]" name="RZPRZ" precision="10" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZPRZ]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKF]" name="WSWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKF]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKV]" name="WSWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKV]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKG]" name="WSWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKG]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEF]" name="WSMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEF]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEV]" name="WSMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEV]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEG]" name="WSMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEG]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKF]" name="FMWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKF]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKV]" name="FMWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKV]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKG]" name="FMWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKG]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEF]" name="FMMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEF]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEV]" name="FMMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEV]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEG]" name="FMMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KKART]" name="KKART" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KKART]" />
+                    <outputColumn dataType="wstr" length="12" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KALNR]" name="KALNR" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KALNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TXFLG]" name="TXFLG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TXFLG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKF]" name="FCWKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKV]" name="FCWKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKG]" name="FCWKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOF]" name="FCWOF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOV]" name="FCWOV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOG]" name="FCWOG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTF]" name="FCWTF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTV]" name="FCWTV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTG]" name="FCWTG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEF]" name="FCMEF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEV]" name="FCMEV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEG]" name="FCMEG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKF]" name="FCRKF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKV]" name="FCRKV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKG]" name="FCRKG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROF]" name="FCROF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROV]" name="FCROV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROG]" name="FCROG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROG]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREF]" name="FCREF" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREF]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREV]" name="FCREV" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREV]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREG]" name="FCREG" refId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREG]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">COKP</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LEDNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Ledger for Controlling objects&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WRTTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERSN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Version&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HRKFT&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO key subnumber&lt;/ColDescription&gt;
+        &lt;ColLength&gt;14&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRGNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO Business Transaction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBUND&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company ID of trading partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PARGB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Trading partner&amp;apos;s business area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BEKNZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Debit/credit indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TWAER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transaction Currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dependency type for dependency planning&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZVAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Depend.source type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZMNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dependency qty&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RSTLA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dependency control activity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LKSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Ind.: CElem. is control CElem?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZKST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dependent planned costs per unit of activity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;21&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RSTKA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Dependency control cost element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZKOA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZFKT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Recipe factor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;11&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RZPRZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Depend.percentage&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSWKF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation type for planned fixed costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSWKV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation type for plan variable costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSWKG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value computation type for total planned costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSMEF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value computation type for planned fixed quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSMEV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation type for variable plan quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSMEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value computation type for total planned qty&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMWKF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number Planned Fixed Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMWKV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number: Planned Variable Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMWKG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number Total Planned Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMMEF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number Fixed Plan Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMMEV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number: Planned Variable Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMMEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula Number Total Planned Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KKART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Costing variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KALNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Estimate Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXFLG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Text indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWKF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Plan Fixed Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWKV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Variable Plan Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWKG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Total Plan Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWOF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWOV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWOG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWTF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWTV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCWTG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCMEF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Fixed Plan Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCMEV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Variable Plan Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCMEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Key: Total Planned Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCRKF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCRKV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCRKG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCROF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCROV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCROG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCREF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCREV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCREG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_COKP" name="Dest_SAP_COKP" refId="Package\Read COKP\Dest_SAP_COKP" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{FA8CFCB3-D363-4B6D-BF82-C33087F47DB0}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read COKP\Dest_SAP_COKP.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_COKP_XtractOutput_Dest_SAP_COKP" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="LEDNR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[LEDNR]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="WRTTP" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WRTTP]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="VERSN" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VERSN]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="14" name="HRKFT" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[HRKFT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VRGNG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VRGNG]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="VBUND" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VBUND]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="PARGB" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[PARGB]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="BEKNZ" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[BEKNZ]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="TWAER" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[TWAER]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RZTYP" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RZVAR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZVAR]" />
+                    <externalMetadataColumn dataType="numeric" name="RZMNG" precision="20" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSTLA" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RSTLA]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LKSTAR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[LKSTAR]" />
+                    <externalMetadataColumn dataType="numeric" name="RZKST" precision="21" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZKST]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="RSTKA" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RSTKA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RZKOA" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZKOA]" />
+                    <externalMetadataColumn dataType="numeric" name="RZFKT" precision="11" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZFKT]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="RZPRZ" precision="10" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZPRZ]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSWKG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WSMEG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMWKG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="FMMEG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KKART" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KKART]" />
+                    <externalMetadataColumn dataType="wstr" length="12" name="KALNR" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KALNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TXFLG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[TXFLG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWKG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWOG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCWTG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCMEG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCRKG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCROG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROG]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREF" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREF]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREV" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREV]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="FCREG" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREG]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[MANDT]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="LEDNR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[LEDNR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LEDNR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[LEDNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="22" cachedName="OBJNR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[OBJNR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[OBJNR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[OBJNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GJAHR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[GJAHR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[GJAHR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[GJAHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="WRTTP" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WRTTP]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WRTTP]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WRTTP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="VERSN" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VERSN]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VERSN]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[VERSN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KSTAR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KSTAR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KSTAR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[KSTAR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="14" cachedName="HRKFT" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[HRKFT]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[HRKFT]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[HRKFT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VRGNG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VRGNG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VRGNG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[VRGNG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="VBUND" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[VBUND]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[VBUND]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[VBUND]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="PARGB" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[PARGB]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[PARGB]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[PARGB]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="BEKNZ" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[BEKNZ]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[BEKNZ]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[BEKNZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="TWAER" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[TWAER]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TWAER]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[TWAER]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RZTYP" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZTYP]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZTYP]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="RZVAR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZVAR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZVAR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZVAR]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RZMNG" cachedPrecision="20" cachedScale="3" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZMNG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZMNG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZMNG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RSTLA" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RSTLA]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTLA]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RSTLA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LKSTAR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[LKSTAR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[LKSTAR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[LKSTAR]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RZKST" cachedPrecision="21" cachedScale="2" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZKST]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKST]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZKST]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="RSTKA" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RSTKA]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RSTKA]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RSTKA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="RZKOA" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZKOA]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZKOA]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZKOA]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RZFKT" cachedPrecision="11" cachedScale="2" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZFKT]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZFKT]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZFKT]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RZPRZ" cachedPrecision="10" cachedScale="2" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[RZPRZ]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[RZPRZ]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[RZPRZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSWKF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSWKF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSWKV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSWKV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSWKG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSWKG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSWKG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSWKG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSMEF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSMEF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSMEV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSMEV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WSMEG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[WSMEG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[WSMEG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[WSMEG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMWKF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMWKF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMWKV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMWKV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMWKG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMWKG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMWKG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMWKG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMMEF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMMEF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMMEV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMMEV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="FMMEG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FMMEG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FMMEG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FMMEG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KKART" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KKART]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KKART]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[KKART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="12" cachedName="KALNR" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[KALNR]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[KALNR]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[KALNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="TXFLG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[TXFLG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[TXFLG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[TXFLG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWKF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWKF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWKV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWKV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWKG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWKG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWKG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWKG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWOF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWOF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWOV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWOV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWOG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWOG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWOG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWOG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWTF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWTF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWTV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWTV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCWTG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCWTG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCWTG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCWTG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCMEF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCMEF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCMEV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCMEV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCMEG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCMEG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCMEG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCMEG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCRKF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCRKF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCRKV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCRKV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCRKG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCRKG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCRKG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCRKG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCROF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCROF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCROV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCROV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCROG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCROG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCROG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCROG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCREF" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREF]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREF]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCREF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCREV" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREV]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREV]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCREV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="FCREG" externalMetadataColumnId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].ExternalColumns[FCREG]" lineageId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput].Columns[FCREG]" name="" refId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP].Columns[FCREG]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read COKP\Dest_SAP_COKP.Outputs[Error]" synchronousInputId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read COKP\Dest_SAP_COKP.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read COKP\Dest_SAP_COKP.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read COKP\Dest_SAP_COKP.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read COKP\Dest_SAP_COKP.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_COKP</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read COKP\Dest_SAP_COKP.Inputs[SAP_COKP_XtractOutput_Dest_SAP_COKP]" name="SAP_COKP_XtractOutput_Dest_SAP_COKP" refId="Package\Read COKP.Paths[SAP_COKP_XtractOutput_Dest_SAP_COKP]" startId="Package\Read COKP\SAP_COKP.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{4C1B94D3-3E77-48D5-BF15-E00B27B8F415}" DTS:From="Package\TRUNCATE SAP_COKP" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_COKP_To_Read COKP" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_COKP_To_Read COKP]" DTS:To="Package\Read COKP" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

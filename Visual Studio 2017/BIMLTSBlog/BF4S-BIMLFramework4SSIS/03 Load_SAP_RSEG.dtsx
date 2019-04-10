@@ -1,0 +1,1225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:42" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{55842330-D1C3-4CCF-809F-A2CFD5173509}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_RSEG" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{D1597891-F7A7-4C89-B5A9-21E0143F1459}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{27974422-0E56-4848-A6A4-44E42362C9D8}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{88118A97-91EC-4026-87BA-F2BE0CF32E0D}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{DA23D29D-ECFE-4EFE-9110-6D218B38F099}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_RSEG" DTS:refId="Package\TRUNCATE SAP_RSEG" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_RSEG]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{7D1F41E4-F853-40C0-AC5E-235B42A7B83E}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read RSEG" DTS:refId="Package\Read RSEG" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_RSEG" refId="Package\Read RSEG\SAP_RSEG">
+              <connections>
+                <connection connectionManagerID="{88118A97-91EC-4026-87BA-F2BE0CF32E0D}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read RSEG\SAP_RSEG.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BELNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BELNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="BUZEI" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BUZEI]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="EBELN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[EBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="EBELP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[EBELP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZEKKN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[ZEKKN]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MATNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BWKEY" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BWKEY]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BWTAR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BWTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WERKS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[WERKS]" />
+                    <externalMetadataColumn dataType="numeric" name="WRBTR" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[WRBTR]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SHKZG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SHKZG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="MWSKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MWSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="TXJCD" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[TXJCD]" />
+                    <externalMetadataColumn dataType="numeric" name="MENGE" precision="17" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MENGE]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BSTME" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BSTME]" />
+                    <externalMetadataColumn dataType="numeric" name="BPMNG" precision="17" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BPMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BPRME" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BPRME]" />
+                    <externalMetadataColumn dataType="numeric" name="LBKUM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LBKUM]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="VRKUM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[VRKUM]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PSTYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[PSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KNTTP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[KNTTP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BKLAS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BKLAS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="EREKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[EREKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="EXKBE" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[EXKBE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XEKBZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XEKBZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TBTKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[TBTKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRV" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRQ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRQ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRC" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGRC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGREXT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SPGREXT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUSTW" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BUSTW]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="XBLNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XBLNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XRUEB" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XRUEB]" />
+                    <externalMetadataColumn dataType="numeric" name="BNKAN" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BNKAN]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KSCHL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[KSCHL]" />
+                    <externalMetadataColumn dataType="numeric" name="SALK3" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SALK3]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="VMSAL" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[VMSAL]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLIFO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XLIFO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LFBNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LFBNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="LFGJA" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LFGJA]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="LFPOS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LFPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATBF" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MATBF]" />
+                    <externalMetadataColumn dataType="numeric" name="RBMNG" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RBMNG]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="BPRBM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[BPRBM]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="RBWWR" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RBWWR]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFEHL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LFEHL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRICD" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[GRICD]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GRIRG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[GRIRG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GITYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[GITYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PACKNO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[PACKNO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="INTROW" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[INTROW]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="SGTXT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SGTXT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSKRL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XSKRL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KZMEK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[KZMEK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MRMOK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[MRMOK]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="STUNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[STUNR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZAEHK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[ZAEHK]" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[STOCK_POSTING]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING_PP" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[STOCK_POSTING_PP]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING_PY" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[STOCK_POSTING_PY]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WEREC" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[WEREC]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FRBNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[FRBNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XHISTMA" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XHISTMA]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="COMPLAINT_REASON" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[COMPLAINT_REASON]" />
+                    <externalMetadataColumn dataType="numeric" name="RETAMT_FC" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RETAMT_FC]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="RETPC" precision="6" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RETPC]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="RETDUEDT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RETDUEDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XRETTAXNET" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XRETTAXNET]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RE_ACCOUNT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[RE_ACCOUNT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ERP_CONTRACT_ID" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[ERP_CONTRACT_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="ERP_CONTRACT_ITM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[ERP_CONTRACT_ITM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SRM_CONTRACT_ID" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SRM_CONTRACT_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SRM_CONTRACT_ITM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[SRM_CONTRACT_ITM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CONT_PSTYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[CONT_PSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="CHARG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[CHARG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="INV_ITM_ORIGIN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[INV_ITM_ORIGIN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="INVREL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[INVREL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XDINV" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XDINV]" />
+                    <externalMetadataColumn dataType="numeric" name="DIFF_AMOUNT" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[DIFF_AMOUNT]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XCPRF" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[XCPRF]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LICNO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[LICNO]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ZEILE" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].ExternalColumns[ZEILE]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BELNR]" name="BELNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BELNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GJAHR]" name="GJAHR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUZEI]" name="BUZEI" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUZEI]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELN]" name="EBELN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELN]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELP]" name="EBELP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELP]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEKKN]" name="ZEKKN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEKKN]" />
+                    <outputColumn dataType="wstr" length="18" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATNR]" name="MATNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWKEY]" name="BWKEY" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWKEY]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWTAR]" name="BWTAR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWTAR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUKRS]" name="BUKRS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUKRS]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WERKS]" name="WERKS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WERKS]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WRBTR]" name="WRBTR" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WRBTR]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SHKZG]" name="SHKZG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SHKZG]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MWSKZ]" name="MWSKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MWSKZ]" />
+                    <outputColumn dataType="wstr" length="15" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TXJCD]" name="TXJCD" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TXJCD]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MENGE]" name="MENGE" precision="17" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MENGE]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BSTME]" name="BSTME" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BSTME]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPMNG]" name="BPMNG" precision="17" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPMNG]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRME]" name="BPRME" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRME]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LBKUM]" name="LBKUM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LBKUM]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VRKUM]" name="VRKUM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VRKUM]" scale="3" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MEINS]" name="MEINS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MEINS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PSTYP]" name="PSTYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PSTYP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KNTTP]" name="KNTTP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KNTTP]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BKLAS]" name="BKLAS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BKLAS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EREKZ]" name="EREKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EREKZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EXKBE]" name="EXKBE" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EXKBE]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XEKBZ]" name="XEKBZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XEKBZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TBTKZ]" name="TBTKZ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TBTKZ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRP]" name="SPGRP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRP]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRM]" name="SPGRM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRT]" name="SPGRT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRG]" name="SPGRG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRG]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRV]" name="SPGRV" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRV]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRQ]" name="SPGRQ" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRQ]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRS]" name="SPGRS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRS]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRC]" name="SPGRC" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRC]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGREXT]" name="SPGREXT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGREXT]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUSTW]" name="BUSTW" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUSTW]" />
+                    <outputColumn dataType="wstr" length="16" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XBLNR]" name="XBLNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XBLNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRUEB]" name="XRUEB" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRUEB]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BNKAN]" name="BNKAN" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BNKAN]" scale="2" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KSCHL]" name="KSCHL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KSCHL]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SALK3]" name="SALK3" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SALK3]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VMSAL]" name="VMSAL" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VMSAL]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XLIFO]" name="XLIFO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XLIFO]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFBNR]" name="LFBNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFBNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFGJA]" name="LFGJA" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFGJA]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFPOS]" name="LFPOS" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFPOS]" />
+                    <outputColumn dataType="wstr" length="18" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATBF]" name="MATBF" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATBF]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBMNG]" name="RBMNG" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBMNG]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRBM]" name="BPRBM" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRBM]" scale="3" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBWWR]" name="RBWWR" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBWWR]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFEHL]" name="LFEHL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFEHL]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRICD]" name="GRICD" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRICD]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRIRG]" name="GRIRG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRIRG]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GITYP]" name="GITYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GITYP]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PACKNO]" name="PACKNO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PACKNO]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INTROW]" name="INTROW" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INTROW]" />
+                    <outputColumn dataType="wstr" length="50" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SGTXT]" name="SGTXT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SGTXT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XSKRL]" name="XSKRL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XSKRL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KZMEK]" name="KZMEK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KZMEK]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MRMOK]" name="MRMOK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MRMOK]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STUNR]" name="STUNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STUNR]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZAEHK]" name="ZAEHK" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZAEHK]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING]" name="STOCK_POSTING" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PP]" name="STOCK_POSTING_PP" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PP]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PY]" name="STOCK_POSTING_PY" precision="18" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PY]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WEREC]" name="WEREC" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WEREC]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LIFNR]" name="LIFNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <outputColumn dataType="wstr" length="16" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[FRBNR]" name="FRBNR" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[FRBNR]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XHISTMA]" name="XHISTMA" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XHISTMA]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[COMPLAINT_REASON]" name="COMPLAINT_REASON" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[COMPLAINT_REASON]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETAMT_FC]" name="RETAMT_FC" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETAMT_FC]" scale="2" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETPC]" name="RETPC" precision="6" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETPC]" scale="2" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETDUEDT]" name="RETDUEDT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETDUEDT]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRETTAXNET]" name="XRETTAXNET" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRETTAXNET]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RE_ACCOUNT]" name="RE_ACCOUNT" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RE_ACCOUNT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ID]" name="ERP_CONTRACT_ID" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ID]" />
+                    <outputColumn dataType="wstr" length="5" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ITM]" name="ERP_CONTRACT_ITM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ITM]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ID]" name="SRM_CONTRACT_ID" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ID]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ITM]" name="SRM_CONTRACT_ITM" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ITM]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CONT_PSTYP]" name="CONT_PSTYP" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CONT_PSTYP]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CHARG]" name="CHARG" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CHARG]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INV_ITM_ORIGIN]" name="INV_ITM_ORIGIN" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INV_ITM_ORIGIN]" />
+                    <outputColumn dataType="wstr" length="6" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INVREL]" name="INVREL" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INVREL]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XDINV]" name="XDINV" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XDINV]" />
+                    <outputColumn dataType="numeric" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[DIFF_AMOUNT]" name="DIFF_AMOUNT" precision="16" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[DIFF_AMOUNT]" scale="2" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XCPRF]" name="XCPRF" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XCPRF]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LICNO]" name="LICNO" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LICNO]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEILE]" name="ZEILE" refId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEILE]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">RSEG</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BELNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Accounting Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUZEI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Item in Invoice Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchasing Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EBELP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number of Purchasing Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZEKKN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sequential Number of Account Assignment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BWKEY&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BWTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Company Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WERKS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Plant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WRBTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Amount in document currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SHKZG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Debit/Credit Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MWSKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tax on sales/purchases code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXJCD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tax Jurisdiction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;15&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MENGE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BSTME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchase Order Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BPMNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Quantity in Purchase Order Price Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BPRME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Price Unit (Purchasing)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LBKUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Total Valuated Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRKUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Total valuated stock in the previous posting period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Base Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PSTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Category in Purchasing Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNTTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Assignment Category&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BKLAS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation Class&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EREKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Final Invoice Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EXKBE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: update purchase order history&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XEKBZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Update Purchase Order Delivery Costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TBTKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: subsequent debit/credit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking reason: price&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking reason: quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking Reason: Date&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking reason: order price quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking reason: project budget&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRQ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Manual Blocking Reason&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking Reason: Item Amount&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGRC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Block.reason: quality&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPGREXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Blocking Reason Enhancement Fields&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUSTW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting string for values&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XRUEB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Document is posted to a previous period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BNKAN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery costs&amp;apos; share of item value&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSCHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Condition Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SALK3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value of Total Valuated Stock&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VMSAL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value of total valuated stock in previous period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XLIFO&lt;/ColName&gt;
+        &lt;ColDescription&gt;LIFO/FIFO-Relevant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFBNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document No. of a Reference Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFGJA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year of Current Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item of a Reference Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATBF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material in Respect of Which Stock is Managed&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RBMNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Qty invoiced in vendor invoice in PO order units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BPRBM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Qty invoiced in vendor invoice in PO price units&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RBWWR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Invoice amount in document currency of vendor invoice&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFEHL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Type of vendor error&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRICD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Activity Code for Gross Income Tax&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRIRG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Region (State, Province, County)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GITYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Type for Employment Tax&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PACKNO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Package Number of Service&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INTROW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Line Number of Service&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SGTXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Text&lt;/ColDescription&gt;
+        &lt;ColLength&gt;50&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XSKRL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: Line item not liable to cash discount?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZMEK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Correction indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MRMOK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator: invoice item processed&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STUNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Step number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZAEHK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Condition counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STOCK_POSTING&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock Posting of Line from an Incoming Invoice&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STOCK_POSTING_PP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock Posting of Line from an Incoming Invoice, Prev. Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STOCK_POSTING_PY&lt;/ColName&gt;
+        &lt;ColDescription&gt;Stock Posting of Line from an Incoming Invoice, Prev. Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEREC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Clearing Indicator for GR/IR Posting for External Services&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Number of Vendor or Creditor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FRBNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Bill of Lading at Time of Goods Receipt&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XHISTMA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Update Multiple Account Assignment EKBE_MA, EKBZ_MA&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;COMPLAINT_REASON&lt;/ColName&gt;
+        &lt;ColDescription&gt;Complaints Reason in an Invoice&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RETAMT_FC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Retention Amount in Document Currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RETPC&lt;/ColName&gt;
+        &lt;ColDescription&gt;Retention in Percent&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RETDUEDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Due Date for Retention&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XRETTAXNET&lt;/ColName&gt;
+        &lt;ColDescription&gt;Tax Reduction for Retention&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RE_ACCOUNT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cash Ledger: Expense or Revenue Account&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERP_CONTRACT_ID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Principal Purchase Agreement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERP_CONTRACT_ITM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number of Principal Purchase Agreement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SRM_CONTRACT_ID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Central Contract&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SRM_CONTRACT_ITM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Central Contract Item Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CONT_PSTYP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Category in Purchasing Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CHARG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Batch Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INV_ITM_ORIGIN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Origin of an Invoice Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;INVREL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Grouping Characteristic for Invoice Verification&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XDINV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for Differential Invoicing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DIFF_AMOUNT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Difference Amount (in Document Currency)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XCPRF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Checkbox for Commodity Repricing in Invoice Verification&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LICNO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal License Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZEILE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_RSEG" name="Dest_SAP_RSEG" refId="Package\Read RSEG\Dest_SAP_RSEG" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{27974422-0E56-4848-A6A4-44E42362C9D8}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read RSEG\Dest_SAP_RSEG.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_RSEG_XtractOutput_Dest_SAP_RSEG" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BELNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BELNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="BUZEI" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUZEI]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="EBELN" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EBELN]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="EBELP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EBELP]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZEKKN" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZEKKN]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MATNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BWKEY" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BWKEY]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="BWTAR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BWTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUKRS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUKRS]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="WERKS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WERKS]" />
+                    <externalMetadataColumn dataType="numeric" name="WRBTR" precision="16" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WRBTR]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SHKZG" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SHKZG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="MWSKZ" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MWSKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="15" name="TXJCD" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[TXJCD]" />
+                    <externalMetadataColumn dataType="numeric" name="MENGE" precision="17" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MENGE]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BSTME" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BSTME]" />
+                    <externalMetadataColumn dataType="numeric" name="BPMNG" precision="17" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPMNG]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="BPRME" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPRME]" />
+                    <externalMetadataColumn dataType="numeric" name="LBKUM" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LBKUM]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="VRKUM" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[VRKUM]" scale="3" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MEINS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="PSTYP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[PSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KNTTP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KNTTP]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BKLAS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BKLAS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="EREKZ" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EREKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="EXKBE" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EXKBE]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XEKBZ" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XEKBZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="TBTKZ" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[TBTKZ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRP]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRM" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRG" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRV" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRV]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRQ" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRQ]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRS]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGRC" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRC]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="SPGREXT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGREXT]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="BUSTW" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUSTW]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="XBLNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XBLNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XRUEB" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XRUEB]" />
+                    <externalMetadataColumn dataType="numeric" name="BNKAN" precision="16" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BNKAN]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="KSCHL" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KSCHL]" />
+                    <externalMetadataColumn dataType="numeric" name="SALK3" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SALK3]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="VMSAL" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[VMSAL]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XLIFO" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XLIFO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LFBNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFBNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="LFGJA" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFGJA]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="LFPOS" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFPOS]" />
+                    <externalMetadataColumn dataType="wstr" length="18" name="MATBF" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MATBF]" />
+                    <externalMetadataColumn dataType="numeric" name="RBMNG" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RBMNG]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="BPRBM" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPRBM]" scale="3" />
+                    <externalMetadataColumn dataType="numeric" name="RBWWR" precision="16" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RBWWR]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="LFEHL" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFEHL]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GRICD" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GRICD]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="GRIRG" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GRIRG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="GITYP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GITYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PACKNO" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[PACKNO]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="INTROW" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INTROW]" />
+                    <externalMetadataColumn dataType="wstr" length="50" name="SGTXT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SGTXT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XSKRL" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XSKRL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="KZMEK" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KZMEK]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MRMOK" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MRMOK]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="STUNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STUNR]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="ZAEHK" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZAEHK]" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING_PP" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING_PP]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="STOCK_POSTING_PY" precision="18" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING_PY]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="WEREC" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WEREC]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="16" name="FRBNR" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[FRBNR]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XHISTMA" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XHISTMA]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="COMPLAINT_REASON" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[COMPLAINT_REASON]" />
+                    <externalMetadataColumn dataType="numeric" name="RETAMT_FC" precision="16" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETAMT_FC]" scale="2" />
+                    <externalMetadataColumn dataType="numeric" name="RETPC" precision="6" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETPC]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="RETDUEDT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETDUEDT]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XRETTAXNET" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XRETTAXNET]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="RE_ACCOUNT" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RE_ACCOUNT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="ERP_CONTRACT_ID" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ERP_CONTRACT_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="5" name="ERP_CONTRACT_ITM" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ERP_CONTRACT_ITM]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SRM_CONTRACT_ID" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SRM_CONTRACT_ID]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="SRM_CONTRACT_ITM" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SRM_CONTRACT_ITM]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="CONT_PSTYP" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[CONT_PSTYP]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="CHARG" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[CHARG]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="INV_ITM_ORIGIN" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INV_ITM_ORIGIN]" />
+                    <externalMetadataColumn dataType="wstr" length="6" name="INVREL" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INVREL]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XDINV" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XDINV]" />
+                    <externalMetadataColumn dataType="numeric" name="DIFF_AMOUNT" precision="16" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[DIFF_AMOUNT]" scale="2" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="XCPRF" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XCPRF]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LICNO" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LICNO]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="ZEILE" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZEILE]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MANDT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="BELNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BELNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BELNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BELNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GJAHR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GJAHR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GJAHR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[GJAHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="BUZEI" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUZEI]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUZEI]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BUZEI]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="EBELN" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EBELN]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELN]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[EBELN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="EBELP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EBELP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EBELP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[EBELP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ZEKKN" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZEKKN]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEKKN]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[ZEKKN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="18" cachedName="MATNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MATNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MATNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BWKEY" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BWKEY]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWKEY]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BWKEY]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="BWTAR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BWTAR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BWTAR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BWTAR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BUKRS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUKRS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUKRS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BUKRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="WERKS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WERKS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WERKS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[WERKS]" />
+                    <inputColumn cachedDataType="numeric" cachedName="WRBTR" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WRBTR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WRBTR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[WRBTR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SHKZG" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SHKZG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SHKZG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SHKZG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="MWSKZ" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MWSKZ]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MWSKZ]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MWSKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="15" cachedName="TXJCD" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[TXJCD]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TXJCD]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[TXJCD]" />
+                    <inputColumn cachedDataType="numeric" cachedName="MENGE" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MENGE]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MENGE]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MENGE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="BSTME" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BSTME]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BSTME]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BSTME]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BPMNG" cachedPrecision="17" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPMNG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPMNG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BPMNG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="BPRME" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPRME]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRME]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BPRME]" />
+                    <inputColumn cachedDataType="numeric" cachedName="LBKUM" cachedPrecision="18" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LBKUM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LBKUM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LBKUM]" />
+                    <inputColumn cachedDataType="numeric" cachedName="VRKUM" cachedPrecision="18" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[VRKUM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VRKUM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[VRKUM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MEINS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MEINS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MEINS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MEINS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="PSTYP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[PSTYP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PSTYP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[PSTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KNTTP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KNTTP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KNTTP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[KNTTP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BKLAS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BKLAS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BKLAS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BKLAS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="EREKZ" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EREKZ]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EREKZ]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[EREKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="EXKBE" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[EXKBE]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[EXKBE]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[EXKBE]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XEKBZ" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XEKBZ]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XEKBZ]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XEKBZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="TBTKZ" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[TBTKZ]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[TBTKZ]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[TBTKZ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRM" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRG" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRV" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRV]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRV]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRV]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRQ" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRQ]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRQ]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRQ]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGRC" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGRC]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGRC]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGRC]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="SPGREXT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SPGREXT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SPGREXT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SPGREXT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="BUSTW" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BUSTW]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BUSTW]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BUSTW]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="16" cachedName="XBLNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XBLNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XBLNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XBLNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XRUEB" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XRUEB]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRUEB]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XRUEB]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BNKAN" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BNKAN]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BNKAN]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BNKAN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="KSCHL" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KSCHL]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KSCHL]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[KSCHL]" />
+                    <inputColumn cachedDataType="numeric" cachedName="SALK3" cachedPrecision="18" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SALK3]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SALK3]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SALK3]" />
+                    <inputColumn cachedDataType="numeric" cachedName="VMSAL" cachedPrecision="18" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[VMSAL]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[VMSAL]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[VMSAL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XLIFO" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XLIFO]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XLIFO]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XLIFO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LFBNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFBNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFBNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LFBNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="LFGJA" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFGJA]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFGJA]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LFGJA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="LFPOS" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFPOS]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFPOS]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LFPOS]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="18" cachedName="MATBF" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MATBF]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MATBF]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MATBF]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RBMNG" cachedPrecision="18" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RBMNG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBMNG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RBMNG]" />
+                    <inputColumn cachedDataType="numeric" cachedName="BPRBM" cachedPrecision="18" cachedScale="3" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[BPRBM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[BPRBM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[BPRBM]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RBWWR" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RBWWR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RBWWR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RBWWR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="LFEHL" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LFEHL]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LFEHL]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LFEHL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="GRICD" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GRICD]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRICD]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[GRICD]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="GRIRG" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GRIRG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GRIRG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[GRIRG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="GITYP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[GITYP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[GITYP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[GITYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="PACKNO" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[PACKNO]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[PACKNO]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[PACKNO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="INTROW" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INTROW]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INTROW]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[INTROW]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="50" cachedName="SGTXT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SGTXT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SGTXT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SGTXT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XSKRL" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XSKRL]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XSKRL]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XSKRL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="KZMEK" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[KZMEK]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[KZMEK]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[KZMEK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="MRMOK" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[MRMOK]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[MRMOK]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[MRMOK]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="STUNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STUNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STUNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[STUNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="ZAEHK" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZAEHK]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZAEHK]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[ZAEHK]" />
+                    <inputColumn cachedDataType="numeric" cachedName="STOCK_POSTING" cachedPrecision="18" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[STOCK_POSTING]" />
+                    <inputColumn cachedDataType="numeric" cachedName="STOCK_POSTING_PP" cachedPrecision="18" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING_PP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[STOCK_POSTING_PP]" />
+                    <inputColumn cachedDataType="numeric" cachedName="STOCK_POSTING_PY" cachedPrecision="18" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[STOCK_POSTING_PY]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[STOCK_POSTING_PY]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[STOCK_POSTING_PY]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="WEREC" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[WEREC]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[WEREC]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[WEREC]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LIFNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LIFNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LIFNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LIFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="16" cachedName="FRBNR" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[FRBNR]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[FRBNR]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[FRBNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XHISTMA" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XHISTMA]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XHISTMA]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XHISTMA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="COMPLAINT_REASON" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[COMPLAINT_REASON]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[COMPLAINT_REASON]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[COMPLAINT_REASON]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RETAMT_FC" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETAMT_FC]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETAMT_FC]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RETAMT_FC]" />
+                    <inputColumn cachedDataType="numeric" cachedName="RETPC" cachedPrecision="6" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETPC]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETPC]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RETPC]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="RETDUEDT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RETDUEDT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RETDUEDT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RETDUEDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XRETTAXNET" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XRETTAXNET]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XRETTAXNET]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XRETTAXNET]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="RE_ACCOUNT" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[RE_ACCOUNT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[RE_ACCOUNT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[RE_ACCOUNT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="ERP_CONTRACT_ID" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ERP_CONTRACT_ID]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ID]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[ERP_CONTRACT_ID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="5" cachedName="ERP_CONTRACT_ITM" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ERP_CONTRACT_ITM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ERP_CONTRACT_ITM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[ERP_CONTRACT_ITM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SRM_CONTRACT_ID" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SRM_CONTRACT_ID]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ID]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SRM_CONTRACT_ID]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="SRM_CONTRACT_ITM" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[SRM_CONTRACT_ITM]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[SRM_CONTRACT_ITM]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[SRM_CONTRACT_ITM]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="CONT_PSTYP" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[CONT_PSTYP]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CONT_PSTYP]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[CONT_PSTYP]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="CHARG" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[CHARG]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[CHARG]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[CHARG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="INV_ITM_ORIGIN" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INV_ITM_ORIGIN]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INV_ITM_ORIGIN]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[INV_ITM_ORIGIN]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="6" cachedName="INVREL" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[INVREL]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[INVREL]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[INVREL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XDINV" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XDINV]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XDINV]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XDINV]" />
+                    <inputColumn cachedDataType="numeric" cachedName="DIFF_AMOUNT" cachedPrecision="16" cachedScale="2" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[DIFF_AMOUNT]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[DIFF_AMOUNT]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[DIFF_AMOUNT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="XCPRF" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[XCPRF]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[XCPRF]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[XCPRF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LICNO" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[LICNO]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[LICNO]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[LICNO]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="ZEILE" externalMetadataColumnId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].ExternalColumns[ZEILE]" lineageId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput].Columns[ZEILE]" name="" refId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG].Columns[ZEILE]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read RSEG\Dest_SAP_RSEG.Outputs[Error]" synchronousInputId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read RSEG\Dest_SAP_RSEG.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read RSEG\Dest_SAP_RSEG.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read RSEG\Dest_SAP_RSEG.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read RSEG\Dest_SAP_RSEG.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_RSEG</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read RSEG\Dest_SAP_RSEG.Inputs[SAP_RSEG_XtractOutput_Dest_SAP_RSEG]" name="SAP_RSEG_XtractOutput_Dest_SAP_RSEG" refId="Package\Read RSEG.Paths[SAP_RSEG_XtractOutput_Dest_SAP_RSEG]" startId="Package\Read RSEG\SAP_RSEG.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{1FC25CC5-C425-43E8-933D-C0D6F37651D4}" DTS:From="Package\TRUNCATE SAP_RSEG" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_RSEG_To_Read RSEG" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_RSEG_To_Read RSEG]" DTS:To="Package\Read RSEG" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

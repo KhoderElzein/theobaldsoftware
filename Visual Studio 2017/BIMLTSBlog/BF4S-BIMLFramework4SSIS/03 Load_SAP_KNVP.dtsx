@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:35" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{926789C5-0500-4AB8-9F9E-58845CCD9979}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_KNVP" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{966AF99A-C768-4FBF-87B2-43B63BC62BA2}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{5369AD0C-05A4-4657-AC12-7537D2315357}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{0583E8C9-E0D1-496E-A919-A4AF84A815F8}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{154F339F-832C-4A5F-8B20-41FC2849AEFC}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_KNVP" DTS:refId="Package\TRUNCATE SAP_KNVP" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_KNVP]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{948A9522-4FBC-4C05-87E3-412C4D287C11}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read KNVP" DTS:refId="Package\Read KNVP" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_KNVP" refId="Package\Read KNVP\SAP_KNVP">
+              <connections>
+                <connection connectionManagerID="{0583E8C9-E0D1-496E-A919-A4AF84A815F8}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read KNVP\SAP_KNVP.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VKORG" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[VKORG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="VTWEG" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[VTWEG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SPART" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[SPART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="PARVW" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[PARVW]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="PARZA" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[PARZA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNN2" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[KUNN2]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PERNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[PERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PARNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[PARNR]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="KNREF" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[KNREF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DEFPA" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[DEFPA]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EFFECTIVE_DATE" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].ExternalColumns[EFFECTIVE_DATE]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNNR]" name="KUNNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VKORG]" name="VKORG" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VKORG]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VTWEG]" name="VTWEG" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VTWEG]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[SPART]" name="SPART" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[SPART]" />
+                    <outputColumn dataType="wstr" length="2" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARVW]" name="PARVW" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARVW]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARZA]" name="PARZA" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARZA]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNN2]" name="KUNN2" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNN2]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[LIFNR]" name="LIFNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[LIFNR]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PERNR]" name="PERNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PERNR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARNR]" name="PARNR" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARNR]" />
+                    <outputColumn dataType="wstr" length="30" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KNREF]" name="KNREF" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KNREF]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[DEFPA]" name="DEFPA" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[DEFPA]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[EFFECTIVE_DATE]" name="EFFECTIVE_DATE" refId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[EFFECTIVE_DATE]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">KNVP</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VKORG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Organization&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VTWEG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Channel&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Division&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PARVW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Partner Function&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PARZA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Partner counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KUNN2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer number of business partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LIFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Account Number of Vendor or Creditor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PERNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Personnel Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PARNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of contact person&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNREF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customer description of partner (plant, storage location)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DEFPA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Default Partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EFFECTIVE_DATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Field of type DATS&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_KNVP" name="Dest_SAP_KNVP" refId="Package\Read KNVP\Dest_SAP_KNVP" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{5369AD0C-05A4-4657-AC12-7537D2315357}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read KNVP\Dest_SAP_KNVP.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_KNVP_XtractOutput_Dest_SAP_KNVP" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNNR" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KUNNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="VKORG" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[VKORG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="VTWEG" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[VTWEG]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="SPART" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[SPART]" />
+                    <externalMetadataColumn dataType="wstr" length="2" name="PARVW" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARVW]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="PARZA" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARZA]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KUNN2" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KUNN2]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="LIFNR" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[LIFNR]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="PERNR" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PERNR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="PARNR" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARNR]" />
+                    <externalMetadataColumn dataType="wstr" length="30" name="KNREF" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KNREF]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="DEFPA" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[DEFPA]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EFFECTIVE_DATE" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[EFFECTIVE_DATE]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[MANDT]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KUNNR" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KUNNR]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNNR]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[KUNNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="VKORG" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[VKORG]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VKORG]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[VKORG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="VTWEG" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[VTWEG]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[VTWEG]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[VTWEG]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="SPART" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[SPART]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[SPART]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[SPART]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="2" cachedName="PARVW" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARVW]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARVW]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[PARVW]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="PARZA" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARZA]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARZA]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[PARZA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KUNN2" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KUNN2]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KUNN2]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[KUNN2]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="LIFNR" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[LIFNR]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[LIFNR]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[LIFNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="PERNR" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PERNR]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PERNR]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[PERNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="PARNR" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[PARNR]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[PARNR]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[PARNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="30" cachedName="KNREF" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[KNREF]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[KNREF]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[KNREF]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="DEFPA" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[DEFPA]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[DEFPA]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[DEFPA]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="EFFECTIVE_DATE" externalMetadataColumnId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].ExternalColumns[EFFECTIVE_DATE]" lineageId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput].Columns[EFFECTIVE_DATE]" name="" refId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP].Columns[EFFECTIVE_DATE]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read KNVP\Dest_SAP_KNVP.Outputs[Error]" synchronousInputId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read KNVP\Dest_SAP_KNVP.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read KNVP\Dest_SAP_KNVP.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read KNVP\Dest_SAP_KNVP.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read KNVP\Dest_SAP_KNVP.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_KNVP</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read KNVP\Dest_SAP_KNVP.Inputs[SAP_KNVP_XtractOutput_Dest_SAP_KNVP]" name="SAP_KNVP_XtractOutput_Dest_SAP_KNVP" refId="Package\Read KNVP.Paths[SAP_KNVP_XtractOutput_Dest_SAP_KNVP]" startId="Package\Read KNVP\SAP_KNVP.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{C09A6D87-6F57-4ADB-9EE0-7E084DDFCC3C}" DTS:From="Package\TRUNCATE SAP_KNVP" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_KNVP_To_Read KNVP" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_KNVP_To_Read KNVP]" DTS:To="Package\Read KNVP" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

@@ -1,0 +1,1207 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{AE3B1DBD-190F-4639-9ABC-5DD78DDB17F2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_MARM"
+  DTS:VersionGUID="{611AB5B2-401B-4A15-841F-8F96A7C6862E}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{87EC10F3-8EE3-4735-BA81-A4943C4132F5}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BAD73BEF-9D15-4001-AA26-48348561C4CE}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read MARM"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{D265361A-3E0A-49C8-9388-3CF538A9F9D6}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read MARM"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read MARM\Dest_SAP_MARM"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_MARM"
+              name="Dest_SAP_MARM"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_MARM</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MARM\Dest_SAP_MARM.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_MARM_XtractOutput_Dest_SAP_MARM">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MANDT]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MATNR]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="MATNR"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MATNR]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MATNR]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MEINH]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MEINH"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MEINH]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEINH]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[UMREZ]"
+                      cachedDataType="numeric"
+                      cachedName="UMREZ"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[UMREZ]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREZ]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[UMREN]"
+                      cachedDataType="numeric"
+                      cachedName="UMREN"
+                      cachedPrecision="6"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[UMREN]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREN]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[EANNR]"
+                      cachedDataType="wstr"
+                      cachedLength="13"
+                      cachedName="EANNR"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[EANNR]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EANNR]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[EAN11]"
+                      cachedDataType="wstr"
+                      cachedLength="18"
+                      cachedName="EAN11"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[EAN11]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EAN11]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[NUMTP]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="NUMTP"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[NUMTP]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NUMTP]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[LAENG]"
+                      cachedDataType="numeric"
+                      cachedName="LAENG"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[LAENG]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[LAENG]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[BREIT]"
+                      cachedDataType="numeric"
+                      cachedName="BREIT"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BREIT]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BREIT]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[HOEHE]"
+                      cachedDataType="numeric"
+                      cachedName="HOEHE"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[HOEHE]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[HOEHE]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MEABM]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MEABM"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MEABM]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEABM]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[VOLUM]"
+                      cachedDataType="numeric"
+                      cachedName="VOLUM"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[VOLUM]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLUM]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[VOLEH]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="VOLEH"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[VOLEH]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLEH]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[BRGEW]"
+                      cachedDataType="numeric"
+                      cachedName="BRGEW"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BRGEW]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BRGEW]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[GEWEI]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="GEWEI"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[GEWEI]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GEWEI]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MESUB]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MESUB"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MESUB]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESUB]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[ATINN]"
+                      cachedDataType="wstr"
+                      cachedLength="30"
+                      cachedName="ATINN"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[ATINN]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[ATINN]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MESRT]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="MESRT"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MESRT]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESRT]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[XFHDW]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XFHDW"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[XFHDW]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XFHDW]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[XBEWW]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBEWW"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[XBEWW]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XBEWW]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[KZWSO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KZWSO"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[KZWSO]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[KZWSO]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MSEHI]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MSEHI"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MSEHI]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MSEHI]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[BFLME_MARM]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="BFLME_MARM"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BFLME_MARM]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BFLME_MARM]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[GTIN_VARIANT]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="GTIN_VARIANT"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[GTIN_VARIANT]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GTIN_VARIANT]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[NEST_FTR]"
+                      cachedDataType="numeric"
+                      cachedName="NEST_FTR"
+                      cachedPrecision="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[NEST_FTR]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NEST_FTR]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[MAX_STACK]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MAX_STACK"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MAX_STACK]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MAX_STACK]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[CAPAUSE]"
+                      cachedDataType="numeric"
+                      cachedName="CAPAUSE"
+                      cachedPrecision="20"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[CAPAUSE]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[CAPAUSE]" />
+                    <inputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].Columns[TY2TQ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="TY2TQ"
+                      externalMetadataColumnId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[TY2TQ]"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[TY2TQ]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MEINH]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEINH" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[UMREZ]"
+                      dataType="numeric"
+                      name="UMREZ"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[UMREN]"
+                      dataType="numeric"
+                      name="UMREN"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[EANNR]"
+                      dataType="wstr"
+                      length="13"
+                      name="EANNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[EAN11]"
+                      dataType="wstr"
+                      length="18"
+                      name="EAN11" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[NUMTP]"
+                      dataType="wstr"
+                      length="2"
+                      name="NUMTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[LAENG]"
+                      dataType="numeric"
+                      name="LAENG"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BREIT]"
+                      dataType="numeric"
+                      name="BREIT"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[HOEHE]"
+                      dataType="numeric"
+                      name="HOEHE"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MEABM]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEABM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[VOLUM]"
+                      dataType="numeric"
+                      name="VOLUM"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[VOLEH]"
+                      dataType="wstr"
+                      length="3"
+                      name="VOLEH" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BRGEW]"
+                      dataType="numeric"
+                      name="BRGEW"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[GEWEI]"
+                      dataType="wstr"
+                      length="3"
+                      name="GEWEI" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MESUB]"
+                      dataType="wstr"
+                      length="3"
+                      name="MESUB" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[ATINN]"
+                      dataType="wstr"
+                      length="30"
+                      name="ATINN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MESRT]"
+                      dataType="wstr"
+                      length="2"
+                      name="MESRT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[XFHDW]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFHDW" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[XBEWW]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBEWW" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[KZWSO]"
+                      dataType="wstr"
+                      length="1"
+                      name="KZWSO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      name="MSEHI" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[BFLME_MARM]"
+                      dataType="wstr"
+                      length="1"
+                      name="BFLME_MARM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[GTIN_VARIANT]"
+                      dataType="wstr"
+                      length="2"
+                      name="GTIN_VARIANT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[NEST_FTR]"
+                      dataType="numeric"
+                      name="NEST_FTR"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[MAX_STACK]"
+                      dataType="wstr"
+                      length="3"
+                      name="MAX_STACK" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[CAPAUSE]"
+                      dataType="numeric"
+                      name="CAPAUSE"
+                      precision="20"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM].ExternalColumns[TY2TQ]"
+                      dataType="wstr"
+                      length="1"
+                      name="TY2TQ" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read MARM\Dest_SAP_MARM.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read MARM\Dest_SAP_MARM.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read MARM\Dest_SAP_MARM.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read MARM\Dest_SAP_MARM.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read MARM\SAP_MARM"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_MARM">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">MARM</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MATNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Alternative Unit of Measure for Stockkeeping Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMREZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Numerator for Conversion to Base Units of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;UMREN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Denominator for conversion to base units of measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EANNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;European Article Number (EAN) - obsolete!!!!!&lt;/ColDescription&gt;
+        &lt;ColLength&gt;13&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EAN11&lt;/ColName&gt;
+        &lt;ColDescription&gt;International Article Number (EAN/UPC)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;18&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NUMTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Category of International Article Number (EAN)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LAENG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Length&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BREIT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Width&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HOEHE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Height&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEABM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Dimension for Length/Width/Height&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VOLUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Volume&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VOLEH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Volume unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BRGEW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Gross Weight&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GEWEI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Weight Unit&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MESUB&lt;/ColName&gt;
+        &lt;ColDescription&gt;Lower-Level Unit of Measure in a Packing Hierarchy&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ATINN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal characteristic&lt;/ColDescription&gt;
+        &lt;ColLength&gt;30&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MESRT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of measure sort number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XFHDW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Leading batch-specific unit of measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBEWW&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation based on the batch-specific unit of measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KZWSO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Units of measure usage&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MSEHI&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Measurement of Characteristic&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BFLME_MARM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Generic Material with Logistical Variants&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GTIN_VARIANT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Global Trade Item Number Variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NEST_FTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Remaining Volume after Nesting (in Percentage)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MAX_STACK&lt;/ColName&gt;
+        &lt;ColDescription&gt;Maximum Stacking Factor&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;x&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CAPAUSE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Capacity Usage&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TY2TQ&lt;/ColName&gt;
+        &lt;ColDescription&gt;EWM-CW: Category of Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MARM\SAP_MARM.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MATNR]"
+                      name="MATNR" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEINH]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEINH]"
+                      name="MEINH" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREZ]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREZ]"
+                      name="UMREZ"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREN]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[UMREN]"
+                      name="UMREN"
+                      precision="6" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EANNR]"
+                      dataType="wstr"
+                      length="13"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EANNR]"
+                      name="EANNR" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EAN11]"
+                      dataType="wstr"
+                      length="18"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[EAN11]"
+                      name="EAN11" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NUMTP]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NUMTP]"
+                      name="NUMTP" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[LAENG]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[LAENG]"
+                      name="LAENG"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BREIT]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BREIT]"
+                      name="BREIT"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[HOEHE]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[HOEHE]"
+                      name="HOEHE"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEABM]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MEABM]"
+                      name="MEABM" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLUM]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLUM]"
+                      name="VOLUM"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLEH]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[VOLEH]"
+                      name="VOLEH" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BRGEW]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BRGEW]"
+                      name="BRGEW"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GEWEI]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GEWEI]"
+                      name="GEWEI" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESUB]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESUB]"
+                      name="MESUB" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[ATINN]"
+                      dataType="wstr"
+                      length="30"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[ATINN]"
+                      name="ATINN" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESRT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MESRT]"
+                      name="MESRT" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XFHDW]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XFHDW]"
+                      name="XFHDW" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XBEWW]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[XBEWW]"
+                      name="XBEWW" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[KZWSO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[KZWSO]"
+                      name="KZWSO" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MSEHI]"
+                      name="MSEHI" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BFLME_MARM]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[BFLME_MARM]"
+                      name="BFLME_MARM" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GTIN_VARIANT]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[GTIN_VARIANT]"
+                      name="GTIN_VARIANT" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NEST_FTR]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[NEST_FTR]"
+                      name="NEST_FTR"
+                      precision="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MAX_STACK]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[MAX_STACK]"
+                      name="MAX_STACK" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[CAPAUSE]"
+                      dataType="numeric"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[CAPAUSE]"
+                      name="CAPAUSE"
+                      precision="20"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[TY2TQ]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].Columns[TY2TQ]"
+                      name="TY2TQ" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MATNR]"
+                      dataType="wstr"
+                      length="18"
+                      name="MATNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MEINH]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEINH" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[UMREZ]"
+                      dataType="numeric"
+                      name="UMREZ"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[UMREN]"
+                      dataType="numeric"
+                      name="UMREN"
+                      precision="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[EANNR]"
+                      dataType="wstr"
+                      length="13"
+                      name="EANNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[EAN11]"
+                      dataType="wstr"
+                      length="18"
+                      name="EAN11" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[NUMTP]"
+                      dataType="wstr"
+                      length="2"
+                      name="NUMTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[LAENG]"
+                      dataType="numeric"
+                      name="LAENG"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[BREIT]"
+                      dataType="numeric"
+                      name="BREIT"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[HOEHE]"
+                      dataType="numeric"
+                      name="HOEHE"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MEABM]"
+                      dataType="wstr"
+                      length="3"
+                      name="MEABM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[VOLUM]"
+                      dataType="numeric"
+                      name="VOLUM"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[VOLEH]"
+                      dataType="wstr"
+                      length="3"
+                      name="VOLEH" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[BRGEW]"
+                      dataType="numeric"
+                      name="BRGEW"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[GEWEI]"
+                      dataType="wstr"
+                      length="3"
+                      name="GEWEI" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MESUB]"
+                      dataType="wstr"
+                      length="3"
+                      name="MESUB" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[ATINN]"
+                      dataType="wstr"
+                      length="30"
+                      name="ATINN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MESRT]"
+                      dataType="wstr"
+                      length="2"
+                      name="MESRT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[XFHDW]"
+                      dataType="wstr"
+                      length="1"
+                      name="XFHDW" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[XBEWW]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBEWW" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[KZWSO]"
+                      dataType="wstr"
+                      length="1"
+                      name="KZWSO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MSEHI]"
+                      dataType="wstr"
+                      length="3"
+                      name="MSEHI" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[BFLME_MARM]"
+                      dataType="wstr"
+                      length="1"
+                      name="BFLME_MARM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[GTIN_VARIANT]"
+                      dataType="wstr"
+                      length="2"
+                      name="GTIN_VARIANT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[NEST_FTR]"
+                      dataType="numeric"
+                      name="NEST_FTR"
+                      precision="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[MAX_STACK]"
+                      dataType="wstr"
+                      length="3"
+                      name="MAX_STACK" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[CAPAUSE]"
+                      dataType="numeric"
+                      name="CAPAUSE"
+                      precision="20"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput].ExternalColumns[TY2TQ]"
+                      dataType="wstr"
+                      length="1"
+                      name="TY2TQ" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read MARM.Paths[SAP_MARM_XtractOutput_Dest_SAP_MARM]"
+              endId="Package\Read MARM\Dest_SAP_MARM.Inputs[SAP_MARM_XtractOutput_Dest_SAP_MARM]"
+              name="SAP_MARM_XtractOutput_Dest_SAP_MARM"
+              startId="Package\Read MARM\SAP_MARM.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_MARM"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{0C0D7341-2C7C-4C64-BE78-3156FB88DEAB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_MARM"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BAD73BEF-9D15-4001-AA26-48348561C4CE}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_MARM]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MARM_To_Read MARM]"
+      DTS:CreationName=""
+      DTS:DTSID="{38265D07-05E2-4F98-A95B-57AF0E1CBD65}"
+      DTS:From="Package\TRUNCATE SAP_MARM"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_MARM_To_Read MARM"
+      DTS:To="Package\Read MARM" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

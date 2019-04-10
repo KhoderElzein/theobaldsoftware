@@ -1,0 +1,966 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{C2488DEB-9CC2-4E13-9EED-F0B040E13434}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_COKR"
+  DTS:VersionGUID="{D53DDA2C-4993-4258-9A73-71F118F857C5}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{98D0B32B-3412-4FCB-85E2-E463BB6113A5}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FE6BCC10-D765-4A72-AEF0-E9600E40D7A5}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read COKR"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{0088C31E-4F22-4BE8-B45F-F1253E9C9359}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read COKR"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read COKR\Dest_SAP_COKR"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_COKR"
+              name="Dest_SAP_COKR"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_COKR</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read COKR\Dest_SAP_COKR.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_COKR_XtractOutput_Dest_SAP_COKR">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[MANDT]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[LEDNR]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="LEDNR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[LEDNR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[LEDNR]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[OBJNR]"
+                      cachedDataType="wstr"
+                      cachedLength="22"
+                      cachedName="OBJNR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[OBJNR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[OBJNR]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[GJAHR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="GJAHR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[GJAHR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[WRTTP]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="WRTTP"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WRTTP]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WRTTP]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[VERSN]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="VERSN"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VERSN]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VERSN]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[STAGR]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="STAGR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[STAGR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[STAGR]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[HRKFT]"
+                      cachedDataType="wstr"
+                      cachedLength="14"
+                      cachedName="HRKFT"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[HRKFT]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[HRKFT]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[VRGNG]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="VRGNG"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VRGNG]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VRGNG]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[WSSME]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="WSSME"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WSSME]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSME]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[WSSMA]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="WSSMA"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WSSMA]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSMA]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[FMSME]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="FMSME"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FMSME]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSME]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[FMSMA]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="FMSMA"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FMSMA]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSMA]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[FCSME]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FCSME"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FCSME]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSME]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[FCSMA]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FCSMA"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FCSMA]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSMA]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[TXFLG]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="TXFLG"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[TXFLG]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[TXFLG]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[KKART]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KKART"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KKART]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KKART]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[KALNR]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="KALNR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KALNR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KALNR]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[VARIANTE]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VARIANTE"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VARIANTE]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VARIANTE]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[M_PLAN]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="M_PLAN"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[M_PLAN]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_PLAN]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[M_IST]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="M_IST"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[M_IST]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_IST]" />
+                    <inputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].Columns[KSTAGR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="KSTAGR"
+                      externalMetadataColumnId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KSTAGR]"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KSTAGR]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[LEDNR]"
+                      dataType="wstr"
+                      length="2"
+                      name="LEDNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[OBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      name="OBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="GJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WRTTP]"
+                      dataType="wstr"
+                      length="2"
+                      name="WRTTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      name="VERSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[STAGR]"
+                      dataType="wstr"
+                      length="6"
+                      name="STAGR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[HRKFT]"
+                      dataType="wstr"
+                      length="14"
+                      name="HRKFT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      name="VRGNG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WSSME]"
+                      dataType="wstr"
+                      length="1"
+                      name="WSSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[WSSMA]"
+                      dataType="wstr"
+                      length="1"
+                      name="WSSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FMSME]"
+                      dataType="wstr"
+                      length="3"
+                      name="FMSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FMSMA]"
+                      dataType="wstr"
+                      length="3"
+                      name="FMSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FCSME]"
+                      dataType="wstr"
+                      length="4"
+                      name="FCSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[FCSMA]"
+                      dataType="wstr"
+                      length="4"
+                      name="FCSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[TXFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KKART]"
+                      dataType="wstr"
+                      length="4"
+                      name="KKART" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KALNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="KALNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[VARIANTE]"
+                      dataType="wstr"
+                      length="10"
+                      name="VARIANTE" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[M_PLAN]"
+                      dataType="wstr"
+                      length="1"
+                      name="M_PLAN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[M_IST]"
+                      dataType="wstr"
+                      length="1"
+                      name="M_IST" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR].ExternalColumns[KSTAGR]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTAGR" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read COKR\Dest_SAP_COKR.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read COKR\Dest_SAP_COKR.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read COKR\Dest_SAP_COKR.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read COKR\Dest_SAP_COKR.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read COKR\SAP_COKR"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_COKR">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">COKR</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LEDNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Ledger for Controlling objects&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WRTTP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Value Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VERSN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Version&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;STAGR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Statistical key figure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HRKFT&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO key subnumber&lt;/ColDescription&gt;
+        &lt;ColLength&gt;14&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VRGNG&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO Business Transaction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSSME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation Type for Current Value (Stat. Key Figures)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WSSMA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Valuation Type for Maximum Value (Statistical Key Figs)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMSME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula No. Current value (statist. ratios)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FMSMA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Formula No. Maximum value (statist.ratios)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCSME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key: Current value (stat. key figs)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FCSMA&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution key: Maximum value (stat. key figs)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TXFLG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Text indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KKART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Costing variant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KALNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Estimate Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VARIANTE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Characteristics for statistical base from LIS&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;M_PLAN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Process planned values&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;M_IST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Actual value processing&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAGR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Are stat.key figs used in dependency for dependent costs?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read COKR\SAP_COKR.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[LEDNR]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[LEDNR]"
+                      name="LEDNR" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[OBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[OBJNR]"
+                      name="OBJNR" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[GJAHR]"
+                      name="GJAHR" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WRTTP]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WRTTP]"
+                      name="WRTTP" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VERSN]"
+                      name="VERSN" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[STAGR]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[STAGR]"
+                      name="STAGR" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[HRKFT]"
+                      dataType="wstr"
+                      length="14"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[HRKFT]"
+                      name="HRKFT" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VRGNG]"
+                      name="VRGNG" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSME]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSME]"
+                      name="WSSME" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSMA]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[WSSMA]"
+                      name="WSSMA" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSME]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSME]"
+                      name="FMSME" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSMA]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FMSMA]"
+                      name="FMSMA" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSME]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSME]"
+                      name="FCSME" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSMA]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[FCSMA]"
+                      name="FCSMA" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[TXFLG]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[TXFLG]"
+                      name="TXFLG" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KKART]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KKART]"
+                      name="KKART" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KALNR]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KALNR]"
+                      name="KALNR" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VARIANTE]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[VARIANTE]"
+                      name="VARIANTE" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_PLAN]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_PLAN]"
+                      name="M_PLAN" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_IST]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[M_IST]"
+                      name="M_IST" />
+                    <outputColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KSTAGR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].Columns[KSTAGR]"
+                      name="KSTAGR" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[LEDNR]"
+                      dataType="wstr"
+                      length="2"
+                      name="LEDNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[OBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      name="OBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[GJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="GJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[WRTTP]"
+                      dataType="wstr"
+                      length="2"
+                      name="WRTTP" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[VERSN]"
+                      dataType="wstr"
+                      length="3"
+                      name="VERSN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[STAGR]"
+                      dataType="wstr"
+                      length="6"
+                      name="STAGR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[HRKFT]"
+                      dataType="wstr"
+                      length="14"
+                      name="HRKFT" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[VRGNG]"
+                      dataType="wstr"
+                      length="4"
+                      name="VRGNG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[WSSME]"
+                      dataType="wstr"
+                      length="1"
+                      name="WSSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[WSSMA]"
+                      dataType="wstr"
+                      length="1"
+                      name="WSSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[FMSME]"
+                      dataType="wstr"
+                      length="3"
+                      name="FMSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[FMSMA]"
+                      dataType="wstr"
+                      length="3"
+                      name="FMSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[FCSME]"
+                      dataType="wstr"
+                      length="4"
+                      name="FCSME" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[FCSMA]"
+                      dataType="wstr"
+                      length="4"
+                      name="FCSMA" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[TXFLG]"
+                      dataType="wstr"
+                      length="1"
+                      name="TXFLG" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[KKART]"
+                      dataType="wstr"
+                      length="4"
+                      name="KKART" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[KALNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="KALNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[VARIANTE]"
+                      dataType="wstr"
+                      length="10"
+                      name="VARIANTE" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[M_PLAN]"
+                      dataType="wstr"
+                      length="1"
+                      name="M_PLAN" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[M_IST]"
+                      dataType="wstr"
+                      length="1"
+                      name="M_IST" />
+                    <externalMetadataColumn
+                      refId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput].ExternalColumns[KSTAGR]"
+                      dataType="wstr"
+                      length="1"
+                      name="KSTAGR" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read COKR.Paths[SAP_COKR_XtractOutput_Dest_SAP_COKR]"
+              endId="Package\Read COKR\Dest_SAP_COKR.Inputs[SAP_COKR_XtractOutput_Dest_SAP_COKR]"
+              name="SAP_COKR_XtractOutput_Dest_SAP_COKR"
+              startId="Package\Read COKR\SAP_COKR.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_COKR"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{4C2A046C-34D8-4BD7-ADE5-401A05A782A7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_COKR"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{FE6BCC10-D765-4A72-AEF0-E9600E40D7A5}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_COKR]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_COKR_To_Read COKR]"
+      DTS:CreationName=""
+      DTS:DTSID="{329144D2-8FEE-4C9F-B7B8-A14FA4D83A57}"
+      DTS:From="Package\TRUNCATE SAP_COKR"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_COKR_To_Read COKR"
+      DTS:To="Package\Read COKR" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

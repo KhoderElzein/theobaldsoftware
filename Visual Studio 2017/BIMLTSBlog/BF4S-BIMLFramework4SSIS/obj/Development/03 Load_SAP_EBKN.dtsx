@@ -1,0 +1,2439 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:29 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{199C7438-764D-479A-A523-55FF9E7E23EC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_EBKN"
+  DTS:VersionGUID="{2AB7E3B3-F9AD-44C7-B067-7CCDD6AEAE6E}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{56CA1233-180D-45B7-8D03-B3B5ACC00AF7}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6C3927F5-9AAB-4CED-A342-C044CE86CD88}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read EBKN"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{C0612816-AC20-4788-94E9-36983743D867}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read EBKN"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read EBKN\Dest_SAP_EBKN"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_EBKN"
+              name="Dest_SAP_EBKN"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_EBKN</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read EBKN\Dest_SAP_EBKN.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_EBKN_XtractOutput_Dest_SAP_EBKN">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[MANDT]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[BANFN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="BANFN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BANFN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BANFN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[BNFPO]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="BNFPO"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BNFPO]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BNFPO]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZEBKN]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="ZEBKN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZEBKN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZEBKN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[LOEKZ]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="LOEKZ"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[LOEKZ]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LOEKZ]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ERDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="ERDAT"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ERDAT]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERDAT]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ERNAM]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="ERNAM"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ERNAM]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERNAM]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[MENGE]"
+                      cachedDataType="numeric"
+                      cachedName="MENGE"
+                      cachedPrecision="17"
+                      cachedScale="3"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[MENGE]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MENGE]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VPROZ]"
+                      cachedDataType="numeric"
+                      cachedName="VPROZ"
+                      cachedPrecision="5"
+                      cachedScale="1"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VPROZ]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPROZ]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[SAKTO]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SAKTO"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[SAKTO]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[SAKTO]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[GSBER]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="GSBER"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GSBER]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GSBER]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[KOSTL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KOSTL"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KOSTL]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOSTL]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[PROJN]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="PROJN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PROJN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PROJN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VBELN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VBELN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VBELN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VBELP]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="VBELP"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VBELP]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELP]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VETEN]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="VETEN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VETEN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VETEN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ANLN1]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="ANLN1"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ANLN1]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN1]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ANLN2]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="ANLN2"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ANLN2]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN2]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[AUFNR]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="AUFNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[WEMPF]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="WEMPF"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[WEMPF]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[WEMPF]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ABLAD]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="ABLAD"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ABLAD]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ABLAD]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[KOKRS]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="KOKRS"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KOKRS]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOKRS]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[XBKST]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBKST"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBKST]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBKST]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[XBAUF]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBAUF"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBAUF]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBAUF]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[XBPRO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="XBPRO"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBPRO]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBPRO]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[KSTRG]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="KSTRG"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KSTRG]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KSTRG]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[PAOBJNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="PAOBJNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PAOBJNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PAOBJNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[PRCTR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="PRCTR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PRCTR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRCTR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[PS_PSP_PNR]"
+                      cachedDataType="wstr"
+                      cachedLength="24"
+                      cachedName="PS_PSP_PNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PS_PSP_PNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PS_PSP_PNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[NPLNR]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="NPLNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NPLNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NPLNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[AUFPL]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AUFPL"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFPL]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[IMKEY]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="IMKEY"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[IMKEY]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[IMKEY]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[APLZL]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="APLZL"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[APLZL]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VPTNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="VPTNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VPTNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPTNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[FIPOS]"
+                      cachedDataType="wstr"
+                      cachedLength="24"
+                      cachedName="FIPOS"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FIPOS]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FIPOS]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[RECID]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="RECID"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[RECID]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[RECID]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZSPREG]"
+                      cachedDataType="wstr"
+                      cachedLength="5"
+                      cachedName="ZZSPREG"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZSPREG]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSPREG]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZBUSPARTN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ZZBUSPARTN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZBUSPARTN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZBUSPARTN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZPRODUCT]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ZZPRODUCT"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZPRODUCT]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZPRODUCT]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZLOCA]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="ZZLOCA"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZLOCA]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOCA]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZCHAN]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="ZZCHAN"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZCHAN]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZCHAN]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZLOB]"
+                      cachedDataType="wstr"
+                      cachedLength="7"
+                      cachedName="ZZLOB"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZLOB]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOB]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZUSERFLD1]"
+                      cachedDataType="wstr"
+                      cachedLength="9"
+                      cachedName="ZZUSERFLD1"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD1]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD1]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZUSERFLD2]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="ZZUSERFLD2"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD2]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD2]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZUSERFLD3]"
+                      cachedDataType="wstr"
+                      cachedLength="22"
+                      cachedName="ZZUSERFLD3"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD3]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD3]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZREGION]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="ZZREGION"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZREGION]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZREGION]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[ZZSTATE]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="ZZSTATE"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZSTATE]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSTATE]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[FISTL]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="FISTL"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FISTL]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FISTL]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[GEBER]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="GEBER"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GEBER]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GEBER]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[FKBER]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="FKBER"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FKBER]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FKBER]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[DABRZ]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DABRZ"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DABRZ]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DABRZ]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[NETWR]"
+                      cachedDataType="numeric"
+                      cachedName="NETWR"
+                      cachedPrecision="16"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NETWR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NETWR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[AUFPL_ORD]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AUFPL_ORD"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFPL_ORD]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL_ORD]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[APLZL_ORD]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="APLZL_ORD"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[APLZL_ORD]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL_ORD]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[KBLNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KBLNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KBLNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[KBLPOS]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="KBLPOS"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KBLPOS]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLPOS]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[LSTAR]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="LSTAR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[LSTAR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LSTAR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[PRZNR]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="PRZNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PRZNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRZNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[GRANT_NBR]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="GRANT_NBR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GRANT_NBR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GRANT_NBR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[FM_SPLIT_BATCH]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="FM_SPLIT_BATCH"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FM_SPLIT_BATCH]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BATCH]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[FM_SPLIT_BEGRU]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="FM_SPLIT_BEGRU"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FM_SPLIT_BEGRU]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BEGRU]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[BUDGET_PD]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="BUDGET_PD"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BUDGET_PD]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BUDGET_PD]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[EGRUP]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="EGRUP"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[EGRUP]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[EGRUP]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[VNAME]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="VNAME"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VNAME]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VNAME]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[TCOBJNR]"
+                      cachedDataType="wstr"
+                      cachedLength="22"
+                      cachedName="TCOBJNR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[TCOBJNR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[TCOBJNR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[DATEOFSERVICE]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="DATEOFSERVICE"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DATEOFSERVICE]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DATEOFSERVICE]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[NOTAXCORR]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="NOTAXCORR"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NOTAXCORR]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NOTAXCORR]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[DIFFOPTRATE]"
+                      cachedDataType="numeric"
+                      cachedName="DIFFOPTRATE"
+                      cachedPrecision="10"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DIFFOPTRATE]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DIFFOPTRATE]" />
+                    <inputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].Columns[HASDIFFOPTRATE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="HASDIFFOPTRATE"
+                      externalMetadataColumnId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[HASDIFFOPTRATE]"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[HASDIFFOPTRATE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BANFN]"
+                      dataType="wstr"
+                      length="10"
+                      name="BANFN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BNFPO]"
+                      dataType="wstr"
+                      length="5"
+                      name="BNFPO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZEBKN]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZEBKN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="ERNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[MENGE]"
+                      dataType="numeric"
+                      name="MENGE"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VPROZ]"
+                      dataType="numeric"
+                      name="VPROZ"
+                      precision="5"
+                      scale="1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[SAKTO]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKTO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GSBER]"
+                      dataType="wstr"
+                      length="4"
+                      name="GSBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PROJN]"
+                      dataType="wstr"
+                      length="16"
+                      name="PROJN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      name="VBELN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VBELP]"
+                      dataType="wstr"
+                      length="6"
+                      name="VBELP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VETEN]"
+                      dataType="wstr"
+                      length="4"
+                      name="VETEN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ANLN1]"
+                      dataType="wstr"
+                      length="12"
+                      name="ANLN1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ANLN2]"
+                      dataType="wstr"
+                      length="4"
+                      name="ANLN2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="AUFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[WEMPF]"
+                      dataType="wstr"
+                      length="12"
+                      name="WEMPF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ABLAD]"
+                      dataType="wstr"
+                      length="25"
+                      name="ABLAD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBKST]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBKST" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBAUF]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBAUF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[XBPRO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBPRO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KSTRG]"
+                      dataType="wstr"
+                      length="12"
+                      name="KSTRG" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PAOBJNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="PAOBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PRCTR]"
+                      dataType="wstr"
+                      length="10"
+                      name="PRCTR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PS_PSP_PNR]"
+                      dataType="wstr"
+                      length="24"
+                      name="PS_PSP_PNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NPLNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="NPLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFPL]"
+                      dataType="wstr"
+                      length="10"
+                      name="AUFPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[IMKEY]"
+                      dataType="wstr"
+                      length="40"
+                      name="IMKEY" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[APLZL]"
+                      dataType="wstr"
+                      length="8"
+                      name="APLZL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VPTNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="VPTNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FIPOS]"
+                      dataType="wstr"
+                      length="24"
+                      name="FIPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      name="RECID" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZSPREG]"
+                      dataType="wstr"
+                      length="5"
+                      name="ZZSPREG" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZBUSPARTN]"
+                      dataType="wstr"
+                      length="10"
+                      name="ZZBUSPARTN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZPRODUCT]"
+                      dataType="wstr"
+                      length="10"
+                      name="ZZPRODUCT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZLOCA]"
+                      dataType="wstr"
+                      length="4"
+                      name="ZZLOCA" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZCHAN]"
+                      dataType="wstr"
+                      length="4"
+                      name="ZZCHAN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZLOB]"
+                      dataType="wstr"
+                      length="7"
+                      name="ZZLOB" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD1]"
+                      dataType="wstr"
+                      length="9"
+                      name="ZZUSERFLD1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD2]"
+                      dataType="wstr"
+                      length="12"
+                      name="ZZUSERFLD2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZUSERFLD3]"
+                      dataType="wstr"
+                      length="22"
+                      name="ZZUSERFLD3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZREGION]"
+                      dataType="wstr"
+                      length="3"
+                      name="ZZREGION" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[ZZSTATE]"
+                      dataType="wstr"
+                      length="3"
+                      name="ZZSTATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FISTL]"
+                      dataType="wstr"
+                      length="16"
+                      name="FISTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GEBER]"
+                      dataType="wstr"
+                      length="10"
+                      name="GEBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FKBER]"
+                      dataType="wstr"
+                      length="16"
+                      name="FKBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DABRZ]"
+                      dataType="wstr"
+                      length="8"
+                      name="DABRZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NETWR]"
+                      dataType="numeric"
+                      name="NETWR"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[AUFPL_ORD]"
+                      dataType="wstr"
+                      length="10"
+                      name="AUFPL_ORD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[APLZL_ORD]"
+                      dataType="wstr"
+                      length="8"
+                      name="APLZL_ORD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[KBLPOS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KBLPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[LSTAR]"
+                      dataType="wstr"
+                      length="6"
+                      name="LSTAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[PRZNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="PRZNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[GRANT_NBR]"
+                      dataType="wstr"
+                      length="20"
+                      name="GRANT_NBR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FM_SPLIT_BATCH]"
+                      dataType="wstr"
+                      length="3"
+                      name="FM_SPLIT_BATCH" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[FM_SPLIT_BEGRU]"
+                      dataType="wstr"
+                      length="4"
+                      name="FM_SPLIT_BEGRU" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[BUDGET_PD]"
+                      dataType="wstr"
+                      length="10"
+                      name="BUDGET_PD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[EGRUP]"
+                      dataType="wstr"
+                      length="3"
+                      name="EGRUP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[VNAME]"
+                      dataType="wstr"
+                      length="6"
+                      name="VNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[TCOBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      name="TCOBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DATEOFSERVICE]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATEOFSERVICE" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[NOTAXCORR]"
+                      dataType="wstr"
+                      length="1"
+                      name="NOTAXCORR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[DIFFOPTRATE]"
+                      dataType="numeric"
+                      name="DIFFOPTRATE"
+                      precision="10"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN].ExternalColumns[HASDIFFOPTRATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="HASDIFFOPTRATE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read EBKN\Dest_SAP_EBKN.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read EBKN\Dest_SAP_EBKN.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read EBKN\Dest_SAP_EBKN.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read EBKN\Dest_SAP_EBKN.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read EBKN\SAP_EBKN"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_EBKN">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">EBKN</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BANFN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchase Requisition Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BNFPO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Item Number of Purchase Requisition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZEBKN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Serial number for PReq account assignment segment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LOEKZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Deletion Indicator in Purchasing Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date on Which Record Was Created&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ERNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Name of Person who Created the Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MENGE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Purchase Requisition Quantity&lt;/ColDescription&gt;
+        &lt;ColLength&gt;17&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;3&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VPROZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution Percentage in Case of Multiple Account Assgt&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;1&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SAKTO&lt;/ColName&gt;
+        &lt;ColDescription&gt;G/L Account Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GSBER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOSTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PROJN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Old: Project number : No longer used --&amp;gt; PS_POSNR&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales and Distribution Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VBELP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Sales Document Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VETEN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery Schedule Line Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ANLN1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Main Asset Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ANLN2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Asset Subnumber&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Order Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEMPF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Goods Recipient/Ship-To Party&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ABLAD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unloading Point&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KOKRS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Controlling Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBKST&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting to cost center?&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBAUF&lt;/ColName&gt;
+        &lt;ColDescription&gt;Post To Order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBPRO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Post to project&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTRG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PAOBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Profitability Segment Number (CO-PA)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRCTR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Profit Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PS_PSP_PNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Work Breakdown Structure Element (WBS Element)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;24&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NPLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Network Number for Account Assignment&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFPL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Routing number of operations in the order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;IMKEY&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal Key for Real Estate Object&lt;/ColDescription&gt;
+        &lt;ColLength&gt;40&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;APLZL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Internal counter&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VPTNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Partner account number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FIPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Commitment Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;24&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;RECID&lt;/ColName&gt;
+        &lt;ColDescription&gt;Recovery Indicator&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZSPREG&lt;/ColName&gt;
+        &lt;ColDescription&gt;Special Region&lt;/ColDescription&gt;
+        &lt;ColLength&gt;5&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZBUSPARTN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business partner&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZPRODUCT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Product group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZLOCA&lt;/ColName&gt;
+        &lt;ColDescription&gt;City&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZCHAN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Distribution channel&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZLOB&lt;/ColName&gt;
+        &lt;ColDescription&gt;BUSINESS LINE&lt;/ColDescription&gt;
+        &lt;ColLength&gt;7&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZUSERFLD1&lt;/ColName&gt;
+        &lt;ColDescription&gt;Territory&lt;/ColDescription&gt;
+        &lt;ColLength&gt;9&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZUSERFLD2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Owner/Cont.&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZUSERFLD3&lt;/ColName&gt;
+        &lt;ColDescription&gt;Vein&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZREGION&lt;/ColName&gt;
+        &lt;ColDescription&gt;Location&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;ZZSTATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;State/Province Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FISTL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Funds Center&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GEBER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fund&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FKBER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Functional Area&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DABRZ&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Date for Settlement&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NETWR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Net Order Value in PO Currency&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AUFPL_ORD&lt;/ColName&gt;
+        &lt;ColDescription&gt;Routing number of operations in the order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;APLZL_ORD&lt;/ColName&gt;
+        &lt;ColDescription&gt;General counter for order&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KBLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Number for Earmarked Funds&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KBLPOS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Earmarked Funds: Document Item&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Activity Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;PRZNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Business Process&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GRANT_NBR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Grant&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FM_SPLIT_BATCH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Batch to group results from an PSM assignment distribution&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FM_SPLIT_BEGRU&lt;/ColName&gt;
+        &lt;ColDescription&gt;Authorization group for PSM account assignment distribution&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUDGET_PD&lt;/ColName&gt;
+        &lt;ColDescription&gt;FM: Budget Period&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EGRUP&lt;/ColName&gt;
+        &lt;ColDescription&gt;Equity group&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VNAME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Joint Venture&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TCOBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DATEOFSERVICE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Date of Service&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;NOTAXCORR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Do Not Consider Item in Input Tax Correction&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;DIFFOPTRATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Real estate option rate&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;6&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HASDIFFOPTRATE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Use Different Option Rate&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read EBKN\SAP_EBKN.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BANFN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BANFN]"
+                      name="BANFN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BNFPO]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BNFPO]"
+                      name="BNFPO" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZEBKN]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZEBKN]"
+                      name="ZEBKN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LOEKZ]"
+                      name="LOEKZ" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERDAT]"
+                      name="ERDAT" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ERNAM]"
+                      name="ERNAM" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MENGE]"
+                      dataType="numeric"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[MENGE]"
+                      name="MENGE"
+                      precision="17"
+                      scale="3" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPROZ]"
+                      dataType="numeric"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPROZ]"
+                      name="VPROZ"
+                      precision="5"
+                      scale="1" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[SAKTO]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[SAKTO]"
+                      name="SAKTO" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GSBER]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GSBER]"
+                      name="GSBER" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOSTL]"
+                      name="KOSTL" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PROJN]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PROJN]"
+                      name="PROJN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELN]"
+                      name="VBELN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELP]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VBELP]"
+                      name="VBELP" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VETEN]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VETEN]"
+                      name="VETEN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN1]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN1]"
+                      name="ANLN1" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN2]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ANLN2]"
+                      name="ANLN2" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFNR]"
+                      name="AUFNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[WEMPF]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[WEMPF]"
+                      name="WEMPF" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ABLAD]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ABLAD]"
+                      name="ABLAD" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KOKRS]"
+                      name="KOKRS" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBKST]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBKST]"
+                      name="XBKST" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBAUF]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBAUF]"
+                      name="XBAUF" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBPRO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[XBPRO]"
+                      name="XBPRO" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KSTRG]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KSTRG]"
+                      name="KSTRG" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PAOBJNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PAOBJNR]"
+                      name="PAOBJNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRCTR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRCTR]"
+                      name="PRCTR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PS_PSP_PNR]"
+                      dataType="wstr"
+                      length="24"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PS_PSP_PNR]"
+                      name="PS_PSP_PNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NPLNR]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NPLNR]"
+                      name="NPLNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL]"
+                      name="AUFPL" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[IMKEY]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[IMKEY]"
+                      name="IMKEY" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL]"
+                      name="APLZL" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPTNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VPTNR]"
+                      name="VPTNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FIPOS]"
+                      dataType="wstr"
+                      length="24"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FIPOS]"
+                      name="FIPOS" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[RECID]"
+                      name="RECID" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSPREG]"
+                      dataType="wstr"
+                      length="5"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSPREG]"
+                      name="ZZSPREG" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZBUSPARTN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZBUSPARTN]"
+                      name="ZZBUSPARTN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZPRODUCT]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZPRODUCT]"
+                      name="ZZPRODUCT" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOCA]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOCA]"
+                      name="ZZLOCA" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZCHAN]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZCHAN]"
+                      name="ZZCHAN" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOB]"
+                      dataType="wstr"
+                      length="7"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZLOB]"
+                      name="ZZLOB" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD1]"
+                      dataType="wstr"
+                      length="9"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD1]"
+                      name="ZZUSERFLD1" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD2]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD2]"
+                      name="ZZUSERFLD2" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD3]"
+                      dataType="wstr"
+                      length="22"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZUSERFLD3]"
+                      name="ZZUSERFLD3" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZREGION]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZREGION]"
+                      name="ZZREGION" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSTATE]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[ZZSTATE]"
+                      name="ZZSTATE" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FISTL]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FISTL]"
+                      name="FISTL" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GEBER]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GEBER]"
+                      name="GEBER" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FKBER]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FKBER]"
+                      name="FKBER" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DABRZ]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DABRZ]"
+                      name="DABRZ" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NETWR]"
+                      dataType="numeric"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NETWR]"
+                      name="NETWR"
+                      precision="16"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL_ORD]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[AUFPL_ORD]"
+                      name="AUFPL_ORD" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL_ORD]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[APLZL_ORD]"
+                      name="APLZL_ORD" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLNR]"
+                      name="KBLNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLPOS]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[KBLPOS]"
+                      name="KBLPOS" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LSTAR]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[LSTAR]"
+                      name="LSTAR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRZNR]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[PRZNR]"
+                      name="PRZNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GRANT_NBR]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[GRANT_NBR]"
+                      name="GRANT_NBR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BATCH]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BATCH]"
+                      name="FM_SPLIT_BATCH" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BEGRU]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[FM_SPLIT_BEGRU]"
+                      name="FM_SPLIT_BEGRU" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BUDGET_PD]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[BUDGET_PD]"
+                      name="BUDGET_PD" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[EGRUP]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[EGRUP]"
+                      name="EGRUP" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VNAME]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[VNAME]"
+                      name="VNAME" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[TCOBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[TCOBJNR]"
+                      name="TCOBJNR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DATEOFSERVICE]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DATEOFSERVICE]"
+                      name="DATEOFSERVICE" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NOTAXCORR]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[NOTAXCORR]"
+                      name="NOTAXCORR" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DIFFOPTRATE]"
+                      dataType="numeric"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[DIFFOPTRATE]"
+                      name="DIFFOPTRATE"
+                      precision="10"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[HASDIFFOPTRATE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].Columns[HASDIFFOPTRATE]"
+                      name="HASDIFFOPTRATE" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[BANFN]"
+                      dataType="wstr"
+                      length="10"
+                      name="BANFN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[BNFPO]"
+                      dataType="wstr"
+                      length="5"
+                      name="BNFPO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZEBKN]"
+                      dataType="wstr"
+                      length="2"
+                      name="ZEBKN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[LOEKZ]"
+                      dataType="wstr"
+                      length="1"
+                      name="LOEKZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ERDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="ERDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ERNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="ERNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[MENGE]"
+                      dataType="numeric"
+                      name="MENGE"
+                      precision="17"
+                      scale="3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VPROZ]"
+                      dataType="numeric"
+                      name="VPROZ"
+                      precision="5"
+                      scale="1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[SAKTO]"
+                      dataType="wstr"
+                      length="10"
+                      name="SAKTO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[GSBER]"
+                      dataType="wstr"
+                      length="4"
+                      name="GSBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[KOSTL]"
+                      dataType="wstr"
+                      length="10"
+                      name="KOSTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[PROJN]"
+                      dataType="wstr"
+                      length="16"
+                      name="PROJN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      name="VBELN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VBELP]"
+                      dataType="wstr"
+                      length="6"
+                      name="VBELP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VETEN]"
+                      dataType="wstr"
+                      length="4"
+                      name="VETEN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ANLN1]"
+                      dataType="wstr"
+                      length="12"
+                      name="ANLN1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ANLN2]"
+                      dataType="wstr"
+                      length="4"
+                      name="ANLN2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[AUFNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="AUFNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[WEMPF]"
+                      dataType="wstr"
+                      length="12"
+                      name="WEMPF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ABLAD]"
+                      dataType="wstr"
+                      length="25"
+                      name="ABLAD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[KOKRS]"
+                      dataType="wstr"
+                      length="4"
+                      name="KOKRS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[XBKST]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBKST" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[XBAUF]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBAUF" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[XBPRO]"
+                      dataType="wstr"
+                      length="1"
+                      name="XBPRO" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[KSTRG]"
+                      dataType="wstr"
+                      length="12"
+                      name="KSTRG" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[PAOBJNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="PAOBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[PRCTR]"
+                      dataType="wstr"
+                      length="10"
+                      name="PRCTR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[PS_PSP_PNR]"
+                      dataType="wstr"
+                      length="24"
+                      name="PS_PSP_PNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[NPLNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="NPLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[AUFPL]"
+                      dataType="wstr"
+                      length="10"
+                      name="AUFPL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[IMKEY]"
+                      dataType="wstr"
+                      length="40"
+                      name="IMKEY" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[APLZL]"
+                      dataType="wstr"
+                      length="8"
+                      name="APLZL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VPTNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="VPTNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[FIPOS]"
+                      dataType="wstr"
+                      length="24"
+                      name="FIPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[RECID]"
+                      dataType="wstr"
+                      length="2"
+                      name="RECID" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZSPREG]"
+                      dataType="wstr"
+                      length="5"
+                      name="ZZSPREG" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZBUSPARTN]"
+                      dataType="wstr"
+                      length="10"
+                      name="ZZBUSPARTN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZPRODUCT]"
+                      dataType="wstr"
+                      length="10"
+                      name="ZZPRODUCT" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZLOCA]"
+                      dataType="wstr"
+                      length="4"
+                      name="ZZLOCA" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZCHAN]"
+                      dataType="wstr"
+                      length="4"
+                      name="ZZCHAN" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZLOB]"
+                      dataType="wstr"
+                      length="7"
+                      name="ZZLOB" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZUSERFLD1]"
+                      dataType="wstr"
+                      length="9"
+                      name="ZZUSERFLD1" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZUSERFLD2]"
+                      dataType="wstr"
+                      length="12"
+                      name="ZZUSERFLD2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZUSERFLD3]"
+                      dataType="wstr"
+                      length="22"
+                      name="ZZUSERFLD3" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZREGION]"
+                      dataType="wstr"
+                      length="3"
+                      name="ZZREGION" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[ZZSTATE]"
+                      dataType="wstr"
+                      length="3"
+                      name="ZZSTATE" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[FISTL]"
+                      dataType="wstr"
+                      length="16"
+                      name="FISTL" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[GEBER]"
+                      dataType="wstr"
+                      length="10"
+                      name="GEBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[FKBER]"
+                      dataType="wstr"
+                      length="16"
+                      name="FKBER" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[DABRZ]"
+                      dataType="wstr"
+                      length="8"
+                      name="DABRZ" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[NETWR]"
+                      dataType="numeric"
+                      name="NETWR"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[AUFPL_ORD]"
+                      dataType="wstr"
+                      length="10"
+                      name="AUFPL_ORD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[APLZL_ORD]"
+                      dataType="wstr"
+                      length="8"
+                      name="APLZL_ORD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[KBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="KBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[KBLPOS]"
+                      dataType="wstr"
+                      length="3"
+                      name="KBLPOS" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[LSTAR]"
+                      dataType="wstr"
+                      length="6"
+                      name="LSTAR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[PRZNR]"
+                      dataType="wstr"
+                      length="12"
+                      name="PRZNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[GRANT_NBR]"
+                      dataType="wstr"
+                      length="20"
+                      name="GRANT_NBR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[FM_SPLIT_BATCH]"
+                      dataType="wstr"
+                      length="3"
+                      name="FM_SPLIT_BATCH" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[FM_SPLIT_BEGRU]"
+                      dataType="wstr"
+                      length="4"
+                      name="FM_SPLIT_BEGRU" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[BUDGET_PD]"
+                      dataType="wstr"
+                      length="10"
+                      name="BUDGET_PD" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[EGRUP]"
+                      dataType="wstr"
+                      length="3"
+                      name="EGRUP" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[VNAME]"
+                      dataType="wstr"
+                      length="6"
+                      name="VNAME" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[TCOBJNR]"
+                      dataType="wstr"
+                      length="22"
+                      name="TCOBJNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[DATEOFSERVICE]"
+                      dataType="wstr"
+                      length="8"
+                      name="DATEOFSERVICE" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[NOTAXCORR]"
+                      dataType="wstr"
+                      length="1"
+                      name="NOTAXCORR" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[DIFFOPTRATE]"
+                      dataType="numeric"
+                      name="DIFFOPTRATE"
+                      precision="10"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput].ExternalColumns[HASDIFFOPTRATE]"
+                      dataType="wstr"
+                      length="1"
+                      name="HASDIFFOPTRATE" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read EBKN.Paths[SAP_EBKN_XtractOutput_Dest_SAP_EBKN]"
+              endId="Package\Read EBKN\Dest_SAP_EBKN.Inputs[SAP_EBKN_XtractOutput_Dest_SAP_EBKN]"
+              name="SAP_EBKN_XtractOutput_Dest_SAP_EBKN"
+              startId="Package\Read EBKN\SAP_EBKN.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_EBKN"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{C40AC0C3-F35D-4C1A-BE84-4E3E7EAD729E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_EBKN"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6C3927F5-9AAB-4CED-A342-C044CE86CD88}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_EBKN]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_EBKN_To_Read EBKN]"
+      DTS:CreationName=""
+      DTS:DTSID="{5483BA2E-FE86-4735-B796-09BD25109D62}"
+      DTS:From="Package\TRUNCATE SAP_EBKN"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_EBKN_To_Read EBKN"
+      DTS:To="Package\Read EBKN" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

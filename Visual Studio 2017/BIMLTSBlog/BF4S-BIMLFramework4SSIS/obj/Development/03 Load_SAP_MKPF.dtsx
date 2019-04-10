@@ -1,0 +1,1373 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/10/2019 9:36:39 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="CHAPLIN"
+  DTS:CreatorName="Elzein"
+  DTS:DTSID="{DBDBCFC6-C8C6-42DF-B2BD-EF70DCE65EFE}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03 Load_SAP_MKPF"
+  DTS:VersionGUID="{815F605D-78D2-462B-8CCB-41C16DC6CDA3}"
+  DTS:VersionMajor="0">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP]"
+      DTS:CreationName="XTRACT"
+      DTS:DTSID="{83B5C710-C8CC-4BA7-8FAE-9091C129D0F4}"
+      DTS:ObjectName="SAP">
+      <DTS:ObjectData>
+        <XtractConnectionManager
+          ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SAP_Warehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DA15572A-5F0C-4B0E-8043-B70179605B69}"
+      DTS:ObjectName="SAP_Warehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Read MKPF"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{4773E911-BDEF-42CD-9C7D-56E2A0FAFFAE}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Read MKPF"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          BLOBTempStoragePath=""
+          bufferTempStoragePath=""
+          version="1">
+          <components>
+            <component
+              refId="Package\Read MKPF\Dest_SAP_MKPF"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="SAP_MKPF"
+              name="Dest_SAP_MKPF"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">SAP_MKPF</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MKPF\Dest_SAP_MKPF.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP_Warehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="SAP_MKPF_XtractOutput_Dest_SAP_MKPF">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[MANDT]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="MANDT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MANDT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MANDT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[MBLNR]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="MBLNR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MBLNR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MBLNR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[MJAHR]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="MJAHR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MJAHR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MJAHR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[VGART]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="VGART"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[VGART]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[VGART]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BLART]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BLART"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLART]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLART]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BLAUM]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BLAUM"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLAUM]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLAUM]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BLDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="BLDAT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLDAT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLDAT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BUDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="BUDAT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BUDAT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BUDAT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[CPUDT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="CPUDT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[CPUDT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUDT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[CPUTM]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="CPUTM"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[CPUTM]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUTM]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[AEDAT]"
+                      cachedDataType="wstr"
+                      cachedLength="8"
+                      cachedName="AEDAT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[AEDAT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AEDAT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[USNAM]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="USNAM"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[USNAM]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[USNAM]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[TCODE]"
+                      cachedDataType="wstr"
+                      cachedLength="4"
+                      cachedName="TCODE"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[TCODE]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[XBLNR]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="XBLNR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[XBLNR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XBLNR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BKTXT]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="BKTXT"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BKTXT]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BKTXT]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[FRATH]"
+                      cachedDataType="numeric"
+                      cachedName="FRATH"
+                      cachedPrecision="16"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FRATH]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRATH]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[FRBNR]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="FRBNR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FRBNR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRBNR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[WEVER]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="WEVER"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[WEVER]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[WEVER]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[XABLN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="XABLN"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[XABLN]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XABLN]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[AWSYS]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="AWSYS"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[AWSYS]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AWSYS]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BLA2D]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="BLA2D"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLA2D]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLA2D]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[TCODE2]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="TCODE2"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[TCODE2]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE2]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[BFWMS]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="BFWMS"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BFWMS]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BFWMS]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[EXNUM]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="EXNUM"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[EXNUM]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[EXNUM]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[SPE_BUDAT_UHR]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="SPE_BUDAT_UHR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_BUDAT_UHR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_UHR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[SPE_BUDAT_ZONE]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="SPE_BUDAT_ZONE"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_BUDAT_ZONE]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_ZONE]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[LE_VBELN]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="LE_VBELN"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[LE_VBELN]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LE_VBELN]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[SPE_LOGSYS]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="SPE_LOGSYS"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_LOGSYS]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_LOGSYS]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[SPE_MDNUM_EWM]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="SPE_MDNUM_EWM"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_MDNUM_EWM]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_MDNUM_EWM]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[GTS_CUSREF_NO]"
+                      cachedDataType="wstr"
+                      cachedLength="35"
+                      cachedName="GTS_CUSREF_NO"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[GTS_CUSREF_NO]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[GTS_CUSREF_NO]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[FLS_RSTO]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="FLS_RSTO"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FLS_RSTO]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FLS_RSTO]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[MSR_ACTIVE]"
+                      cachedDataType="wstr"
+                      cachedLength="1"
+                      cachedName="MSR_ACTIVE"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MSR_ACTIVE]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MSR_ACTIVE]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[KNUMV]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="KNUMV"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[KNUMV]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[KNUMV]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[LFSNR]"
+                      cachedDataType="wstr"
+                      cachedLength="16"
+                      cachedName="LFSNR"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[LFSNR]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LFSNR]" />
+                    <inputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].Columns[OIB_BLTIME]"
+                      cachedDataType="wstr"
+                      cachedLength="6"
+                      cachedName="OIB_BLTIME"
+                      externalMetadataColumnId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[OIB_BLTIME]"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[OIB_BLTIME]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="MBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="MJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[VGART]"
+                      dataType="wstr"
+                      length="2"
+                      name="VGART" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLART" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLAUM]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLAUM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BLDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BUDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="CPUDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      name="CPUTM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[AEDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="AEDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[TCODE]"
+                      dataType="wstr"
+                      length="4"
+                      name="TCODE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[XBLNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="XBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BKTXT]"
+                      dataType="wstr"
+                      length="25"
+                      name="BKTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FRATH]"
+                      dataType="numeric"
+                      name="FRATH"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FRBNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="FRBNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[WEVER]"
+                      dataType="wstr"
+                      length="1"
+                      name="WEVER" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[XABLN]"
+                      dataType="wstr"
+                      length="10"
+                      name="XABLN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BLA2D]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLA2D" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[TCODE2]"
+                      dataType="wstr"
+                      length="20"
+                      name="TCODE2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[BFWMS]"
+                      dataType="wstr"
+                      length="1"
+                      name="BFWMS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[EXNUM]"
+                      dataType="wstr"
+                      length="10"
+                      name="EXNUM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_BUDAT_UHR]"
+                      dataType="wstr"
+                      length="6"
+                      name="SPE_BUDAT_UHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_BUDAT_ZONE]"
+                      dataType="wstr"
+                      length="6"
+                      name="SPE_BUDAT_ZONE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[LE_VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      name="LE_VBELN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_LOGSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="SPE_LOGSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[SPE_MDNUM_EWM]"
+                      dataType="wstr"
+                      length="16"
+                      name="SPE_MDNUM_EWM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[GTS_CUSREF_NO]"
+                      dataType="wstr"
+                      length="35"
+                      name="GTS_CUSREF_NO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[FLS_RSTO]"
+                      dataType="wstr"
+                      length="1"
+                      name="FLS_RSTO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[MSR_ACTIVE]"
+                      dataType="wstr"
+                      length="1"
+                      name="MSR_ACTIVE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMV" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[LFSNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="LFSNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF].ExternalColumns[OIB_BLTIME]"
+                      dataType="wstr"
+                      length="6"
+                      name="OIB_BLTIME" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read MKPF\Dest_SAP_MKPF.Outputs[Error]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Error"
+                  synchronousInputId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Outputs[Error].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read MKPF\Dest_SAP_MKPF.Outputs[Error].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read MKPF\Dest_SAP_MKPF.Outputs[Error].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read MKPF\Dest_SAP_MKPF.Outputs[Error].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read MKPF\SAP_MKPF"
+              componentClassID="Microsoft.ManagedComponentHost"
+              name="SAP_MKPF">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specify the SAP table to be extracted"
+                  name="TableName">MKPF</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the maximum number of rows to be extracted (0 is unlimited)"
+                  name="MaxRows">150</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the package size for large data extraction (0 is unlimited)"
+                  name="PackageSize">150</property>
+                <property
+                  dataType="System.String"
+                  description="Specify WHERE clause for extraction"
+                  name="WhereClause"></property>
+                <property
+                  dataType="System.String"
+                  description="Name of the SAP custom function module if you like to use it"
+                  name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property
+                  dataType="System.Int32"
+                  description="String Conversion"
+                  name="StringConversion">0</property>
+                <property
+                  dataType="System.String"
+                  description="Delimiter"
+                  name="Delimiter"></property>
+                <property
+                  dataType="System.String"
+                  description="Order By clause"
+                  name="OrderBy"></property>
+                <property
+                  dataType="System.String"
+                  description="Internal properties, Please use the editor"
+                  name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MBLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Material Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Material Document Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;VGART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transaction/Event Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLART&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Type&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLAUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document type of revaluation document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Date in Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BUDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting Date in the Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPUDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Day On Which Accounting Document Was Entered&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;CPUTM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time of Entry&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AEDAT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Changed On&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;d&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;USNAM&lt;/ColName&gt;
+        &lt;ColDescription&gt;User name&lt;/ColDescription&gt;
+        &lt;ColLength&gt;12&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TCODE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Not More Closely Defined Area, Possibly Used for Patchlevels&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XBLNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Reference Document Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BKTXT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Document Header Text&lt;/ColDescription&gt;
+        &lt;ColLength&gt;25&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FRATH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unplanned delivery costs&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;p&lt;/ABAPType&gt;
+                &lt;Decimals&gt;2&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FRBNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Bill of Lading at Time of Goods Receipt&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;WEVER&lt;/ColName&gt;
+        &lt;ColDescription&gt;Version for Printing GR/GI Slip&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;XABLN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Goods Receipt/Issue Slip Number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;AWSYS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical System&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BLA2D&lt;/ColName&gt;
+        &lt;ColDescription&gt;Doc. type for additional doc. in purchase account management&lt;/ColDescription&gt;
+        &lt;ColLength&gt;2&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;TCODE2&lt;/ColName&gt;
+        &lt;ColDescription&gt;Transaction Code&lt;/ColDescription&gt;
+        &lt;ColLength&gt;20&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;BFWMS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Control posting for external WMS&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EXNUM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of foreign trade data in MM and SD documents&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPE_BUDAT_UHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time of Goods Issue (Local, Relating to a Plant)&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPE_BUDAT_ZONE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Time Zone&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LE_VBELN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Delivery&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPE_LOGSYS&lt;/ColName&gt;
+        &lt;ColDescription&gt;Logical System of EWM Material Document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;SPE_MDNUM_EWM&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of Material Document in EWM&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GTS_CUSREF_NO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Customs Reference Number for Scrapping&lt;/ColDescription&gt;
+        &lt;ColLength&gt;35&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;FLS_RSTO&lt;/ColName&gt;
+        &lt;ColDescription&gt;Store Return with Inbound and Outbound Delivery&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MSR_ACTIVE&lt;/ColName&gt;
+        &lt;ColDescription&gt;Advanced Returns Management Active&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KNUMV&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of the document condition&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;LFSNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Number of External Delivery Note&lt;/ColDescription&gt;
+        &lt;ColLength&gt;16&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OIB_BLTIME&lt;/ColName&gt;
+        &lt;ColDescription&gt;Posting time in the document&lt;/ColDescription&gt;
+        &lt;ColLength&gt;6&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;t&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read MKPF\SAP_MKPF.Connections[Xtract SAP Connection]"
+                  connectionManagerID="Package.ConnectionManagers[SAP]"
+                  connectionManagerRefId="Package.ConnectionManagers[SAP]"
+                  name="Xtract SAP Connection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput]"
+                  name="XtractOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MANDT]"
+                      name="MANDT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MBLNR]"
+                      name="MBLNR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MJAHR]"
+                      name="MJAHR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[VGART]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[VGART]"
+                      name="VGART" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLART]"
+                      name="BLART" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLAUM]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLAUM]"
+                      name="BLAUM" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLDAT]"
+                      name="BLDAT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BUDAT]"
+                      name="BUDAT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUDT]"
+                      name="CPUDT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[CPUTM]"
+                      name="CPUTM" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AEDAT]"
+                      dataType="wstr"
+                      length="8"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AEDAT]"
+                      name="AEDAT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[USNAM]"
+                      name="USNAM" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE]"
+                      dataType="wstr"
+                      length="4"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE]"
+                      name="TCODE" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XBLNR]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XBLNR]"
+                      name="XBLNR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BKTXT]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BKTXT]"
+                      name="BKTXT" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRATH]"
+                      dataType="numeric"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRATH]"
+                      name="FRATH"
+                      precision="16"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRBNR]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FRBNR]"
+                      name="FRBNR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[WEVER]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[WEVER]"
+                      name="WEVER" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XABLN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[XABLN]"
+                      name="XABLN" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[AWSYS]"
+                      name="AWSYS" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLA2D]"
+                      dataType="wstr"
+                      length="2"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BLA2D]"
+                      name="BLA2D" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE2]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[TCODE2]"
+                      name="TCODE2" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BFWMS]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[BFWMS]"
+                      name="BFWMS" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[EXNUM]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[EXNUM]"
+                      name="EXNUM" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_UHR]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_UHR]"
+                      name="SPE_BUDAT_UHR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_ZONE]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_BUDAT_ZONE]"
+                      name="SPE_BUDAT_ZONE" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LE_VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LE_VBELN]"
+                      name="LE_VBELN" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_LOGSYS]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_LOGSYS]"
+                      name="SPE_LOGSYS" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_MDNUM_EWM]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[SPE_MDNUM_EWM]"
+                      name="SPE_MDNUM_EWM" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[GTS_CUSREF_NO]"
+                      dataType="wstr"
+                      length="35"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[GTS_CUSREF_NO]"
+                      name="GTS_CUSREF_NO" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FLS_RSTO]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[FLS_RSTO]"
+                      name="FLS_RSTO" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MSR_ACTIVE]"
+                      dataType="wstr"
+                      length="1"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[MSR_ACTIVE]"
+                      name="MSR_ACTIVE" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[KNUMV]"
+                      name="KNUMV" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LFSNR]"
+                      dataType="wstr"
+                      length="16"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[LFSNR]"
+                      name="LFSNR" />
+                    <outputColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[OIB_BLTIME]"
+                      dataType="wstr"
+                      length="6"
+                      lineageId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].Columns[OIB_BLTIME]"
+                      name="OIB_BLTIME" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[MANDT]"
+                      dataType="wstr"
+                      length="3"
+                      name="MANDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[MBLNR]"
+                      dataType="wstr"
+                      length="10"
+                      name="MBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[MJAHR]"
+                      dataType="wstr"
+                      length="4"
+                      name="MJAHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[VGART]"
+                      dataType="wstr"
+                      length="2"
+                      name="VGART" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BLART]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLART" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BLAUM]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLAUM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BLDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BLDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BUDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="BUDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[CPUDT]"
+                      dataType="wstr"
+                      length="8"
+                      name="CPUDT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[CPUTM]"
+                      dataType="wstr"
+                      length="6"
+                      name="CPUTM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[AEDAT]"
+                      dataType="wstr"
+                      length="8"
+                      name="AEDAT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[USNAM]"
+                      dataType="wstr"
+                      length="12"
+                      name="USNAM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[TCODE]"
+                      dataType="wstr"
+                      length="4"
+                      name="TCODE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[XBLNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="XBLNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BKTXT]"
+                      dataType="wstr"
+                      length="25"
+                      name="BKTXT" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[FRATH]"
+                      dataType="numeric"
+                      name="FRATH"
+                      precision="16"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[FRBNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="FRBNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[WEVER]"
+                      dataType="wstr"
+                      length="1"
+                      name="WEVER" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[XABLN]"
+                      dataType="wstr"
+                      length="10"
+                      name="XABLN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[AWSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="AWSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BLA2D]"
+                      dataType="wstr"
+                      length="2"
+                      name="BLA2D" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[TCODE2]"
+                      dataType="wstr"
+                      length="20"
+                      name="TCODE2" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[BFWMS]"
+                      dataType="wstr"
+                      length="1"
+                      name="BFWMS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[EXNUM]"
+                      dataType="wstr"
+                      length="10"
+                      name="EXNUM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[SPE_BUDAT_UHR]"
+                      dataType="wstr"
+                      length="6"
+                      name="SPE_BUDAT_UHR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[SPE_BUDAT_ZONE]"
+                      dataType="wstr"
+                      length="6"
+                      name="SPE_BUDAT_ZONE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[LE_VBELN]"
+                      dataType="wstr"
+                      length="10"
+                      name="LE_VBELN" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[SPE_LOGSYS]"
+                      dataType="wstr"
+                      length="10"
+                      name="SPE_LOGSYS" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[SPE_MDNUM_EWM]"
+                      dataType="wstr"
+                      length="16"
+                      name="SPE_MDNUM_EWM" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[GTS_CUSREF_NO]"
+                      dataType="wstr"
+                      length="35"
+                      name="GTS_CUSREF_NO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[FLS_RSTO]"
+                      dataType="wstr"
+                      length="1"
+                      name="FLS_RSTO" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[MSR_ACTIVE]"
+                      dataType="wstr"
+                      length="1"
+                      name="MSR_ACTIVE" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[KNUMV]"
+                      dataType="wstr"
+                      length="10"
+                      name="KNUMV" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[LFSNR]"
+                      dataType="wstr"
+                      length="16"
+                      name="LFSNR" />
+                    <externalMetadataColumn
+                      refId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput].ExternalColumns[OIB_BLTIME]"
+                      dataType="wstr"
+                      length="6"
+                      name="OIB_BLTIME" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Read MKPF.Paths[SAP_MKPF_XtractOutput_Dest_SAP_MKPF]"
+              endId="Package\Read MKPF\Dest_SAP_MKPF.Inputs[SAP_MKPF_XtractOutput_Dest_SAP_MKPF]"
+              name="SAP_MKPF_XtractOutput_Dest_SAP_MKPF"
+              startId="Package\Read MKPF\SAP_MKPF.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE SAP_MKPF"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:DTSID="{36ED210D-62DD-48C5-AA89-5431BC380606}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE SAP_MKPF"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DA15572A-5F0C-4B0E-8043-B70179605B69}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_MKPF]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_MKPF_To_Read MKPF]"
+      DTS:CreationName=""
+      DTS:DTSID="{E1BE3C87-D6EC-4DF4-A1B8-6E38284CC1A1}"
+      DTS:From="Package\TRUNCATE SAP_MKPF"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint_TRUNCATE SAP_MKPF_To_Read MKPF"
+      DTS:To="Package\Read MKPF" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

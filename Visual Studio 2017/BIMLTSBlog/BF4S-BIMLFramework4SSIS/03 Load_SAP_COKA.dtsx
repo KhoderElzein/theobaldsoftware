@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/10/2019 21:36:23" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="CHAPLIN" DTS:CreatorName="Elzein" DTS:DTSID="{9A3DC2ED-9ABE-4B96-B5CA-D75A343914EA}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="1033" DTS:ObjectName="03 Load_SAP_COKA" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{0C1E3E76-C6D9-46F2-A00B-C902E3F052D5}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{A89A073C-78DF-4044-B982-5B716E9AEFA6}" DTS:ObjectName="SAP_Warehouse" DTS:refId="Package.ConnectionManagers[SAP_Warehouse]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=.;initial catalog=SAP_Warehouse;provider=SQLNCLI11.1;integrated security=SSPI;auto translate=False" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="XTRACT" DTS:DTSID="{BA6F28E0-FF03-40AC-A6F6-DD86853B03B8}" DTS:ObjectName="SAP" DTS:refId="Package.ConnectionManagers[SAP]">
+      <DTS:ObjectData>
+        <XtractConnectionManager ConnectionString="USER=Elzein PASSWD=Erfolg12 LANG=EN CLIENT=800 ASHOST=ec5.theobald-software.com SYSNR=0" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{A4EA37A6-F808-407F-82CC-55C9EA70C375}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="TRUNCATE SAP_COKA" DTS:refId="Package\TRUNCATE SAP_COKA" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="SAP_Warehouse" SQLTask:SqlStatementSource="TRUNCATE TABLE [SAP_COKA]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{B2C061B8-232F-4692-B24F-D2283FB262B0}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Read COKA" DTS:refId="Package\Read COKA" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" name="pipelineXml" version="1">
+          <components>
+            <component componentClassID="Microsoft.ManagedComponentHost" name="SAP_COKA" refId="Package\Read COKA\SAP_COKA">
+              <connections>
+                <connection connectionManagerID="{BA6F28E0-FF03-40AC-A6F6-DD86853B03B8}:external" connectionManagerRefId="Package.ConnectionManagers[SAP]" name="Xtract SAP Connection" refId="Package\Read COKA\SAP_COKA.Connections[Xtract SAP Connection]" />
+              </connections>
+              <outputs>
+                <output name="XtractOutput" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="14" name="HRKFT" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[HRKFT]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINH" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[MEINH]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MGEFL" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[MGEFL]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EIGEN" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].ExternalColumns[EIGEN]" />
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MANDT]" name="MANDT" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MANDT]" />
+                    <outputColumn dataType="wstr" length="22" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[OBJNR]" name="OBJNR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[OBJNR]" />
+                    <outputColumn dataType="wstr" length="4" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[GJAHR]" name="GJAHR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[GJAHR]" />
+                    <outputColumn dataType="wstr" length="10" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[KSTAR]" name="KSTAR" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[KSTAR]" />
+                    <outputColumn dataType="wstr" length="14" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[HRKFT]" name="HRKFT" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[HRKFT]" />
+                    <outputColumn dataType="wstr" length="3" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MEINH]" name="MEINH" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MEINH]" />
+                    <outputColumn dataType="wstr" length="1" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MGEFL]" name="MGEFL" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MGEFL]" />
+                    <outputColumn dataType="wstr" length="8" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[EIGEN]" name="EIGEN" refId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[EIGEN]" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specify the SAP table to be extracted" name="TableName">COKA</property>
+                <property dataType="System.Int32" description="Specify the maximum number of rows to be extracted (0 is unlimited)" name="MaxRows">150</property>
+                <property dataType="System.Int32" description="Specify the package size for large data extraction (0 is unlimited)" name="PackageSize">150</property>
+                <property dataType="System.String" description="Specify WHERE clause for extraction" name="WhereClause" />
+                <property dataType="System.String" description="Name of the SAP custom function module if you like to use it" name="CustomFunctionName">Z_THEO_READ_TABLE</property>
+                <property dataType="System.Int32" description="String Conversion" name="StringConversion">0</property>
+                <property dataType="System.String" description="Delimiter" name="Delimiter" />
+                <property dataType="System.String" description="Order By clause" name="OrderBy" />
+                <property dataType="System.String" description="Internal properties, Please use the editor" name="InternalXML">
+      &lt;StorageTableBase xmlns="http://tempuri.org/StorageTableBase.xsd"&gt;
+            &lt;TableColumns&gt;
+        &lt;ColName&gt;MANDT&lt;/ColName&gt;
+        &lt;ColDescription&gt;Client&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;OBJNR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Object number&lt;/ColDescription&gt;
+        &lt;ColLength&gt;22&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;GJAHR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Fiscal Year&lt;/ColDescription&gt;
+        &lt;ColLength&gt;4&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;n&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;KSTAR&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost Element&lt;/ColDescription&gt;
+        &lt;ColLength&gt;10&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;HRKFT&lt;/ColName&gt;
+        &lt;ColDescription&gt;CO key subnumber&lt;/ColDescription&gt;
+        &lt;ColLength&gt;14&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MEINH&lt;/ColName&gt;
+        &lt;ColDescription&gt;Unit of Measure&lt;/ColDescription&gt;
+        &lt;ColLength&gt;3&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;MGEFL&lt;/ColName&gt;
+        &lt;ColDescription&gt;Indicator for Recording Consumption Quantities&lt;/ColDescription&gt;
+        &lt;ColLength&gt;1&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+          &lt;TableColumns&gt;
+        &lt;ColName&gt;EIGEN&lt;/ColName&gt;
+        &lt;ColDescription&gt;Cost element attributes&lt;/ColDescription&gt;
+        &lt;ColLength&gt;8&lt;/ColLength&gt;
+        &lt;ColSelected&gt;true&lt;/ColSelected&gt;
+        &lt;ABAPType&gt;c&lt;/ABAPType&gt;
+                &lt;Decimals&gt;0&lt;/Decimals&gt;
+              &lt;/TableColumns&gt;
+    
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;AutomaticDateConversion&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;SubstitutionDateValue&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;MaxRowsVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;PackageSizeVariable&lt;/PropName&gt;
+        &lt;PropValue /&gt;
+      &lt;/XtractProperties&gt;
+      &lt;XtractProperties&gt;
+        &lt;PropName&gt;UseFieldExits&lt;/PropName&gt;
+        &lt;PropValue xml:space="preserve"&gt; &lt;/PropValue&gt;
+      &lt;/XtractProperties&gt;
+    &lt;/StorageTableBase&gt;
+    </property>
+                <property dataType="System.String" name="UserComponentTypeName">XtractIS.XtractSourceTable</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" description="SAP_COKA" name="Dest_SAP_COKA" refId="Package\Read COKA\Dest_SAP_COKA" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{A89A073C-78DF-4044-B982-5B716E9AEFA6}:external" connectionManagerRefId="Package.ConnectionManagers[SAP_Warehouse]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Read COKA\Dest_SAP_COKA.Connections[OleDbConnection]" />
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="SAP_COKA_XtractOutput_Dest_SAP_COKA" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="wstr" length="3" name="MANDT" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MANDT]" />
+                    <externalMetadataColumn dataType="wstr" length="22" name="OBJNR" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[OBJNR]" />
+                    <externalMetadataColumn dataType="wstr" length="4" name="GJAHR" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[GJAHR]" />
+                    <externalMetadataColumn dataType="wstr" length="10" name="KSTAR" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[KSTAR]" />
+                    <externalMetadataColumn dataType="wstr" length="14" name="HRKFT" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[HRKFT]" />
+                    <externalMetadataColumn dataType="wstr" length="3" name="MEINH" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MEINH]" />
+                    <externalMetadataColumn dataType="wstr" length="1" name="MGEFL" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MGEFL]" />
+                    <externalMetadataColumn dataType="wstr" length="8" name="EIGEN" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[EIGEN]" />
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MANDT" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MANDT]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MANDT]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[MANDT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="22" cachedName="OBJNR" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[OBJNR]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[OBJNR]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[OBJNR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="4" cachedName="GJAHR" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[GJAHR]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[GJAHR]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[GJAHR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="10" cachedName="KSTAR" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[KSTAR]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[KSTAR]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[KSTAR]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="14" cachedName="HRKFT" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[HRKFT]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[HRKFT]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[HRKFT]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="3" cachedName="MEINH" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MEINH]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MEINH]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[MEINH]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="1" cachedName="MGEFL" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[MGEFL]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[MGEFL]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[MGEFL]" />
+                    <inputColumn cachedDataType="wstr" cachedLength="8" cachedName="EIGEN" externalMetadataColumnId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].ExternalColumns[EIGEN]" lineageId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput].Columns[EIGEN]" name="" refId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA].Columns[EIGEN]" />
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Read COKA\Dest_SAP_COKA.Outputs[Error]" synchronousInputId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA]">
+                  <externalMetadataColumns />
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Read COKA\Dest_SAP_COKA.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Read COKA\Dest_SAP_COKA.Outputs[Error].Columns[ErrorCode]" specialFlags="1" />
+                    <outputColumn dataType="i4" lineageId="Package\Read COKA\Dest_SAP_COKA.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Read COKA\Dest_SAP_COKA.Outputs[Error].Columns[ErrorColumn]" specialFlags="2" />
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">SAP_COKA</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable" />
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor" />
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Read COKA\Dest_SAP_COKA.Inputs[SAP_COKA_XtractOutput_Dest_SAP_COKA]" name="SAP_COKA_XtractOutput_Dest_SAP_COKA" refId="Package\Read COKA.Paths[SAP_COKA_XtractOutput_Dest_SAP_COKA]" startId="Package\Read COKA\SAP_COKA.Outputs[XtractOutput]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{D3E0A8D6-20A0-4910-8AD3-93F31506B578}" DTS:From="Package\TRUNCATE SAP_COKA" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_TRUNCATE SAP_COKA_To_Read COKA" DTS:refId="Package.PrecedenceConstraints[Constraint_TRUNCATE SAP_COKA_To_Read COKA]" DTS:To="Package\Read COKA" />
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>
