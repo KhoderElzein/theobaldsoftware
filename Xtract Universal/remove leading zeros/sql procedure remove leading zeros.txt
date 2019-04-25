@@ -1,0 +1,41 @@
+/****** Object:  StoredProcedure [dbo].[sp_trim_leading_zeros]    Script Date: 25-Apr-19 12:27:47 PM ******/
+DROP PROCEDURE [dbo].[sp_trim_leading_zeros]
+GO
+
+/****** Object:  StoredProcedure [dbo].[sp_trim_leading_zeros]    Script Date: 25-Apr-19 12:27:47 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[sp_trim_leading_zeros]  
+	-- Add the parameters for the stored procedure here
+	@Table nvarchar(30), 
+	@Field nvarchar(30)
+AS
+BEGIN 
+    DECLARE @SQL VARCHAR(MAX)
+	
+	-- 'UPDATE [dbo].[MARA] SET [MATNR] = SUBSTRING([MATNR], PATINDEX(''%[^0]%'', [MATNR]+''.''), LEN([MATNR]));'	
+	SET @SQL = 'UPDATE ' + @Table + ' SET ' + @Field  + ' = SUBSTRING(' + @Field+', PATINDEX(''%[^0]%'', '+@Field+' +''.''), LEN(' + @Field + '));' 	
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	BEGIN TRANSACTION;  	
+	EXEC(@SQL)
+	COMMIT TRANSACTION; 
+	-- PRINT(@SQL) 
+END 
+
+GO
+
+
